@@ -47,6 +47,8 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 
 ## Progress
 
+The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
+
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-requirement-gaps · ✔ create-question-list · ✔ collect-client-answers · ✔ write-user-stories
 Next: <n> stories, <n> pending, <n> new questions. Review the draft manually, then reply go for write-stories-to-board, loop to ask the new questions, changes, or stop.
