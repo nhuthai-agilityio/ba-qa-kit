@@ -1,6 +1,6 @@
 {
   "name": "ba",
-  "description": "BA kit: find requirement gaps and track the sprint's tickets.",
+  "description": "BA kit: find requirement gaps, write the client question list and track the sprint's tickets.",
   "version": "0.1.5",
   "author": {
     "name": "Nhu Thai"
