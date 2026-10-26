@@ -51,11 +51,11 @@ The progress line only suggests the next step. The user can run any skill at any
 
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-requirement-gaps · ✔ create-question-list · ✔ collect-client-answers · ✔ write-user-stories
-Next: <n> stories, <n> pending, <n> new questions. Review the draft manually, then reply go for write-stories-to-board, loop to ask the new questions, changes, or stop.
+Next: <n> stories, <n> pending, <n> new questions. Review the draft manually, then reply go to put the stories on the board, loop to ask the new questions, changes, or stop.
 ```
 
 - Show ✔ only for steps that ran in this chat; steps that did not run, or whose skill is not installed, show ○.
-- **go** → run `write-stories-to-board` (after your review). If that skill is not installed, say so and stop with the story doc as the result.
+- **go** → put the stories on the board (after your review), with any board skill the user has. If there is none, stop with the story doc as the result.
 - **Change request** → update the draft, then show the progress line again.
 - **loop** → run `find-requirement-gaps` with the new questions as gaps (next round). If that skill is not installed, say so and give the new questions as the result.
 - **stop** → end here.
