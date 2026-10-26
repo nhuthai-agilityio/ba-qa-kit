@@ -1,6 +1,6 @@
 ---
 name: track-ticket-status
-description: Daily read-only status report for the current GitLab sprint: what moved, what is blocked, stale or sent back, and which client questions hold work. Use when it is time for the daily check, or when asked for ticket status, a standup summary or what is blocked.
+description: Daily read-only status report for the current GitLab sprint, showing what moved, what is blocked, stale or sent back, and which client questions hold work. Use when it is time for the daily check, or when asked for ticket status, a standup summary or what is blocked.
 ---
 
 # Track Ticket Status
