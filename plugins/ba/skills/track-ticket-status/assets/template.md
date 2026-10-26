@@ -1,6 +1,6 @@
 # Status Report Template
 
-Used by `track-ticket-status`. Place in the skill's `assets/` folder. Replace this file to use a different template.
+Used by `track-ticket-status`. Replace this file to use a different template.
 
 ## Format
 
