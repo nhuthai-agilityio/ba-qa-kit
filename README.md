@@ -7,16 +7,22 @@ Two Claude Code plugins in one marketplace (`ba-qa-kit`):
 
 ## Install
 
-From GitLab (needs Reporter access and an SSH key on that GitLab), inside Claude Code:
+Inside Claude Code:
 
-```
-/plugin marketplace add <GitLab SSH URL of this repo>
-/plugin install ba@ba-qa-kit
-/plugin install qa@ba-qa-kit
-```
+1. Add the marketplace once. From GitLab (needs Reporter access and an SSH key on that GitLab):
+   ```
+   /plugin marketplace add <GitLab SSH URL of this repo>
+   ```
+   Or from a clone of this repo: `/plugin marketplace add ./`
+2. Install the plugin for your role. Install both if you do both jobs.
 
-From a clone: `claude plugin marketplace add ./`, then the same two installs.
-After an update: `/plugin marketplace update ba-qa-kit`.
+   | Role | Command |
+   |---|---|
+   | BA | `/plugin install ba@ba-qa-kit` |
+   | QA | `/plugin install qa@ba-qa-kit` |
+
+   The part after `@` is the marketplace name, the same for both.
+3. Get a new version after it is published: `/plugin marketplace update ba-qa-kit`
 
 ## Maintaining
 
