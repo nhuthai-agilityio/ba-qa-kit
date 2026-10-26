@@ -21,6 +21,7 @@ Sources: S1 = GitLab #<issue> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, 
 - **Type**: Missing, Unclear, Conflicting, Assumption
 - **Impact**: High (blocks dev/test), Medium, Low
 - Gap IDs (G-01, G-02…) continue across sections.
+- Every screen/feature section repeats the table header.
 - One gap per row; every row cites its source and location.
 
 ## Example

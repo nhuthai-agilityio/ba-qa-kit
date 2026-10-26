@@ -17,14 +17,14 @@ The full context is always in:
 ## Steps
 
 1. **Get the ticket.** If not given, ask: "Please provide the GitLab issue (link or #number) and the Google Drive doc(s) for this feature." No Drive doc at all? Continue with the GitLab issue only and say so in the Sources line.
-2. **Read the GitLab issue fully** (incl. comments) and every Drive doc it links or the user gives. Use the GitLab and Google Drive connectors; if one can't be opened, ask the user to share access or paste the content. Never copy tokens or personal data from sources into the report. List sources as S1, S2… with name and last-updated date (issue last update, doc last modified).
+2. **Read the GitLab issue fully** (incl. comments) and every Drive doc it links or the user gives. Use the GitLab and Google Drive connectors; if one can't be opened, ask the user to share access or paste the content. If they can give neither, stop and say no sources were available. Never copy tokens or personal data from sources into the report. List sources as S1, S2… with name and last-updated date (issue last update, doc last modified).
 3. **Review each feature/screen** with the checklist. Also check:
    - Can it be written as "When `<trigger>`, the system shall `<response>`"? If not → gap.
    - Can QA test it pass/fail? Vague words (fast, easy, some, TBD) → gap.
    - Do sources disagree? → Conflict (don't pick a winner; name the newer source in the Finding column).
    - Already answered in a previous Questions List? → skip.
    - Used by **Assumption**: the sources are silent and the team must assume something to go on. Write the assumption as the finding, so the client can confirm it.
-   - **Loop round** (after client answers): also review the client answers (a Drive doc or text the user pastes) themselves — new rules, new cases or vague answers they bring are new gaps. Gap IDs continue (G-12, G-13…); report only new and still-open gaps.
+   - **Loop round** (it is one when `ba-output/` already has a `gap-report-<ticket>-r*.md` or the user gives an answer doc) (after client answers): also review the client answers (a Drive doc or text the user pastes) themselves — new rules, new cases or vague answers they bring are new gaps. Gap IDs continue (G-12, G-13…); report only new and still-open gaps.
 4. **Output the Gap Report** (see Output), then **stop and show the progress line** (see Progress). Do not start the next step until the user replies.
 
 ## Checklist
@@ -58,4 +58,4 @@ Next: create-question-list — turn the gaps into the client question list. Repl
 - **go** → run `create-question-list`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
 - **Change request** → update the Gap Report, then show the progress line again.
 - **stop** → end here.
-- No gaps → say so and use "Next: write-user-stories". If that skill is not installed, say so and stop with the Gap Report as the result.
+- No gaps → say so and use "Next: write-user-stories". **go** → run `write-user-stories`; if that skill is not installed, say so and stop with the Gap Report as the result.
