@@ -38,7 +38,7 @@ The full context is always in:
 
 ## Output
 
-Write the Gap Report using `assets/gap-report-template.md` (or the template the user provides).
+Write the Gap Report using `assets/template.md` (or the template the user provides).
 
 ## Progress
 
