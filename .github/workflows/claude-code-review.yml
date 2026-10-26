@@ -47,3 +47,20 @@ jobs:
 
             Write the review in English: first a one-line verdict (Ready to merge / Needs changes), then
             "Blocking" and "Minor" lists, each item with file and line. If there is nothing to flag, say so in one line.
+            Any blocking item means Needs changes.
+
+            End your final message with one line: "VERDICT:" then a space, then READY or NEEDS_CHANGES.
+            The next CI step reads that line and fails the check on NEEDS_CHANGES.
+
+      # Turn the verdict into a red or green check. Skipped when the action did not run (e.g. a PR that edits this file).
+      - name: Fail when the review asks for changes
+        if: always() && steps.claude-review.outputs.execution_file != ''
+        env:
+          OUT: ${{ steps.claude-review.outputs.execution_file }}
+        run: |
+          verdict=$(jq -r '.. | strings' "$OUT" | grep -oE 'VERDICT: (READY|NEEDS_CHANGES)' | tail -1 || true)
+          echo "${verdict:-no verdict found}"
+          if [ "$verdict" != "VERDICT: READY" ]; then
+            echo "::error::Claude review did not approve this pull request. Read its comment, fix the blocking items, push again."
+            exit 1
+          fi
