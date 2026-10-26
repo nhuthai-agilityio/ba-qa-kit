@@ -33,6 +33,8 @@ Write the sprint release note email as a draft. A person reviews and sends it; n
 
 ## Progress
 
+The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
+
 ```
 <sprint>   ✔ draft-release-note
 Next: <n> products, <n> done, <n> in-progress, <n> known issues, <n> links missing. Review the draft, then reply changes, or stop.
