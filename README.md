@@ -2,8 +2,8 @@
 
 Two Claude Code plugins in one marketplace (`ba-qa-kit`):
 
-- `ba` (`nhu/plugins/ba`): user stories with Given/When/Then acceptance criteria. No skills yet.
-- `qa` (`nhu/plugins/qa`): `/qa:test` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:bug` drafts a bug report. Settings come from `qa.config.json`.
+- `ba` (`plugins/ba`): user stories with Given/When/Then acceptance criteria. No skills yet.
+- `qa` (`plugins/qa`): `/qa:test` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:bug` drafts a bug report. Settings come from `qa.config.json`.
 
 ## Install
 

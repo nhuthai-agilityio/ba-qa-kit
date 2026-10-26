@@ -7,12 +7,12 @@
   "plugins": [
     {
       "name": "ba",
-      "source": "./nhu/plugins/ba",
+      "source": "./plugins/ba",
       "description": "BA kit: user stories with Given/When/Then acceptance criteria"
     },
     {
       "name": "qa",
-      "source": "./nhu/plugins/qa",
+      "source": "./plugins/qa",
       "description": "QA kit: test cases, verify in Chrome, bug reports"
     }
   ]
