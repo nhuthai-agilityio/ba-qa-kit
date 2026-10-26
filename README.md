@@ -2,8 +2,8 @@
 
 Two Claude Code plugins in one marketplace (`ba-qa-kit`):
 
-- `ba` (`plugins/ba`): user stories with acceptance criteria (`<action> → <result>`).
-  - `/ba:write-user-stories` writes stories with acceptance criteria, error handling and edge cases from the sources and the answered Questions List. The skills before and after it in the chain (`find-requirement-gaps`, `create-question-list`, `collect-client-answers`, `write-stories-to-board`) are optional companions: if one is not installed, the skill says so and stops.
+- `ba` (`plugins/ba`): user stories with Given/When/Then acceptance criteria. `/ba:find-requirement-gaps` reviews a ticket's GitLab issue and Drive docs and writes a Gap Report of missing, unclear and conflicting points.
+  - `/ba:write-user-stories` writes stories with acceptance criteria, error handling and edge cases from the sources and the answered Questions List. The skills before and after it in the chain are optional companions: if one is not installed, the skill says so and stops.
 - `qa` (`plugins/qa`): `/qa:test` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:bug` drafts a bug report. Settings come from `qa.config.json` in the folder where you start `claude`.
 
 ## Install
@@ -42,12 +42,13 @@ One-time setup by the repo owner, after the workflows are on `main`:
 1. In Claude Code, from this repo, run `/install-github-app`. It installs the Claude GitHub App on the repo.
 2. At "Existing Workflow Found", choose **Skip workflow update (configure secrets only)**.
 3. For the token, choose **Create a long-lived token with your Claude subscription**. This adds the `CLAUDE_CODE_OAUTH_TOKEN` secret that both Claude workflows read; the API key options add a different secret, and the workflows will not find it.
-4. Create an empty project on GitLab for the team to install from. The first `/sync-gitlab` asks for its SSH URL.
+4. Create an empty project on GitLab for the team to install from, and give the team Reporter access. The first `/sync-gitlab` asks for its SSH URL.
 
 For each change:
 
-- Open a pull request. GitHub Actions runs:
-  - **CI**: `claude plugin validate` on the marketplace and each plugin, `skill-validator --strict` on each skill in `plugins/`, kit rules (description says "Use when …", `SKILL.md` at most 200 lines), and a check that every changed plugin raised its `version`.
-  - **Claude Code Review**: Claude checks the diff for bugs and for the rules in `CLAUDE.md`, and comments on what it finds. It skips trivial pull requests and ones it has already commented on; mention `@claude` in a comment to ask it anyway.
-- Raise `version` in the changed plugin's `.claude-plugin/plugin.json` (for example `0.1.1` → `0.1.2`). Installed copies only update when the version changes.
-- After the merge, run `/sync-gitlab` in Claude Code from this repo. It pushes `main` to GitLab and stops instead of overwriting if GitLab has commits GitHub does not.
+1. On a branch, edit the plugin and raise `version` in its `.claude-plugin/plugin.json` (for example `0.1.1` → `0.1.2`). Installed copies only update when the version changes.
+2. Open a pull request. GitHub Actions runs:
+   - **CI**: `claude plugin validate` on the marketplace and each plugin, `skill-validator --strict` on each skill in `plugins/`, kit rules (description says "Use when …", `SKILL.md` at most 200 lines), and a check that every changed plugin raised its `version`.
+   - **Claude Code Review**: Claude reviews the change against `CLAUDE.md` and a skill checklist (references exist, fallbacks for missing tools, fixed output format), and posts one comment with a verdict that it updates on each push. Mention `@claude` in a comment to ask it something.
+3. Merge when CI is green.
+4. Run `/sync-gitlab` in Claude Code from this repo. It pushes `main` to GitLab and stops instead of overwriting if GitLab has commits GitHub does not.
