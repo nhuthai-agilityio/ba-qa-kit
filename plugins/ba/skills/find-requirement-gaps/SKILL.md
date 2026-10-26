@@ -17,7 +17,7 @@ The full context is always in:
 ## Steps
 
 1. **Get the ticket.** If not given, ask: "Please provide the GitLab issue (link or #number) and the Google Drive doc(s) for this feature." No Drive doc at all? Continue with the GitLab issue only and say so in the Sources line.
-2. **Read the GitLab issue fully** (incl. comments) and every Drive doc it links or the user gives. Use the GitLab and Google Drive connectors; if one can't be opened, ask the user to share access or paste the content. List sources as S1, S2… with name and date.
+2. **Read the GitLab issue fully** (incl. comments) and every Drive doc it links or the user gives. Use the GitLab and Google Drive connectors; if one can't be opened, ask the user to share access or paste the content. Never copy tokens or personal data from sources into the report. List sources as S1, S2… with name and date.
 3. **Review each feature/screen** with the checklist. Also check:
    - Can it be written as "When `<trigger>`, the system shall `<response>`"? If not → gap.
    - Can QA test it pass/fail? Vague words (fast, easy, some, TBD) → gap.
@@ -41,7 +41,7 @@ The full context is always in:
 
 Write the Gap Report using `assets/template.md`. A template the user provides replaces it completely.
 
-Show the report in chat and save it to `ba-output/gap-report-<ticket>-r<n>.md` in the current folder. Ask before saving anywhere else. Dates use `Mon DD, YYYY` (for example Aug 02, 2026).
+Show the report in chat and save it to `ba-output/gap-report-<ticket>-r<n>.md` in the current folder. `<ticket>` is the GitLab issue number without `#` (for example `412`). `<App Name>` in the template is the repo or GitLab project name. With no gaps, still save the report: the header, the Sources line and "No gaps found". Ask before saving anywhere else. Dates use `Mon DD, YYYY` (for example Aug 02, 2026).
 
 ## Progress
 
