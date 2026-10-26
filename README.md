@@ -4,6 +4,7 @@ Two Claude Code plugins in one marketplace (`ba-qa-kit`):
 
 - `ba` (`plugins/ba`): user stories with Given/When/Then acceptance criteria. `/ba:find-requirement-gaps` reviews a ticket's GitLab issue and Drive docs and writes a Gap Report of missing, unclear and conflicting points.
   - `/ba:write-user-stories` writes stories with acceptance criteria, error handling and edge cases from the sources and the answered Questions List. The skills before and after it in the chain are optional companions: if one is not installed, the skill says so and stops.
+  - `/ba:create-question-list` turns a Gap Report into a clarification question list for the client or PO.
 - `qa` (`plugins/qa`): `/qa:test` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:bug` drafts a bug report. Settings come from `qa.config.json` in the folder where you start `claude`.
 
 ## Install
