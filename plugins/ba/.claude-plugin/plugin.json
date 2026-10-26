@@ -1,7 +1,7 @@
 {
   "name": "ba",
-  "description": "BA kit: find requirement gaps and write the client question list.",
-  "version": "0.1.2",
+  "description": "BA kit: find requirement gaps, write the client question list and record the client's answers.",
+  "version": "0.1.3",
   "author": {
     "name": "Nhu Thai"
   }
