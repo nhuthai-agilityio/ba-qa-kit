@@ -1,7 +1,7 @@
 {
   "name": "ba",
-  "description": "BA kit: turn raw notes into user stories with Given/When/Then acceptance criteria, and draft sprint release notes.",
-  "version": "0.1.1",
+  "description": "BA kit: find requirement gaps, ask the client, write user stories, track tickets and draft sprint release notes.",
+  "version": "0.1.6",
   "author": {
     "name": "Nhu Thai"
   }
