@@ -32,6 +32,8 @@ Write the client's answers directly into the Questions List. Never invent or gue
 
 ## Progress
 
+The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
+
 After the summary:
 
 ```
