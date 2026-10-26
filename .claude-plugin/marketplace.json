@@ -1,0 +1,19 @@
+{
+  "name": "ba-qa-kit",
+  "description": "Claude Code kit for BA and QA: user stories, test cases, UI checks in Chrome, bug reports.",
+  "owner": {
+    "name": "nhu thai"
+  },
+  "plugins": [
+    {
+      "name": "ba",
+      "source": "./plugins/ba",
+      "description": "BA kit: user stories with Given/When/Then acceptance criteria"
+    },
+    {
+      "name": "qa",
+      "source": "./plugins/qa",
+      "description": "QA kit: test cases, verify in Chrome, bug reports"
+    }
+  ]
+}

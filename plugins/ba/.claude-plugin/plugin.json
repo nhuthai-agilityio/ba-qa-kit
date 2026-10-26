@@ -1,0 +1,8 @@
+{
+  "name": "ba",
+  "description": "BA kit: turn raw notes into user stories with Given/When/Then acceptance criteria.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Nhu Thai"
+  }
+}

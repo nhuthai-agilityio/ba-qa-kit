@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  plugin-lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm install -g @anthropic-ai/claude-code
+      - name: Marketplace and every plugin pass claude plugin validate
+        run: |
+          claude plugin validate . --strict
+          for p in plugins/*/; do claude plugin validate "$p" --strict; done
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - run: go install github.com/agent-ecosystem/skill-validator/cmd/skill-validator@latest
+      - name: Every skill passes skill-validator
+        run: |
+          for s in $(find plugins -path '*/skills/*/SKILL.md' -exec dirname {} \;); do
+            "$(go env GOPATH)/bin/skill-validator" check "$s" --strict -o compact
+          done
+
+  # Installed copies only update when plugin.json version changes, so a PR that edits a plugin must raise it.
+  version-bump:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Each changed plugin raises its version
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          base=$(git merge-base "origin/$BASE_REF" HEAD)
+          status=0
+          for p in $(git diff --name-only "$base" HEAD -- plugins | cut -d/ -f2 | sort -u); do
+            file="plugins/$p/.claude-plugin/plugin.json"
+            [ -f "$file" ] || continue                                   # plugin removed
+            old=$(git show "$base:$file" 2>/dev/null | jq -r .version)
+            [ -n "$old" ] || continue                                    # new plugin
+            new=$(jq -r .version "$file")
+            if [ "$new" = "$old" ]; then
+              echo "::error file=$file::$p changed but its version is still $old. Raise it so installed copies update."
+              status=1
+            fi
+          done
+          exit $status
