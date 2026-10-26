@@ -1,6 +1,6 @@
 {
   "name": "ba",
-  "description": "BA kit: find requirement gaps, write the client question list, record the client's answers and draft sprint release notes.",
+  "description": "BA kit: find requirement gaps, write the client question list, record the client's answers, write user stories and draft sprint release notes.",
   "version": "0.1.6",
   "author": {
     "name": "Nhu Thai"
