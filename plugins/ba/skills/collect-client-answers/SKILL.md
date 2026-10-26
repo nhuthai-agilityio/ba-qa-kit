@@ -16,18 +16,19 @@ Write the client's answers directly into the Questions List. Never invent or gue
    - **Partly answered** — vague ("as usual", "ok", "maybe") or covers only part → add a follow-up.
    - **Not answered** — nothing in the reply → Pending.
    - **Conflict** — disagrees with the GitLab issue, a Drive doc or an earlier answer.
-4. **Show a short summary in chat** (one line per question: number, status, note), plus any Unmatched parts. Then **stop and show the progress line**. Do not change the file until the user replies.
-5. **On go, update the Questions List file** following the Answers section of `assets/template.md` in the `create-question-list` skill. Do not create a new file. If the file can't be edited (e.g. no access), give the user the updated text to paste.
+4. **Show a short summary in chat** (one line per question: number, status, note), plus any Unmatched parts, and name the file or doc that will be updated. Then **stop and show the progress line**. Do not change the file until the user replies; their **go** covers writing to that file or doc.
+5. **On go, update the Questions List** following the Answers section of `assets/template.md` in the `create-question-list` skill. If that skill or file is not installed, say so and use this shape: under each question, `Answer (<who>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. If the file or doc can't be edited (e.g. no access), give the user the updated text to paste.
 
 ## Rules
 
-- Keep the client's words; add who answered and the date.
+- Keep the client's words; add who answered and the date as `Mon DD, YYYY` (e.g. `Oct 26, 2026`).
+- Skip passwords, tokens and personal data (names, emails, phone numbers) from the reply; write "[removed]" instead.
 - Never renumber or delete questions.
 - A vague answer is never treated as Answered.
 - Never pick a side in a Conflict; ask the user, and write it only after they decide.
 - Unmatched parts stay in chat; they are not written to the file.
 - A new answer to an already answered question is added as a new Answer line, not replacing the old one.
-- If the Questions List is a Google Doc, write the answers directly into it with the Google Drive connector; keep its formatting. If it can't be edited, give the text to paste.
+- If the Questions List is a Google Doc, write into it with the Google Drive connector and keep its formatting. Ask before writing to a Google Doc or to a file outside the current folder.
 - Chat in the user's language; the Questions List in English.
 
 ## Progress
@@ -49,8 +50,7 @@ Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (R
 ```
 
 - **loop** → run `find-requirement-gaps` again with the updated Questions List as a source (next round). Suggest loop when there are follow-ups, conflicts or answers that add new rules; suggest go when all High questions are answered.
-
 - `#<ticket>`: GitLab issue number. `<requirement>`: short feature name.
-- **go** → do the next step (after the update: `write-user-stories`).
+- **go** → do the next step (after the update: `write-user-stories`). If that skill (or `find-requirement-gaps` for loop) is not installed, tell the user it isn't installed and stop.
 - **Change request** → fix it, then show the progress line again.
 - **stop** → end here.
