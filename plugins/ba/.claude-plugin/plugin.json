@@ -1,7 +1,7 @@
 {
   "name": "ba",
-  "description": "BA kit: find missing, unclear and conflicting requirements in a ticket's GitLab issue and Drive docs.",
-  "version": "0.1.1",
+  "description": "BA kit: find requirement gaps and write the client question list.",
+  "version": "0.1.2",
   "author": {
     "name": "Nhu Thai"
   }
