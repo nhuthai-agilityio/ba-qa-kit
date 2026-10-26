@@ -1,23 +1,12 @@
 name: Claude Code Review
 
+# Runs the same reviewer as @claude on every pull request. It posts one comment and updates it on each push.
 on:
   pull_request:
     types: [opened, synchronize, ready_for_review, reopened]
-    # Optional: Only run on specific file changes
-    # paths:
-    #   - "src/**/*.ts"
-    #   - "src/**/*.tsx"
-    #   - "src/**/*.js"
-    #   - "src/**/*.jsx"
 
 jobs:
   claude-review:
-    # Optional: Filter by PR author
-    # if: |
-    #   github.event.pull_request.user.login == 'external-contributor' ||
-    #   github.event.pull_request.user.login == 'new-developer' ||
-    #   github.event.pull_request.author_association == 'FIRST_TIME_CONTRIBUTOR'
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -36,10 +25,25 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          plugin_marketplaces: 'https://github.com/anthropics/claude-code.git'
-          plugins: 'code-review@claude-code-plugins'
-          prompt: '/code-review:code-review --comment ${{ github.repository }}/pull/${{ github.event.pull_request.number }}'
-          claude_args: '--allowedTools "mcp__github_inline_comment__create_inline_comment"'
-          # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
-          # or https://code.claude.com/docs/en/cli-reference for available options
+          track_progress: true
+          use_sticky_comment: true
+          claude_args: '--allowedTools "Bash(gh pr diff:*),Bash(gh pr view:*)"'
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
 
+            Review this pull request. This repo holds a Claude Code kit. Skills are Markdown instructions in
+            plugins/<plugin>/skills/<skill>/SKILL.md: review them as instructions another Claude will follow, not as code.
+
+            Read CLAUDE.md first and check the change against every rule in it. Then, for each changed skill, check:
+            - Every skill, file, command or tool it refers to exists in this repo or is a standard Claude Code tool.
+              A reference to something that only exists in another open pull request is a blocking issue.
+            - Anything it relies on that may be missing (a connector, a CLI login, a config field) has a stated fallback.
+            - Its output has a fixed shape (template, file name, date format), so two runs give the same result.
+            - It asks before writing anywhere outside the repo, and never handles passwords, tokens or personal data.
+            - Its description says what it does, then "Use when ...".
+            Also flag an empty pull request description.
+            Do not repeat what CI already checks (skill-validator, plugin validate, version bump).
+
+            Write the review in English: first a one-line verdict (Ready to merge / Needs changes), then
+            "Blocking" and "Minor" lists, each item with file and line. If there is nothing to flag, say so in one line.
