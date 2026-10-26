@@ -45,6 +45,8 @@ Show the report in chat and save it to `ba-output/gap-report-<ticket>-r<n>.md` i
 
 ## Progress
 
+The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
+
 End with this progress line, then wait for the user:
 
 ```
