@@ -16,15 +16,16 @@ The full context is always in:
 
 ## Steps
 
-1. **Get the ticket.** If not given, ask: "Please provide the GitLab issue (link or #number) and the Google Drive doc(s) for this feature."
+1. **Get the ticket.** If not given, ask: "Please provide the GitLab issue (link or #number) and the Google Drive doc(s) for this feature." No Drive doc at all? Continue with the GitLab issue only and say so in the Sources line.
 2. **Read the GitLab issue fully** (incl. comments) and every Drive doc it links or the user gives. Use the GitLab and Google Drive connectors; if one can't be opened, ask the user to share access or paste the content. List sources as S1, S2… with name and date.
 3. **Review each feature/screen** with the checklist. Also check:
    - Can it be written as "When `<trigger>`, the system shall `<response>`"? If not → gap.
    - Can QA test it pass/fail? Vague words (fast, easy, some, TBD) → gap.
    - Do sources disagree? → Conflict (don't pick a winner; note the newer one).
    - Already answered in a previous Questions List? → skip.
+   - Used by **Assumption**: the sources are silent and the team must assume something to go on. Write the assumption as the finding, so the client can confirm it.
    - **Loop round** (after client answers): also review the answers themselves — new rules, new cases or vague answers they bring are new gaps. Gap IDs continue (G-12, G-13…); report only new and still-open gaps.
-4. **Output the Gap Report**, then **stop and show the progress line** (see Progress). Do not start the next step until the user replies.
+4. **Output the Gap Report** (see Output), then **stop and show the progress line** (see Progress). Do not start the next step until the user replies.
 
 ## Checklist
 
@@ -38,7 +39,9 @@ The full context is always in:
 
 ## Output
 
-Write the Gap Report using `assets/template.md` (or the template the user provides).
+Write the Gap Report using `assets/template.md`. A template the user provides replaces it completely.
+
+Show the report in chat and save it to `ba-output/gap-report-<ticket>-r<n>.md` in the current folder. Ask before saving anywhere else. Dates use `Mon DD, YYYY` (for example Aug 02, 2026).
 
 ## Progress
 
@@ -50,7 +53,7 @@ Next: create-question-list — turn the gaps into the client question list. Repl
 ```
 
 - `#<ticket>`: GitLab issue number. `<requirement>`: short feature name. `Round <n>`: 1 for the first run, +1 for each loop.
-- **go** → run `create-question-list`.
+- **go** → run `create-question-list`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
 - **Change request** → update the Gap Report, then show the progress line again.
 - **stop** → end here.
 - No gaps → say so and use "Next: write-user-stories".

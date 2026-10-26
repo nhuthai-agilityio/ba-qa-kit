@@ -1,12 +1,12 @@
 # Gap Report Template
 
-Used by `find-requirement-gaps`. Place in the skill's `assets/` folder. Replace this file to use a different template.
+Used by `find-requirement-gaps`. Replace this file to use a different template.
 
 ## Format
 
 ```
 GAP REPORT — <App Name> · #<GitLab issue>
-Sources: S1 = GitLab #<issue> (<date>), S2 = <Drive doc name> (<date>), ...
+Sources: S1 = GitLab #<issue> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, YYYY>), ...
 
 <SCREEN / FEATURE>
 | ID | Type | Finding | Source & location | Impact |
@@ -24,7 +24,7 @@ Sources: S1 = GitLab #<issue> (<date>), S2 = <Drive doc name> (<date>), ...
 
 ```
 GAP REPORT — ABC Application · #412
-Sources: S1 = GitLab #412 (Aug 02), S2 = ABC PRD on Drive (Aug 01)
+Sources: S1 = GitLab #412 (Aug 02, 2026), S2 = ABC PRD on Drive (Aug 01, 2026)
 
 AUTHENTICATION
 | ID | Type | Finding | Source & location | Impact |
