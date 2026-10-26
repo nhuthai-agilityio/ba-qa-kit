@@ -1,6 +1,6 @@
 # Release Note Template
 
-Used by `draft-release-note`. Place in the skill's `assets/` folder. Replace this file to use a different template.
+Used by `draft-release-note`. Replace this file to use a different template.
 
 ## Format
 
@@ -67,7 +67,7 @@ Thanks & Regards,
 ## Example
 
 ```
-Subject: [granbull] Flash Mobile Sprint 16 Release - June 11th, 2026
+Subject: [ABC Project] Flash Mobile Sprint 16 Release - June 11th, 2026
 
 Hi all,
 
@@ -110,13 +110,13 @@ Flash Mobile
 - Update E2E test coverage for Time-off, Room Booking, and Reallocation requests
 
 Thanks & Regards,
-Nhu Thai
+<Sender name>
 ```
 
 ## Example — two products, same day
 
 ```
-Subject: [granbull] Flash Mobile & Kitchen Dashboard Release - June 11th, 2026
+Subject: [ABC Project] Flash Mobile & Kitchen Dashboard Release - June 11th, 2026
 
 Hi all,
 
@@ -167,5 +167,5 @@ Flash Mobile
 - Update E2E test coverage for Time-off, Room Booking, and Reallocation requests
 
 Thanks & Regards,
-Nhu Thai
+<Sender name>
 ```
