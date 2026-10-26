@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  plugin-lint:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm install -g @anthropic-ai/claude-code
+      - name: Marketplace and every plugin pass claude plugin validate
+        run: |
+          claude plugin validate . --strict
+          for p in nhu/plugins/*/; do claude plugin validate "$p" --strict; done
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - run: go install github.com/agent-ecosystem/skill-validator/cmd/skill-validator@latest
+      - name: Every skill passes skill-validator
+        run: |
+          for s in $(find nhu/plugins -path '*/skills/*/SKILL.md' -exec dirname {} \;); do
+            "$(go env GOPATH)/bin/skill-validator" check "$s" --strict -o compact
+          done
