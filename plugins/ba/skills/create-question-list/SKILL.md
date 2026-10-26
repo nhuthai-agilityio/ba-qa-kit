@@ -31,6 +31,8 @@ Patterns: "Is it right if we assume...?" · "RE `<X>`, we will `<Y>`, right?" ·
 
 ## Progress
 
+The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
+
 End with this progress line:
 
 ```
