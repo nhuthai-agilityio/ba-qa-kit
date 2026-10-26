@@ -24,15 +24,6 @@ After an update: `/plugin marketplace update ba-qa-kit`.
 - On each pull request, GitHub Actions runs:
   - **CI**: `claude plugin validate` on the marketplace and each plugin, and `skill-validator --strict` on each skill.
   - **Claude Code Review**: Claude reviews the diff and leaves comments. Mention `@claude` in a comment to ask it something.
-  - **Sync to GitLab**: checks that GitLab is reachable.
-- After a merge, **Sync to GitLab** pushes `main` to GitLab, so the team gets the new version. It can also be run by hand from the Actions tab.
+- After a merge, update the GitLab copy from a machine on the company network (GitHub's runners cannot reach GitLab): `git switch main && git pull origin main && git push gitlab main` (once before: `git remote add gitlab <GitLab SSH URL>`).
 
-One-time setup by the repo owner (Settings → Secrets and variables → Actions):
-
-| Name | Kind | Value |
-|---|---|---|
-| `CLAUDE_CODE_OAUTH_TOKEN` | secret | output of `claude setup-token` |
-| `GITLAB_SSH_KEY` | secret | private key of a GitLab deploy key with write access |
-| `GITLAB_REPO` | variable | GitLab SSH URL, e.g. `git@gitlab.asoft-python.com:<user>/<project>.git` |
-
-On GitLab: Settings → Repository → Deploy keys → add the public key with "Grant write permissions", then under Protected branches allow that deploy key to push to `main`.
+One-time setup by the repo owner: run `/install-github-app` in Claude Code from this repo. It installs the Claude GitHub App on the repo and adds the `CLAUDE_CODE_OAUTH_TOKEN` secret, which both Claude workflows need.
