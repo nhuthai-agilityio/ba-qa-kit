@@ -1,6 +1,6 @@
 # Question List Template
 
-Used by `create-question-list`. Place in the skill's `assets/` folder. Replace this file to use a different template.
+Used by `create-question-list`. Replace this file to use a different template.
 
 ## Format
 
@@ -34,7 +34,7 @@ This document provides the questions and answers when analyzing the <source> for
 
 | Element | Style |
 |---|---|
-| Logo + website | Top left: company logo, `www.agilityio.com` below it |
+| Logo + website | Top left: company logo, `www.agilityio.com` below it. In a Google Doc, insert the logo. In Markdown, keep `[Company logo]` as a placeholder |
 | Title | Large (≈ 26pt), regular weight |
 | Date | Bold, under the title |
 | OVERVIEW and PART headings | UPPERCASE, bold |
@@ -56,15 +56,15 @@ Added by `collect-client-answers` directly in this file, under each question. Ne
 
 ```
 1. <question>
-   → Answer (<name>, <Mon DD>): <client's words>
+   → Answer (<role>, <Mon DD>): <client's words>
 2. <question>
-   → Answer (<name>, <Mon DD>): <client's words>
+   → Answer (<role>, <Mon DD>): <client's words>
    a. <follow-up question>
 3. <question>
    → Pending
 ```
 
-- Keep the client's words.
+- Keep the client's words. Name the answerer by role (for example PO), not by personal name.
 - Follow-ups are new sub-questions under the original question, using the next free letter.
 - A later answer to the same question is a new `→ Answer` line; the old one stays.
 - Not answered yet → `→ Pending`.
