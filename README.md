@@ -36,7 +36,11 @@ Use `ba@ba-qa-kit` for the BA plugin.
 
 ## Maintaining
 
-One-time setup by the repo owner: after this setup is on `main`, run `/install-github-app` in Claude Code from this repo. At "Existing Workflow Found" choose **Skip workflow update (configure secrets only)**; for the token choose **Create a long-lived token with your Claude subscription**. It installs the Claude GitHub App on the repo and adds the `CLAUDE_CODE_OAUTH_TOKEN` secret that both Claude workflows read. The API key options add a different secret, and the workflows will not find it.
+One-time setup by the repo owner, after the workflows are on `main`. In Claude Code, from this repo:
+
+1. Run `/install-github-app`.
+2. At "Existing Workflow Found", choose **Skip workflow update (configure secrets only)**.
+3. For the token, choose **Create a long-lived token with your Claude subscription**. This adds the `CLAUDE_CODE_OAUTH_TOKEN` secret that both Claude workflows read; the API key options add a different secret, and the workflows will not find it.
 
 For each change:
 
