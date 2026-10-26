@@ -37,6 +37,8 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 
 ## Progress
 
+The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
+
 ```
 <sprint>   ✔ track-ticket-status
 Next: <n> blocked, <n> stale, <n> sent back, <n> answers to apply. Reply update, draft, or stop. Run again tomorrow. At the end of the sprint, run draft-release-note if it is installed.
