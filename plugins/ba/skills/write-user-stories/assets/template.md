@@ -29,7 +29,7 @@ How to read: **Pending Q<n>** = open question, do not build yet.
 - <Case> → <result>.
 
 **Notes**
-- Design: <link to screen>
+- Design: <link to screen> (leave this line out when there is no design)
 - Conflict – design shows <X>, <source> says <Y>. Following <source> until confirmed.
 
 ```

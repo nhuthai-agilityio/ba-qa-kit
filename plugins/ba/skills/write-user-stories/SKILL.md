@@ -22,12 +22,12 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 
 1. **List the stories**: one per user capability, in user-flow order, numbered `US-01`, `US-02`… Keep existing numbers if a previous version exists.
 2. **Collect** for each story its rules, flow steps, screens and related questions.
-3. **Write** each story with `assets/template.md`: A/C, then validation & error handling, then edge cases.
+3. **Write** each story with `assets/template.md`, keeping its section order. If the user gives another template, follow that template's sections and keep the A/C, error handling and edge-case content.
 4. **Check** each story:
    - Every answered question and rule for this feature appears in an A/C or error line.
    - Every screen state (empty, loading, error, success) is covered or raised as a question.
    - No A/C is written from a pending question.
-5. **Show the draft**, then **stop and show the progress line**.
+5. **Save the draft** (see File below), **show it**, then **stop and show the progress line**. Later edits update the saved file.
 
 ## Rules
 
@@ -36,12 +36,12 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 - **Conflict** between design and sources: follow the sources in the A/C, and write the conflict in that story's **Notes** (`Conflict – design shows X, <source> says Y. Following <source> until confirmed.`). Also list it in chat as a new question for the next loop.
 - **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List (the file `ba-output/question-list-<ticket>.md` kept by `create-question-list`; if you are unsure which file it is, ask the user). If that skill is not installed, list the new questions in chat only.
 - **Google Doc**: if the user gives a Google Doc link, write directly into that doc with the Google Drive connector — keep its existing content and styles, add only the new content. Show the doc name and ask before writing into it. If the doc can't be edited, give the text to paste.
-- **File**: without a Google Doc, save to `ba-output/user-stories-<ticket>-v<n>.md` in the current folder (ask before saving anywhere else). `<ticket>` is the GitLab issue number only, digits without `#` or other characters. Use `no-ticket` in the file name when there is no ticket. Fill the template's date from today's date, as `Mon DD, YYYY`.
+- **File**: without a Google Doc, save to `ba-output/user-stories-<ticket>-v<n>.md` in the current folder (ask before saving anywhere else). `<ticket>` is the GitLab issue number only, digits without `#` or other characters. Use `no-ticket` in the file name when there is no ticket. For a new version, use the highest `-v<n>` in `ba-output/` plus 1; if the user edited an earlier version, build on that edited file. Fill the template's date from today's date, as `Mon DD, YYYY`.
 - **Style**: basic English, short lines, exact UI labels in **bold**, real example data. Chat in the user's language; the doc in English.
 
 ## Edge cases
 
-- **Update after new answers**: save a new version (`-v2`, `-v3`… in the file name), keep story numbers and the user's edits, add "What changed" in 3–5 lines at the top.
+- **Update after new answers**: build on the latest saved version (including the user's edits) and save a new version (`-v2`, `-v3`… in the file name), keep story numbers and the user's edits, add "What changed" in 3–5 lines at the top.
 - **Story seems missing from the sources**: don't add it; list it in chat as a new question.
 - **Every question still pending**: write only what is confirmed; mark the rest inline as `Pending Q<n>`.
 
