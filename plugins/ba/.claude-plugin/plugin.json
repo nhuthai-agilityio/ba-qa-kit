@@ -1,7 +1,7 @@
 {
   "name": "ba",
-  "description": "BA kit: turn raw notes into user stories with Given/When/Then acceptance criteria.",
-  "version": "0.1.0",
+  "description": "BA kit: find missing, unclear and conflicting requirements in a ticket's GitLab issue and Drive docs.",
+  "version": "0.1.1",
   "author": {
     "name": "Nhu Thai"
   }
