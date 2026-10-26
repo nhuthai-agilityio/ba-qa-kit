@@ -7,7 +7,7 @@ allowed-tools: Bash(git *)
 
 # Sync main to GitLab
 
-The team installs the kit from GitLab, and GitHub's servers cannot reach it, so this runs from a machine on the company network.
+The team installs the kit from GitLab.
 
 ## Steps
 
@@ -21,7 +21,7 @@ The team installs the kit from GitLab, and GitHub's servers cannot reach it, so 
 
 - Push rejected because GitLab has commits GitHub does not: stop. Someone pushed to GitLab directly. Tell the user; do not overwrite it.
 - `Permission denied (publickey)`: the user's SSH key is not on GitLab. Tell them to add it under GitLab → Preferences → SSH Keys.
-- Connection timed out: the machine is not on the company network or VPN.
+- Connection timed out: this machine cannot reach GitLab. Tell the user to check their network or VPN.
 
 ## Output
 

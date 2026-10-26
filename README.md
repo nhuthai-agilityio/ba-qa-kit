@@ -30,6 +30,6 @@ Inside Claude Code:
 - On each pull request, GitHub Actions runs:
   - **CI**: `claude plugin validate` on the marketplace and each plugin, and `skill-validator --strict` on each skill.
   - **Claude Code Review**: Claude reviews the diff and leaves comments. Mention `@claude` in a comment to ask it something.
-- After a merge, run `/sync-gitlab` in Claude Code from this repo, on a machine on the company network (GitHub's servers cannot reach GitLab). It pushes `main` to GitLab and stops instead of overwriting if GitLab has commits GitHub does not.
+- After a merge, run `/sync-gitlab` in Claude Code from this repo. It pushes `main` to GitLab and stops instead of overwriting if GitLab has commits GitHub does not.
 
 One-time setup by the repo owner: run `/install-github-app` in Claude Code from this repo. It installs the Claude GitHub App on the repo and adds the `CLAUDE_CODE_OAUTH_TOKEN` secret, which both Claude workflows need.
