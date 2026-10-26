@@ -41,7 +41,7 @@ Date: <Mon DD, YYYY> · Sprint ends <Mon DD> (<n> days left) · Since: <Mon DD>
 Date: Nov 10, 2026 · Sprint ends Nov 14 (4 days left) · Since: Nov 9
 
 ## Summary
-5 tickets · 1 Done · 2 In progress · 1 To do · 1 Blocked · 1 Stale · 1 Sent back · 0 Late start
+4 tickets · 1 Done · 2 In progress · 1 To do · 1 Blocked · 1 Stale · 1 Sent back · 0 Late start
 
 ## Needs action
 | Issue | Type | Status | Why | Suggested action |
@@ -60,5 +60,5 @@ Date: Nov 10, 2026 · Sprint ends Nov 14 (4 days left) · Since: Nov 9
 | Question | Issue | Status | Action |
 |---|---|---|---|
 | Q2 Sick leave notice | #134 | Pending 5 days | Check for a client reply |
-| Q10 Sick leave limit | #137 | Answered (Nov 9), ticket not updated | Run write-user-stories, then write-stories-to-board |
+| Q10 Sick leave limit | #137 | Answered (Nov 9), ticket not updated | Update the user stories, then the board tickets |
 ```

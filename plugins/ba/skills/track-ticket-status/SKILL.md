@@ -30,20 +30,20 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 - Only the current sprint's tickets.
 - Every line has the issue `#` and the date of the change.
 - Stale is about days without updates, never about people. Working days are Monday to Friday; public holidays are not counted unless the user says so.
-- Questions: Pending for 2+ days, counted from the date the question was asked (the Questions List date, else the date of the ticket comment that first mentions it; if neither, say the age is unknown) → add "Check for a client reply", and suggest `collect-client-answers` if it is installed. Answered → suggest `write-user-stories`, then `write-stories-to-board`; if one is not installed, say so and stop.
+- Questions: Pending for 2+ days, counted from the date the question was asked (the Questions List date, else the date of the ticket comment that first mentions it; if neither, say the age is unknown) → add "Check for a client reply", and suggest `collect-client-answers` if it is installed. Answered → suggest updating the user stories, then the board tickets.
 - Nothing moved → write "No change today", skip Moved and Done, keep Needs action.
 - GitLab not connected → ask the user to paste the sprint board.
 - Chat in the user's language; the report in English.
 
 ## Progress
 
-The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
+The progress line only suggests the next step. The user can run any skill at any time.
 
 ```
 <sprint>   ✔ track-ticket-status
 Next: <n> blocked, <n> stale, <n> sent back, <n> answers to apply. Reply: update / draft / stop.
 ```
 
-- **update** → run `write-user-stories`, then `write-stories-to-board`. If one is not installed, say so and stop there.
+- **update** → update the user stories, then the board tickets, with whatever skills the user has for that. If there are none, stop and list what needs updating.
 - **draft** → draft comments or a client follow-up; post only after go.
 - **stop** → end here.
