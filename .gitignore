@@ -1,2 +1,4 @@
 # Output sinh ra khi chạy QA plugin (test case, bug report, ảnh chụp)
 qa-output/
+# Output sinh ra khi chạy BA plugin (release note, cấu hình)
+ba-output/
