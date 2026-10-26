@@ -1,6 +1,6 @@
 ---
 name: track-ticket-status
-description: Daily status report for the tickets in the current GitLab sprint — what moved, what is blocked, stale or sent back, and which client questions are holding work. Read-only. Use when it is time for the daily check, after tickets are on the board, or when asked for ticket status, a standup summary or what is blocked.
+description: Daily read-only status report for the current GitLab sprint: what moved, what is blocked, stale or sent back, and which client questions hold work. Use when it is time for the daily check, or when asked for ticket status, a standup summary or what is blocked.
 ---
 
 # Track Ticket Status
@@ -22,7 +22,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 5. **Check questions.** If the Questions List file is missing or has no matching Q<n>, skip this step and note it in the report. For each `Pending Q<n>` in a ticket's Notes, find Q<n> in the Questions List:
    - `→ Pending` → **Pending**.
    - `→ Answer …` but the ticket still says Pending → **Answered, ticket not updated**.
-6. **Write the report** with `assets/template.md`. Show it in chat and save it to `ba-output/status-<YYYY-MM-DD>.md` (ask before saving anywhere else), then show the progress line.
+6. **Write the report** with `assets/template.md`. Show it in chat and save it to `ba-output/status-<YYYY-MM-DD>.md` (create `ba-output/` in the current folder without asking; ask before saving anywhere else), then show the progress line.
 
 ## Rules
 
@@ -41,7 +41,7 @@ The progress line only suggests the next step. The user can run any skill at any
 
 ```
 <sprint>   ✔ track-ticket-status
-Next: <n> blocked, <n> stale, <n> sent back, <n> answers to apply. Reply update, draft, or stop. Run again tomorrow. At the end of the sprint, run draft-release-note if it is installed.
+Next: <n> blocked, <n> stale, <n> sent back, <n> answers to apply. Reply: update / draft / stop.
 ```
 
 - **update** → run `write-user-stories`, then `write-stories-to-board`. If one is not installed, say so and stop there.

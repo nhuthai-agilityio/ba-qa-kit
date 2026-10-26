@@ -28,6 +28,7 @@ Date: <Mon DD, YYYY> · Sprint ends <Mon DD> (<n> days left) · Since: <Mon DD>
 
 ## Rules
 
+- Summary: status counts (Done, In progress, To do) add up to the tickets total; Blocked, Stale, Sent back and Late start are flags and can overlap.
 - **Needs action** order: Blocked, Sent back, Stale, Late start.
 - **Questions** status: Pending, or Answered (ticket not updated).
 - Type: Story (`[US-nn]`), Task or Bug.
