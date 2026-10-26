@@ -2,7 +2,7 @@
 
 Two Claude Code plugins in one marketplace (`ba-qa-kit`):
 
-- `ba` (`plugins/ba`): user stories with Given/When/Then acceptance criteria. No skills yet.
+- `ba` (`plugins/ba`): user stories with Given/When/Then acceptance criteria. `/ba:write-user-stories` writes user stories with acceptance criteria, error handling and edge cases from the sources and the answered Questions List.
 - `qa` (`plugins/qa`): `/qa:test` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:bug` drafts a bug report. Settings come from `qa.config.json` in the folder where you start `claude`.
 
 ## Install
