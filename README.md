@@ -2,7 +2,7 @@
 
 Two Claude Code plugins in one marketplace (`ba-qa-kit`):
 
-- `ba` (`plugins/ba`): user stories with Given/When/Then acceptance criteria. No skills yet.
+- `ba` (`plugins/ba`): user stories with Given/When/Then acceptance criteria. `/ba:collect-client-answers` matches the client's replies to a Questions List and writes the answers into it.
 - `qa` (`plugins/qa`): `/qa:test` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:bug` drafts a bug report. Settings come from `qa.config.json` in the folder where you start `claude`.
 
 ## Install
