@@ -1,6 +1,6 @@
 ---
 name: write-user-stories
-description: Writes a user story doc that dev and QA can build and test from — stories with acceptance criteria, validation and error handling, and edge cases — using the GitLab issue, Drive docs, Gap Report and the answered Questions List. Use after collect-client-answers, or when asked for user stories, acceptance criteria or A/C.
+description: Writes a user story doc that dev and QA can build and test from — stories with acceptance criteria, validation and error handling, and edge cases — using the GitLab issue, Drive docs, Gap Report and the answered Questions List. Use when the Questions List has answers, or when asked for user stories, acceptance criteria or A/C.
 ---
 
 # Write User Stories
@@ -16,7 +16,7 @@ Read all before writing:
 - **Gap Report** — open gaps become pending items.
 - **Design** (optional) — field names, labels, messages, states. If missing, say so in the header.
 
-If the Questions List or sources are missing, ask for them, or suggest running `find-requirement-gaps` first.
+If the Questions List or sources are missing, ask for them, or suggest running `find-requirement-gaps` first (if it is not installed, ask the user to paste the gaps). If the GitLab or Google Drive connector is not available, ask the user to paste the content.
 
 ## Steps
 
@@ -34,13 +34,14 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 - **Testable**: one observable result per A/C, with real values ("max 50 characters", "within 2 seconds"), never "valid", "quickly", "properly".
 - **Open items stay pending**: write `Pending Q<n> – <short title>` in error handling, edge cases or notes — never inside A/C.
 - **Conflict** between design and sources: follow the sources in the A/C, and write the conflict in that story's **Notes** (`Conflict – design shows X, <source> says Y. Following <source> until confirmed.`). Also list it in chat as a new question for the next loop.
-- **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List.
-- **Google Doc**: if the user gives a Google Doc link, write directly into that doc with the Google Drive connector — keep its existing content and styles, add only the new content. If the doc can't be edited, give the text to paste.
+- **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List (the file kept by `create-question-list`, updated by that skill).
+- **Google Doc**: if the user gives a Google Doc link, write directly into that doc with the Google Drive connector — keep its existing content and styles, add only the new content. Show the doc name and ask before writing into it. If the doc can't be edited, give the text to paste.
+- **File**: without a Google Doc, save to `ba-output/user-stories-<ticket>-v<n>.md` in the current folder (ask before saving anywhere else). Fill the template's date from today's date.
 - **Style**: basic English, short lines, exact UI labels in **bold**, real example data. Chat in the user's language; the doc in English.
 
 ## Edge cases
 
-- **Update after new answers**: save a new version (`-v2`, `-v3`…), keep story numbers and the user's edits, add "What changed" in 3–5 lines at the top.
+- **Update after new answers**: save a new version (`-v2`, `-v3`… in the file name), keep story numbers and the user's edits, add "What changed" in 3–5 lines at the top.
 - **Story seems missing from the sources**: don't add it; list it in chat as a new question.
 - **Every question still pending**: write only what is confirmed; mark the rest inline as `Pending Q<n>`.
 
@@ -51,7 +52,8 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 Next: <n> stories, <n> pending, <n> new questions. Review the draft manually, then reply go for write-stories-to-board, loop to ask the new questions, changes, or stop.
 ```
 
-- **go** → run `write-stories-to-board` (after your review).
+- Show ✔ only for steps that ran in this chat; otherwise ○.
+- **go** → run `write-stories-to-board` (after your review). If that skill is not installed, say so and stop with the story doc as the result.
 - **Change request** → update the draft, then show the progress line again.
-- **loop** → run `find-requirement-gaps` with the new questions as gaps (next round).
+- **loop** → run `find-requirement-gaps` with the new questions as gaps (next round). If that skill is not installed, say so and give the new questions as the result.
 - **stop** → end here.

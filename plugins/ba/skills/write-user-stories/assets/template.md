@@ -1,6 +1,6 @@
 # User Stories Template
 
-Used by `write-user-stories`. Place in the skill's `assets/` folder. Replace this file to use a different template.
+Used by `write-user-stories`. Replace this file to use a different template.
 
 ## Format
 
