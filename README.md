@@ -36,9 +36,9 @@ Use `ba@ba-qa-kit` for the BA plugin.
 
 ## Maintaining
 
-One-time setup by the repo owner, after the workflows are on `main`. In Claude Code, from this repo:
+One-time setup by the repo owner, after the workflows are on `main`:
 
-1. Run `/install-github-app`. It installs the Claude GitHub App on the repo.
+1. In Claude Code, from this repo, run `/install-github-app`. It installs the Claude GitHub App on the repo.
 2. At "Existing Workflow Found", choose **Skip workflow update (configure secrets only)**.
 3. For the token, choose **Create a long-lived token with your Claude subscription**. This adds the `CLAUDE_CODE_OAUTH_TOKEN` secret that both Claude workflows read; the API key options add a different secret, and the workflows will not find it.
 4. Create an empty project on GitLab for the team to install from. The first `/sync-gitlab` asks for its SSH URL.
