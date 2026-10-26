@@ -34,7 +34,7 @@ This document provides the questions and answers when analyzing the <source> for
 
 | Element | Style |
 |---|---|
-| Logo + website | Top left: company logo, `www.agilityio.com` below it. In a Google Doc, insert the logo. In Markdown, keep `[Company logo]` as a placeholder |
+| Logo + website | Top left: company logo, `www.agilityio.com` below it. In a Google Doc, insert the logo if the user provides one, otherwise keep the `[Company logo]` placeholder. In Markdown, keep `[Company logo]` as a placeholder |
 | Title | Large (≈ 26pt), regular weight |
 | Date | Bold, under the title |
 | OVERVIEW and PART headings | UPPERCASE, bold |
