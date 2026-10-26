@@ -20,7 +20,7 @@ The team installs the kit from GitLab.
 ## When something fails
 
 - Push rejected because GitLab has commits GitHub does not: stop. Someone pushed to GitLab directly. Tell the user; do not overwrite it.
-- `Permission denied (publickey)`: the user's SSH key is not on GitLab. Tell them to add it under GitLab → Preferences → SSH Keys.
+- `Permission denied (publickey)`: the user's SSH key is not on GitLab. Tell them to add it in GitLab under their avatar → Edit profile → SSH Keys.
 - Connection timed out: this machine cannot reach GitLab. Tell the user to check their network or VPN.
 
 ## Output
