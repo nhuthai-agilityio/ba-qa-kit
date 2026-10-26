@@ -45,7 +45,7 @@ One-time setup by the repo owner, after the workflows are on `main`. In Claude C
 For each change:
 
 - Open a pull request. GitHub Actions runs:
-  - **CI**: `claude plugin validate` on the marketplace and each plugin, `skill-validator --strict` on each skill in `plugins/`, and a check that every changed plugin raised its `version`.
+  - **CI**: `claude plugin validate` on the marketplace and each plugin, `skill-validator --strict` on each skill in `plugins/`, kit rules (description says "Use when …", `SKILL.md` at most 200 lines), and a check that every changed plugin raised its `version`.
   - **Claude Code Review**: Claude reviews the diff and leaves comments. Mention `@claude` in a comment to ask it something.
 - Raise `version` in the changed plugin's `.claude-plugin/plugin.json` (for example `0.1.1` → `0.1.2`). Installed copies only update when the version changes.
 - After the merge, run `/sync-gitlab` in Claude Code from this repo. It pushes `main` to GitLab and stops instead of overwriting if GitLab has commits GitHub does not.

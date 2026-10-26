@@ -22,11 +22,22 @@ jobs:
         with:
           go-version: '1.23'
       - run: go install github.com/agent-ecosystem/skill-validator/cmd/skill-validator@latest
-      - name: Every skill passes skill-validator
+      - name: Every skill passes skill-validator and the kit rules
         run: |
+          status=0
           for s in $(find plugins -path '*/skills/*/SKILL.md' -exec dirname {} \;); do
-            "$(go env GOPATH)/bin/skill-validator" check "$s" --strict -o compact
+            f="$s/SKILL.md"
+            # typed-only skills carry Claude Code fields outside the spec, and their description is menu text
+            typed=; grep -q '^disable-model-invocation: true' "$f" && typed=--allow-extra-frontmatter
+            "$(go env GOPATH)/bin/skill-validator" check "$s" --strict $typed -o compact || status=1
+            if [ -z "$typed" ] && ! sed -n 's/^description: *//p' "$f" | grep -q 'Use when'; then
+              echo "::error file=$f::description must say when to use the skill: \"<what it does>. Use when ...\""; status=1
+            fi
+            if [ "$(wc -l < "$f")" -gt 200 ]; then
+              echo "::error file=$f::SKILL.md is over 200 lines; move detail into a separate file"; status=1
+            fi
           done
+          exit $status
 
   # Installed copies only update when plugin.json version changes, so a PR that edits a plugin must raise it.
   version-bump:
