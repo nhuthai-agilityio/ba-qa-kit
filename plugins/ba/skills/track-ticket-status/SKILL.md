@@ -9,7 +9,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 
 ## Steps
 
-1. **First run only**, ask: the GitLab project, whether the sprint is an iteration or a milestone, and where the Questions List file is. Save the answers to `ba-output/track-ticket-status.json` (no tokens or personal data); later runs read that file instead of asking.
+1. **First run only**, ask: the GitLab project, whether the sprint is an iteration or a milestone, and where the Questions List file is. Save the answers to `ba-output/track-ticket-status.json` (no tokens or personal data); later runs read that file instead of asking. If the file can't be read or the project no longer matches, ask again.
 2. **Find the current sprint** (dates include today). Note its name, end date and days left. No current sprint, or the iteration or milestone can't be read? Say so and ask the user to paste the sprint board.
 3. **Read all its tickets**: status, labels, assignee, last update, comments. Period: since the date of the latest `ba-output/status-*.md`, or the previous working day if there is none (on Monday, since Friday).
 4. **Mark each ticket** (it can have more than one):
@@ -30,7 +30,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 - Only the current sprint's tickets.
 - Every line has the issue `#` and the date of the change.
 - Stale is about days without updates, never about people. Working days are Monday to Friday; public holidays are not counted unless the user says so.
-- Questions: Pending for 2+ days → add "Check for a client reply and run `collect-client-answers`". Answered → suggest `write-user-stories`, then `write-stories-to-board`.
+- Questions: Pending for 2+ days, counted from the date the question was asked (the Questions List date, else the date of the ticket comment that first mentions it; if neither, say the age is unknown) → add "Check for a client reply", and suggest `collect-client-answers` if it is installed. Answered → suggest `write-user-stories`, then `write-stories-to-board`; if one is not installed, say so and stop.
 - Nothing moved → write "No change today", skip Moved and Done, keep Needs action.
 - GitLab not connected → ask the user to paste the sprint board.
 - Chat in the user's language; the report in English.
