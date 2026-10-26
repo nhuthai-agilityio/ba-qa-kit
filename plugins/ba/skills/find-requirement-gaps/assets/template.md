@@ -15,6 +15,7 @@ Sources: S1 = GitLab #<issue> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, 
 
 ## Rules
 
+- Dates in Sources: the last-updated date of the issue or doc.
 - **App Name**: the repo or GitLab project name.
 - No gaps: keep the header and Sources line, then write "No gaps found".
 - **Type**: Missing, Unclear, Conflicting, Assumption
