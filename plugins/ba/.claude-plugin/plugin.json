@@ -1,7 +1,7 @@
 {
   "name": "ba",
-  "description": "BA kit: track daily ticket status for the current sprint.",
-  "version": "0.1.1",
+  "description": "BA kit: find requirement gaps, ask the client, write user stories and track the sprint's tickets.",
+  "version": "0.1.5",
   "author": {
     "name": "Nhu Thai"
   }
