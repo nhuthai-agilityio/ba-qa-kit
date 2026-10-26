@@ -54,7 +54,7 @@ Date: Nov 10, 2026 · Sprint ends Nov 14 (4 days left) · Since: Nov 9
 - #136 [US-03] Manager can reject a request: QA → In progress (Nov 10)
 
 ## Done
-- #135 [US-02] Manager can approve a request (Nov 7)
+- #135 [US-02] Manager can approve a request (Nov 10)
 
 ## Questions holding work
 | Question | Issue | Status | Action |
