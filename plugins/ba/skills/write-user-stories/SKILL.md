@@ -16,7 +16,7 @@ Read all before writing:
 - **Gap Report** — open gaps become pending items.
 - **Design** (optional) — field names, labels, messages, states. If missing, say so in the header.
 
-If the Questions List or sources are missing, ask for them, or suggest running `find-requirement-gaps` first (if it is not installed, ask the user to paste the gaps). If the GitLab or Google Drive connector is not available, ask the user to paste the content.
+If the Questions List or sources are missing, ask for them, or suggest running `find-requirement-gaps` first (if it is not installed, ask the user to paste the gaps). No Gap Report but the other inputs are present? Go on and write from the sources and the answers. If the GitLab or Google Drive connector is not available, ask the user to paste the content.
 
 ## Steps
 
@@ -34,9 +34,9 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 - **Testable**: one observable result per A/C, with real values ("max 50 characters", "within 2 seconds"), never "valid", "quickly", "properly".
 - **Open items stay pending**: write `Pending Q<n> – <short title>` in error handling, edge cases or notes — never inside A/C.
 - **Conflict** between design and sources: follow the sources in the A/C, and write the conflict in that story's **Notes** (`Conflict – design shows X, <source> says Y. Following <source> until confirmed.`). Also list it in chat as a new question for the next loop.
-- **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List (the file kept by `create-question-list`, updated by that skill).
+- **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List (the file kept by `create-question-list`, updated by that skill). If that skill is not installed, list the new questions in chat only.
 - **Google Doc**: if the user gives a Google Doc link, write directly into that doc with the Google Drive connector — keep its existing content and styles, add only the new content. Show the doc name and ask before writing into it. If the doc can't be edited, give the text to paste.
-- **File**: without a Google Doc, save to `ba-output/user-stories-<ticket>-v<n>.md` in the current folder (ask before saving anywhere else). Fill the template's date from today's date.
+- **File**: without a Google Doc, save to `ba-output/user-stories-<ticket>-v<n>.md` in the current folder (ask before saving anywhere else). Use `no-ticket` in the file name when there is no ticket. Fill the template's date from today's date, as `Mon DD, YYYY`.
 - **Style**: basic English, short lines, exact UI labels in **bold**, real example data. Chat in the user's language; the doc in English.
 
 ## Edge cases
@@ -52,7 +52,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 Next: <n> stories, <n> pending, <n> new questions. Review the draft manually, then reply go for write-stories-to-board, loop to ask the new questions, changes, or stop.
 ```
 
-- Show ✔ only for steps that ran in this chat; otherwise ○.
+- Show ✔ only for steps that ran in this chat; steps that did not run, or whose skill is not installed, show ○.
 - **go** → run `write-stories-to-board` (after your review). If that skill is not installed, say so and stop with the story doc as the result.
 - **Change request** → update the draft, then show the progress line again.
 - **loop** → run `find-requirement-gaps` with the new questions as gaps (next round). If that skill is not installed, say so and give the new questions as the result.
