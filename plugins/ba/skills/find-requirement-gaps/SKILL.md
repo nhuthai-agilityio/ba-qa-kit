@@ -56,4 +56,4 @@ Next: create-question-list — turn the gaps into the client question list. Repl
 - **go** → run `create-question-list`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
 - **Change request** → update the Gap Report, then show the progress line again.
 - **stop** → end here.
-- No gaps → say so and use "Next: write-user-stories".
+- No gaps → say so and use "Next: write-user-stories". If that skill is not installed, say so and stop with the Gap Report as the result.
