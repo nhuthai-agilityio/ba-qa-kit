@@ -20,6 +20,7 @@ Files
 - <✔ / ✖> qa.config.json: <written / unchanged / missing: <fields>>
 - <✔ / ✖> ba-output copies (BA): <written / unchanged / missing: <fields>>
 
+Warnings: <milestones with no end date or ended and still open, or "none">
 Missing: <short list, or "nothing">
 ```
 
@@ -48,5 +49,6 @@ Files
 - ✔ ba-output/track-ticket-status.json: unchanged
 - ✖ ba-output/draft-release-note.json: missing: links
 
+Warnings: MS1 has no end date; KD and F sprints ended and are still open
 Missing: Google Drive connector, release note build links
 ```

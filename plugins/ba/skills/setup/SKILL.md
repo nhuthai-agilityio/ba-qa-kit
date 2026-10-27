@@ -10,9 +10,9 @@ Get a teammate ready without editing config by hand. The only sources are the Gi
 ## Steps
 
 1. **Ask the role**: BA, QA or both. Set up only what that role needs (see Files).
-2. **Read what exists** in the current folder: `qa.config.json` and, for BA, the `ba-output/*.json` copies. A missing, unreadable or invalid file counts as missing; never fix it silently.
+2. **Read what exists** in the current folder: `qa.config.json` and, for BA, the `ba-output/*.json` copies. A missing file counts as missing. An unreadable or invalid file also counts as missing: show the problem, and replace it only after the user says go.
 3. **Check connectors**: GitLab and Google Drive (QA also Claude in Chrome, only for `/qa:verify`). For each: Connected or Not connected. If not, say how to connect (see Connectors). Never connect for the user. A missing connector does not stop the setup.
-4. **Check the sources**: if GitLab is connected, read the board's issue list once (read-only) to confirm the link works. Same for the Drive folder (list its files only). Per product, warn if its newest open milestone has no end date, or ended and is still open. Not connected: mark Not checked.
+4. **Check the sources**: if GitLab is connected, read the board's issue list once (read-only) to confirm the link works. Same for the Drive folder (list its files only). Per product, note a warning if its newest open milestone has no end date, or ended and is still open; the checklist shows them. Not connected: mark Not checked.
 5. **Ask only for what is missing** (see Questions), in one short list. Reuse what step 2 found.
 6. **Show the plan and ask**: each file to write with its content, marked new, changed (old → new value) or unchanged. Stop. Write only after the user says go.
 7. **Write the files.** Keep fields the user did not change, including ones this skill does not know. Create `ba-output/` or the output folder if missing.
@@ -28,7 +28,7 @@ One shared config, `qa.config.json`, holds every answer for both roles. The BA f
 | QA | GitLab, Google Drive, Claude in Chrome | the top-level fields of `qa.config.json` |
 | Both | all | all of it |
 
-`qa.config.json` (the QA fields are unchanged, plus `qaAssignee`, `qaDriveFolder` and `ba`). Keep every other key already in the file, such as `forbidden`, `askFirst` and `_notes`; add `_notes` lines for `qaAssignee`, `qaDriveFolder` and `ba` if `_notes` exists.
+`qa.config.json` (the QA fields keep the shape `/qa:verify` and `/qa:write-test-cases` already read, plus `qaAssignee`, `qaDriveFolder` and `ba`). Keep every other key already in the file, such as `forbidden`, `askFirst` and `_notes`; add `_notes` lines for `qaAssignee`, `qaDriveFolder` and `ba` if `_notes` exists. The QA skills read this file from the repo root, so tell the user to start `claude` in the repo root, or in the folder where the file is.
 
 The shape is in `assets/qa.config.example.json`. Read it from this skill's folder before writing; replace each `<placeholder>` with the user's value, and drop `readyLabel`, `qaAssignee` and the optional `ba` parts that have no value.
 
