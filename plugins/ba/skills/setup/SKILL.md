@@ -1,6 +1,6 @@
 ---
 name: setup
-description: First-run setup for the BA/QA kit. Checks the GitLab and Google Drive connectors, asks once for the GitLab board and the BA/QA Drive folders, and writes qa.config.json and the BA saved-answer files so the other skills do not ask again. Use when starting with the kit, when a teammate joins, when a skill says its config is missing, or when asked to set up or check the kit.
+description: First-run setup for the BA/QA kit. Checks the GitLab and Google Drive connectors, asks once for the GitLab board and the BA/QA Drive folders, and writes one shared qa.config.json (plus the BA saved-answer copies) so the other skills do not ask again. Use when starting with the kit, when a teammate joins, when a skill says its config is missing, or when asked to set up or check the kit.
 ---
 
 # Setup
@@ -10,7 +10,7 @@ Get a teammate ready without editing config by hand. The only sources are the Gi
 ## Steps
 
 1. **Ask the role**: BA, QA or both. Set up only what that role needs (see Files).
-2. **Read what exists** in the current folder: `qa.config.json` and the `ba-output/*.json` files the role needs. A missing, unreadable or invalid file counts as missing; never fix it silently.
+2. **Read what exists** in the current folder: `qa.config.json` and, for BA, the `ba-output/*.json` copies. A missing, unreadable or invalid file counts as missing; never fix it silently.
 3. **Check connectors**: GitLab and Google Drive (QA also Claude in Chrome, only for `/qa:verify`). For each: Connected or Not connected. If not, say how to connect (see Connectors). Never connect for the user. A missing connector does not stop the setup.
 4. **Check the sources**: if GitLab is connected, read the board's issue list once (read-only) to confirm the link works. Same for the Drive folder (list its files only). Per product, warn if its newest open milestone has no end date, or ended and is still open. Not connected: mark Not checked.
 5. **Ask only for what is missing** (see Questions), in one short list. Reuse what step 2 found.
@@ -20,41 +20,43 @@ Get a teammate ready without editing config by hand. The only sources are the Gi
 
 ## Files
 
-| Role | Connectors | Files |
-|---|---|---|
-| BA | GitLab, Google Drive | `ba-output/track-ticket-status.json`, `ba-output/draft-release-note.json` |
-| QA | GitLab, Google Drive, Claude in Chrome | `qa.config.json` |
-| Both | all | all three |
+One shared config, `qa.config.json`, holds every answer for both roles. The BA files are copies written from it, so the BA skills keep working until they read the shared file.
 
-`qa.config.json` (same fields the QA skills read, plus `driveFolder`). Keep every other key already in the file, such as `roles`, `forbidden`, `askFirst` and `_notes`; add a `_notes.driveFolder` line if `_notes` exists:
+| Role | Connectors | Writes |
+|---|---|---|
+| BA | GitLab, Google Drive | the `ba` section of `qa.config.json`, then the two `ba-output` copies |
+| QA | GitLab, Google Drive, Claude in Chrome | the top-level fields of `qa.config.json` |
+| Both | all | all of it |
+
+`qa.config.json` (the QA fields are unchanged, plus `qaDriveFolder` and `ba`). Keep every other key already in the file, such as `roles`, `forbidden`, `askFirst` and `_notes`; add `_notes` lines for `qaDriveFolder` and `ba` if `_notes` exists:
 
 ```json
 {
   "env": { "dev": "<dev URL>", "stag": "<stag URL>" },
-  "readyLabel": { "dev": "<label>" },
+  "readyLabel": { "dev": "<label>", "stag": "<label>" },
   "testDataPrefix": "E2E ",
   "board": "gitlab",
   "boardUrl": "<milestones list URL>",
   "outputDir": "qa-output",
-  "driveFolder": "<QA Drive folder link>"
+  "qaDriveFolder": "<QA Drive folder link>",
+  "ba": {
+    "project": "<group/project>",
+    "sprintType": "milestone",
+    "sprintPrefixes": ["<KD>", "<F>"],
+    "questionsList": "<doc link>",
+    "driveFolder": "<BA Drive folder link>",
+    "releaseNote": { "project": "<name>", "links": [ { "name": "<name>", "location": "<URL or text>" } ] }
+  }
 }
 ```
 
-`ba-output/track-ticket-status.json`:
+Copies, written only for BA, with the same values as the `ba` section:
+- `ba-output/track-ticket-status.json`: `project`, `sprintType`, `sprintPrefixes`, `questionsList`, `driveFolder`.
+- `ba-output/draft-release-note.json`: `project` and `links` from `releaseNote`.
 
-```json
-{ "project": "<group/project>", "sprintType": "milestone", "sprintPrefixes": ["<KD>", "<F>"], "questionsList": "<doc link>", "driveFolder": "<BA Drive folder link>" }
-```
+`sprintPrefixes`: one prefix per product that runs its own sprints in the project (milestone names look like `KD - SPR 31: <title>`). Never save a milestone number; each product's current sprint is its newest open `SPR n`, found on each run.
 
-`ba-output/draft-release-note.json`:
-
-```json
-{ "project": "<project name>", "links": [ { "name": "<name>", "location": "<URL or text>" } ] }
-```
-
-`sprintPrefixes`: one prefix per product that runs its own sprints in the project (milestone names look like `KD - SPR 31: <title>`). Never save a milestone number; the current sprint of each product is its newest open `SPR n`, found on each run.
-
-If a saved-answer file already uses other keys, keep them and change only the values the user approved.
+If a copy already uses other keys, keep them and change only the values the user approved. If a copy and the `ba` section disagree, show both and ask which one is right.
 
 ## Questions
 

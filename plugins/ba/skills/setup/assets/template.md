@@ -18,8 +18,7 @@ Sources
 
 Files
 - <✔ / ✖> qa.config.json: <written / unchanged / missing: <fields>>
-- <✔ / ✖> ba-output/track-ticket-status.json: <...>
-- <✔ / ✖> ba-output/draft-release-note.json: <...>
+- <✔ / ✖> ba-output copies (BA): <written / unchanged / missing: <fields>>
 
 Missing: <short list, or "nothing">
 ```
