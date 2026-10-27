@@ -8,7 +8,7 @@ Two Claude Code plugins in one marketplace (`ba-qa-kit`):
   - `/ba:track-ticket-status` writes a daily status report for the current GitLab sprint (read-only).
   - `/ba:collect-client-answers` matches the client's replies to a Questions List and writes the answers into it.
   - `/ba:create-question-list` turns a Gap Report into a clarification question list for the client or PO.
-- `qa` (`plugins/qa`): `/qa:test` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:bug` drafts a bug report. Settings come from `qa.config.json` in the folder where you start `claude`.
+- `qa` (`plugins/qa`): `/qa:write-test-cases` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:bug` drafts a bug report. Settings come from `qa.config.json` in the folder where you start `claude`.
 
 ## Install
 
