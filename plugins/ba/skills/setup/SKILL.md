@@ -28,29 +28,9 @@ One shared config, `qa.config.json`, holds every answer for both roles. The BA f
 | QA | GitLab, Google Drive, Claude in Chrome | the top-level fields of `qa.config.json` |
 | Both | all | all of it |
 
-`qa.config.json` (the QA fields are unchanged, plus `qaAssignee`, `qaDriveFolder` and `ba`). Keep every other key already in the file, such as `forbidden`, `askFirst` and `_notes`; add `_notes` lines for `qaAssignee`, `qaDriveFolder` and `ba` if `_notes` exists:
+`qa.config.json` (the QA fields are unchanged, plus `qaAssignee`, `qaDriveFolder` and `ba`). Keep every other key already in the file, such as `forbidden`, `askFirst` and `_notes`; add `_notes` lines for `qaAssignee`, `qaDriveFolder` and `ba` if `_notes` exists.
 
-```json
-{
-  "env": { "dev": "<dev URL>", "stag": "<stag URL>" },
-  "readyLabel": { "dev": "<label>", "stag": "<label>" },
-  "roles": ["<Owner>", "<Member>"],
-  "testDataPrefix": "E2E ",
-  "board": "gitlab",
-  "boardUrl": "<milestones list URL>",
-  "outputDir": "qa-output",
-  "qaAssignee": "<GitLab username of the QA>",
-  "qaDriveFolder": "<QA Drive folder link>",
-  "ba": {
-    "project": "<group/project>",
-    "sprintType": "milestone",
-    "sprintPrefixes": ["<KD>", "<F>"],
-    "questionsList": "<doc link>",
-    "driveFolder": "<BA Drive folder link>",
-    "releaseNote": { "project": "<name>", "links": [ { "name": "<name>", "location": "<URL or text>" } ] }
-  }
-}
-```
+The shape is in `assets/qa.config.example.json`. Read it from this skill's folder before writing; replace each `<placeholder>` with the user's value, and drop `readyLabel`, `qaAssignee` and the optional `ba` parts that have no value.
 
 Copies, written only for BA, with the same values as the `ba` section:
 - `ba-output/track-ticket-status.json`: `project`, `sprintType`, `sprintPrefixes`, `questionsList`, `driveFolder`.

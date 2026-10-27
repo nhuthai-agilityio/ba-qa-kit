@@ -1,7 +1,7 @@
 {
   "name": "ba",
   "description": "BA kit: set up the kit, find requirement gaps, write the client question list, record the client's answers, write user stories, draft sprint release notes and track the sprint's tickets.",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "author": {
     "name": "Nhu Thai"
   }
