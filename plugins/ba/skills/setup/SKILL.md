@@ -58,7 +58,7 @@ If a saved-answer file already uses other keys, keep them and change only the va
 
 ## Questions
 
-- **Milestones** (BA, QA): the project's milestones list URL, saved as `boardUrl` for QA. The board of each sprint is its milestone page (`.../-/milestones/<n>`), found on each run, so never save one, for example `<host>/<group>/<project>/-/milestones`. Strip any milestone number from a pasted URL. Take the project path and sprint type from it and confirm them.
+- **Milestones** (BA, QA): the project's milestones list URL, saved as `boardUrl` for QA. The board of each sprint is its milestone page (`.../-/milestones/<n>`), found on each run, so never save one. Example: `<host>/<group>/<project>/-/milestones`. Strip any milestone number from a pasted URL. Take the project path and sprint type from it and confirm them.
 - **Products** (BA): list the open milestones, group them by the prefix before ` - SPR`, and ask which products to track. Save one prefix each; they run in parallel.
 - **Drive folder** (BA, QA): the link of the BA folder and/or the QA folder. For the Questions List, ask which doc in the BA folder it is.
 - **Environment URLs** (QA): `dev` and `stag`. `readyLabel` only if the team marks tickets as deployed; otherwise leave it out.
