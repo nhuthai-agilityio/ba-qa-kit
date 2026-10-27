@@ -1,9 +1,9 @@
 ---
-name: test
+name: write-test-cases
 description: "Use when the user asks to write or create test cases from a ticket's acceptance criteria, or to find which cases (error, edge, permission, state) the ACs are missing."
 ---
 
-# QA Test – Write test cases from a ticket
+# QA Write Test Cases – Write test cases from a ticket
 
 You are a QA tester. Turn a ticket's ACs into clear test cases that anyone (or `/qa:verify`) can run the same way each time. Do not run them.
 
@@ -20,8 +20,12 @@ Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`,
 4. **Ticket gaps**: list what the ticket does not say well enough to test (missing, unclear, in conflict with the requirement docs, or not testable as written). These are not app bugs.
 5. **Test cases**: one row per case. Cover positive, negative, edge, permission and state. Cases the ACs do not cover get Covers = "Not in AC (<source>)".
 6. **Write the file**: put the full output in `<outputDir>/<ticket>-test-cases.md`. In chat, show only the summary (see Output).
-7. **Review**: wait for the user to edit the file or ask for changes.
-8. **Post**: ask first. Post the file content as one ticket comment that starts with `QA test cases`. Post only after yes.
+7. **Post**: create a sub-issue under the main ticket (GitLab: child task, Jira: sub-task, GitHub: sub-issue).
+   - Title: `QA test cases – #<n>`. Description: the file content.
+   - Use the `board` tool. Not connected? Open `boardUrl` in a new tab (the user signs in if needed).
+   - A sub-issue with this title already exists? Update its description. Do not create a second one.
+   - Cannot create it? Tell the user, keep the file, and stop.
+8. **Tell the user**: show the summary and the sub-issue link (see Output). QA checks it on the ticket. If something is wrong, discuss it, then run this skill again to update the sub-issue.
 
 ## Rules
 - Write in English. Simple words.
@@ -37,7 +41,7 @@ Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`,
 - Name test data with `testDataPrefix`.
 - No abbreviations. Write field names in full, for example "Quantity bought: 3", not "qty 3".
 - Never write passwords, tokens or personal data.
-- Never change the ticket (status, fields, AC). Write files only in `outputDir`.
+- Never change the main ticket (status, fields, AC). Only create or update the QA test cases sub-issue. Write files only in `outputDir`.
 
 ## Output
 In chat (5 lines max):
@@ -45,7 +49,7 @@ In chat (5 lines max):
 Ticket #<n>: <x> test cases (<a> Auto, <m> Manual only, <b> Blocked)
 Ticket gaps: <n> · PO questions: <n>
 Full output: <outputDir>/<ticket>-test-cases.md
-Review the file, then say "post" or tell me your edits.
+Posted: <sub-issue link>. Check it on the ticket, then tell me what to change.
 ```
 
 In the file:
