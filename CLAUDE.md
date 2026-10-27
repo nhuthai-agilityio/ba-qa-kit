@@ -15,7 +15,7 @@ Repo for the BA/QA Claude Code kit: two plugins in one marketplace (`ba-qa-kit`)
 - Branches: `feat/<short-desc>`, `fix/<short-desc>`, `docs/<short-desc>`, `chore/<short-desc>`. One topic per pull request.
 - Commits: Conventional Commits, lowercase imperative (`feat: add ...`, `fix: ...`).
 - Skills never write passwords, tokens or personal data, and never act on production URLs.
-- Skills ask before they write outside the repo (tickets, comments, issues). Exception accepted by the maintainer: `/qa:write-test-cases` creates its `QA test cases` sub-issue without asking. It still asks before it updates an existing sub-issue.
+- Skills ask before they write outside the repo (tickets, comments, issues). Exceptions accepted by the maintainer: `/qa:write-test-cases` creates its `QA test cases` sub-issue without asking, and `/qa:verify` adds its `QA verify` comment to that sub-issue without asking. `/qa:verify` only adds new comments; it never edits or deletes one. `/qa:write-test-cases` still asks before it updates an existing sub-issue, and `/qa:bug` still asks before it creates an issue.
 
 ## Never
 - Never push to `main` directly; every change goes through a pull request.
