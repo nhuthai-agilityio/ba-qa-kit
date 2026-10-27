@@ -28,7 +28,7 @@ One shared config, `qa.config.json`, holds every answer for both roles. The BA f
 | QA | GitLab, Google Drive, Claude in Chrome | the top-level fields of `qa.config.json` |
 | Both | all | all of it |
 
-`qa.config.json` (the QA fields are unchanged, plus `qaDriveFolder` and `ba`). Keep every other key already in the file, such as `roles`, `forbidden`, `askFirst` and `_notes`; add `_notes` lines for `qaDriveFolder` and `ba` if `_notes` exists:
+`qa.config.json` (the QA fields are unchanged, plus `qaAssignee`, `qaDriveFolder` and `ba`). Keep every other key already in the file, such as `roles`, `forbidden`, `askFirst` and `_notes`; add `_notes` lines for `qaAssignee`, `qaDriveFolder` and `ba` if `_notes` exists:
 
 ```json
 {
@@ -38,6 +38,7 @@ One shared config, `qa.config.json`, holds every answer for both roles. The BA f
   "board": "gitlab",
   "boardUrl": "<milestones list URL>",
   "outputDir": "qa-output",
+  "qaAssignee": "<GitLab username of the QA>",
   "qaDriveFolder": "<QA Drive folder link>",
   "ba": {
     "project": "<group/project>",
@@ -64,6 +65,7 @@ If a copy already uses other keys, keep them and change only the values the user
 - **Products** (BA): list the open milestones, group them by the prefix before ` - SPR`, and ask which products to track. Save one prefix each; they run in parallel.
 - **Drive folder** (BA, QA): the link of the BA folder and/or the QA folder. For the Questions List, ask which doc in the BA folder it is.
 - **Environment URLs** (QA): `dev` and `stag`. `readyLabel` only if the team marks tickets as deployed; otherwise leave it out.
+- **QA assignee** (QA): the GitLab username (the handle only, never an email or full name) of the person tickets are assigned to for QA. Optional; leave it out if the team has no fixed QA.
 - **Test data prefix** (QA, default `E2E `) and **output folder** (QA, default `qa-output`).
 - **Release note** (BA): project name for the subject, and the build links (name and location, copied as text).
 
