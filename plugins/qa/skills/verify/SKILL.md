@@ -26,7 +26,7 @@ Missing? Ask once and offer to create it. `readyLabel` is optional.
 1. Input: ticket number, `--env` (default `dev`), related features (optional).
 2. Find the ticket: `board` tool → else `boardUrl` in a new tab (user signs in if needed) → else ask.
 3. If `readyLabel` is set and missing on the ticket: tell the user and stop unless they say go.
-4. Test cases: latest ticket comment starting with `QA test cases` (the "Test cases" table: one row per case; steps and expected results are numbered the same). None? Suggest `/qa:test`.
+4. Test cases: the description of the sub-issue `QA test cases – #<n>` under the ticket (the "Test cases" table: one row per case; steps and expected results are numbered the same). None? Suggest `/qa:write-test-cases`.
 5. No related features? Suggest 3–5 with a reason. Wait for confirm.
 6. Check Chrome tools (`--chrome`) and that the user is signed in to the env.
 7. Run rows with Run = `Auto`, then related features. Other rows = "Not run" + reason.
