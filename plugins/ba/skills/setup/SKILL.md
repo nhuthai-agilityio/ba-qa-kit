@@ -96,4 +96,4 @@ Next: <n> connectors missing, <n> fields missing. Reply: fix, run <skill>, or st
 ```
 
 - **fix** → ask again only for the missing items, then plan and ask before writing.
-- BA ready → suggest `find-requirement-gaps`; QA ready → suggest `/qa:test`.
+- BA ready → suggest `find-requirement-gaps`; QA ready → suggest `/qa:write-test-cases`.
