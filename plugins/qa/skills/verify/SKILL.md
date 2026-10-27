@@ -30,13 +30,14 @@ Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` list
 4. Test cases: the description of the sub-issue `QA test cases – #<n>` under the ticket (the "Test cases" table: one row per case; steps and expected results are numbered the same). None? Suggest `/qa:write-test-cases`.
 5. Round: 1 more than the highest Round for this Env and Ticket in `<outputDir>/verify-summary.md` or in the sub-issue comments `QA verify – #<n> – <env> – Round <round>`. None yet = Round 1.
 6. No related features? Suggest 3–5 with a reason. Wait for confirm.
-7. Check Chrome tools (`--chrome`) and that the user is signed in to the env.
+7. Check Chrome tools (`--chrome`) and that the user is signed in to the env. Read `<outputDir>/qa-lessons.md` if it exists and follow the lessons for `verify` or `both`.
 8. Run rows with Run = `Auto`, grouped by Role (same order as `roles`): finish one role, then switch user and run the next. Then run related features. Other rows = "Not run" + reason.
 9. Ticket has a result from another env? Compare case by case.
 10. Write the report to `<outputDir>/<ticket>-verify-<env>-round-<round>.md`.
 11. Update the summary `<outputDir>/verify-summary.md` (create it if missing): add this round to Totals; replace this Env and Ticket's rows in Results and in Fail and Blocked. Keep other tickets and older rounds in Totals.
 12. Post the report as a new comment on the sub-issue `QA test cases – #<n>`. Do not ask. First line: `QA verify – #<n> – <env> – Round <round> – <date>`. Always add a new comment; never edit or delete an older one. Cannot comment? Tell the user and keep the files.
-13. Any Fail? Ask in chat: `Fail: <case list>. Draft bug reports now? yes/no`. Yes: run the `bug` skill for each failed case, with the ticket, env and related test case already filled. `bug` still asks before it creates an issue.
+13. Any Fail? Ask in chat: `Fail: <case list>. Log bugs now? yes/no`. Yes: run the `log-bugs` skill for the failed cases, with the ticket, env, round and related test cases already filled. It creates the bugs without asking.
+14. Any case that now Pass and has an open bug with label `failed`? Run the `log-bugs` skill for those cases without asking. It removes the label and adds a comment.
 
 ## Rules
 - New tab. Open only the env URL and `boardUrl`. Never production.
@@ -86,7 +87,7 @@ One row for each Fail, Blocked or Not run case. For Blocked and Not run, write t
 Type: Bug / PO question / Test limit / Env issue. Say which step failed (e.g. "Step 4: …"). Evidence: screenshot, console errors, failed requests.
 
 ## 5. Next steps
-- <TC ID>: redo it by hand. Bug draft: <file or "not drafted">.
+- <TC ID>: QA runs it by hand to confirm. Real bug: assign it to a developer.
 ```
 
 ## Summary file
@@ -94,7 +95,7 @@ Type: Bug / PO question / Test limit / Env issue. Say which step failed (e.g. "S
 ```
 # QA verify summary
 Updated: <date and time>
-Written by /qa:verify. Running it again for the same Env and Ticket adds a new Round to Totals and replaces that Env and Ticket's rows in Results and in Fail and Blocked.
+Written by /qa:verify. The Bug column is filled by /qa:log-bugs. Running it again for the same Env and Ticket adds a new Round to Totals and replaces that Env and Ticket's rows in Results and in Fail and Blocked.
 
 ## 1. Totals
 | Env | Ticket | Round | Status |
@@ -109,6 +110,6 @@ Latest round only.
 
 ## 3. Fail and Blocked
 Latest round only.
-| Env | Ticket | Test case | Status | Type | Severity | What happened | Full report |
-|---|---|---|---|---|---|---|---|
+| Env | Ticket | Test case | Status | Type | Severity | What happened | Bug | Full report |
+|---|---|---|---|---|---|---|---|---|
 ```
