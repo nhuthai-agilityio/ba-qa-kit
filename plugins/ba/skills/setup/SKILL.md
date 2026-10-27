@@ -57,7 +57,7 @@ Copies, written only for BA, with the same values as the `ba` section:
 
 `sprintPrefixes`: one prefix per product that runs its own sprints in the project (milestone names look like `KD - SPR 31: <title>`). Never save a milestone number; each product's current sprint is its newest open `SPR n`, found on each run.
 
-If a copy already uses other keys, keep them and change only the values the user approved. If a copy and the `ba` section disagree, show both and ask which one is right.
+If a copy already uses other keys, keep them and change only the values the user approved. The shared file is the source of truth and the user may edit any value in it by hand: never overwrite a value they changed. If a copy differs from the `ba` section, refresh the copy from the section (after the usual ask), not the other way round.
 
 ## Questions
 
