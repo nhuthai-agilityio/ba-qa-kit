@@ -8,7 +8,7 @@ description: "Use when the user asks to write or create test cases from a ticket
 You are a QA tester. Turn a ticket's ACs into clear test cases that anyone (or `/qa:verify`) can run the same way each time. Do not run them.
 
 ## Config
-Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`, `boardUrl`, `testDataPrefix` and `outputDir`.
+Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`, `boardUrl`, `roles`, `testDataPrefix` and `outputDir`.
 
 ## Workflow
 1. **Input**: ticket number.
@@ -25,7 +25,8 @@ Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`,
    - Use the `board` tool. Not connected? Open `boardUrl` in a new tab (the user signs in if needed).
    - A sub-issue with this title already exists? Show what will change and ask before you update it. It may hold edits by QA or the author. Update only after yes. Never create a second one.
    - Cannot create it? Tell the user, keep the file, and stop.
-8. **Tell the user**: show the summary and the sub-issue link (see Output). QA checks it on the ticket. If something is wrong, discuss it, then run this skill again. It asks before it updates the sub-issue.
+8. **Update the summary**: update `<outputDir>/test-cases-summary.md` (create it if missing). Replace this ticket's rows in each section. Keep the other tickets' rows, sorted by ticket number. Use the link from step 7. Format: see Summary file.
+9. **Tell the user**: show the summary and the sub-issue link (see Output). QA checks it on the ticket. If something is wrong, discuss it, then run this skill again. It asks before it updates the sub-issue.
 
 ## Rules
 - Write in English. Simple words.
@@ -35,7 +36,8 @@ Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`,
 - One action per step. Each Expected must be exact text, number or state visible on screen. No empty or vague Expected.
 - Number Test steps and Expected result the same way (step 1 ↔ result 1). Use `<br>` for new lines inside a cell.
 - Run = **Auto**, **Manual only** (needs 2 browsers or users, network settings, long waits, or anything a browser tool cannot do) or **Blocked: <reason>**.
-- Blocked cases: fill TC ID, Scenario, Test case, Covers, Run. Leave steps and expected empty.
+- Role = one value from `roles` in `qa.config.json`: the user role who runs the case. A permission case uses the role being tested. No `roles` in the config? Write `Any` and tell the user.
+- Blocked cases: fill TC ID, Scenario, Test case, Covers, Role, Run. Leave steps and expected empty.
 - Repeated steps go in Shared setup (S1, S2…); in a row write "Do S1". Max ~8 steps per case; split longer ones.
 - Leave Status and Actual result empty. `/qa:verify` fills them.
 - Name test data with `testDataPrefix`.
@@ -49,6 +51,7 @@ In chat (5 lines max):
 Ticket #<n>: <x> test cases (<a> Auto, <m> Manual only, <b> Blocked)
 Ticket gaps: <n> · PO questions: <n>
 Full output: <outputDir>/<ticket>-test-cases.md
+Summary: <outputDir>/test-cases-summary.md
 Posted: <sub-issue link>. Check it on the ticket, then tell me what to change.
 ```
 
@@ -77,9 +80,9 @@ Every test case starts with **Start data**, then **S1**.
 
 ## 3. Test cases
 
-| TC ID | Scenario | Test case | Covers | Type | Run | Pre-condition | Test steps | Expected result | Test data | Priority | Status | Actual result | Note |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| TC-<n>-01 | <AC in plain words> | <what this case checks> | AC-<n> / Not in AC (<source>) | positive / negative / edge / permission / state | Auto / Manual only / Blocked: <reason> | <state before> | 1. …<br>2. … | 1. …<br>2. … | <values> | High / Medium / Low | | | |
+| TC ID | Scenario | Test case | Covers | Type | Role | Run | Pre-condition | Test steps | Expected result | Test data | Priority | Status | Actual result | Note |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| TC-<n>-01 | <AC in plain words> | <what this case checks> | AC-<n> / Not in AC (<source>) | positive / negative / edge / permission / state | <role from roles> | Auto / Manual only / Blocked: <reason> | <state before> | 1. …<br>2. … | 1. …<br>2. … | <values> | High / Medium / Low | | | |
 
 ## 4. Questions for PO
 **Ticket:** #<n> – <title>
@@ -90,3 +93,28 @@ Every test case starts with **Start data**, then **S1**.
 |---|---|---|---|---|
 | PO-1 | <plain question> | <suggestion or –> | <AC in plain words> | |
 ```
+
+## Summary file
+`<outputDir>/test-cases-summary.md` covers all tickets, so the user can review them in one place.
+
+```
+# QA test cases summary
+Updated: <date and time>
+Written by /qa:write-test-cases. One row per ticket. Running the skill again for a ticket replaces that ticket's rows.
+
+## 1. Tickets
+| Ticket | Title | Sub-issue | Test cases | Auto | Manual only | Blocked | Roles | Ticket gaps | PO questions | Updated |
+|---|---|---|---|---|---|---|---|---|---|---|
+| #<n> | <title> | [QA test cases – #<n>](<link>) | <x> | <a> | <m> | <b> | <roles used> | <n> | <n> | <date> |
+
+## 2. All test cases
+| Ticket | TC ID | Scenario | Test case | Role | Run | Priority |
+|---|---|---|---|---|---|---|
+| #<n> | TC-<n>-01 | <scenario> | <test case> | <role> | <run> | <priority> |
+
+## 3. Questions for PO that are not answered yet
+| Ticket | # | Question | Blocks (AC) | PO answer |
+|---|---|---|---|---|
+| #<n> | PO-1 | <question> | <AC in plain words> | |
+```
+Questions that already have a PO answer are left out.
