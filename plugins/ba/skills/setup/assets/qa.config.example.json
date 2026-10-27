@@ -1,0 +1,19 @@
+{
+  "env": { "dev": "<dev URL>", "stag": "<stag URL>" },
+  "readyLabel": { "dev": "<label>", "stag": "<label>" },
+  "roles": ["<Owner>", "<Member>"],
+  "testDataPrefix": "E2E ",
+  "board": "gitlab",
+  "boardUrl": "<milestones list URL>",
+  "outputDir": "qa-output",
+  "qaAssignee": "<GitLab username of the QA>",
+  "qaDriveFolder": "<QA Drive folder link>",
+  "ba": {
+    "project": "<group/project>",
+    "sprintType": "milestone",
+    "sprintPrefixes": ["<KD>", "<F>"],
+    "questionsList": "<doc link>",
+    "driveFolder": "<BA Drive folder link>",
+    "releaseNote": { "project": "<name>", "links": [ { "name": "<name>", "location": "<URL or text>" } ] }
+  }
+}
