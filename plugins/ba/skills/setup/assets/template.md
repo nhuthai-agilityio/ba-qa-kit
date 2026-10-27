@@ -10,10 +10,11 @@ Setup · <BA / QA / Both>
 Connectors
 - <✔ / ✖ / ○> GitLab: <Connected / Not connected: <how to connect> / Not checked>
 - <✔ / ✖ / ○> Google Drive: <...>
-- <✔ / ✖ / ○> Claude in Chrome: <...>
+- <✔ / ✖ / ○> Claude in Chrome: <...> (QA only)
 
-Tickets
-- <✔ / ✖ / ○> GitLab project <group/project>: <readable / not readable / not checked>
+Sources
+- <✔ / ✖ / ○> GitLab board: <readable / not readable / not checked>
+- <✔ / ✖ / ○> Drive folder: <readable / not readable / not checked>
 
 Files
 - <✔ / ✖> qa.config.json: <written / unchanged / missing: <fields>>
@@ -39,8 +40,9 @@ Connectors
 - ✖ Google Drive: Not connected: add it in Settings → Connectors, then restart
 - ✔ Claude in Chrome: Connected
 
-Tickets
-- ✔ GitLab project hr/hr-app: readable
+Sources
+- ✔ GitLab board: readable
+- ✔ Drive folder: readable
 
 Files
 - ✔ qa.config.json: written
