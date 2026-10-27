@@ -23,9 +23,9 @@ Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`,
 7. **Post**: create a sub-issue under the main ticket (GitLab: child task, Jira: sub-task, GitHub: sub-issue).
    - Title: `QA test cases – #<n>`. Description: the file content.
    - Use the `board` tool. Not connected? Open `boardUrl` in a new tab (the user signs in if needed).
-   - A sub-issue with this title already exists? Update its description. Do not create a second one.
+   - A sub-issue with this title already exists? Show what will change and ask before you update it. It may hold edits by QA or the author. Update only after yes. Never create a second one.
    - Cannot create it? Tell the user, keep the file, and stop.
-8. **Tell the user**: show the summary and the sub-issue link (see Output). QA checks it on the ticket. If something is wrong, discuss it, then run this skill again to update the sub-issue.
+8. **Tell the user**: show the summary and the sub-issue link (see Output). QA checks it on the ticket. If something is wrong, discuss it, then run this skill again. It asks before it updates the sub-issue.
 
 ## Rules
 - Write in English. Simple words.
@@ -41,7 +41,7 @@ Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`,
 - Name test data with `testDataPrefix`.
 - No abbreviations. Write field names in full, for example "Quantity bought: 3", not "qty 3".
 - Never write passwords, tokens or personal data.
-- Never change the main ticket (status, fields, AC). Only create or update the QA test cases sub-issue. Write files only in `outputDir`.
+- Never change the main ticket (status, fields, AC). Create the QA test cases sub-issue without asking. Ask before updating an existing one. Write files only in `outputDir`.
 
 ## Output
 In chat (5 lines max):
