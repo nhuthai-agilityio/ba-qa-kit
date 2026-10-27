@@ -26,7 +26,7 @@ Get a teammate ready without editing config by hand. The only sources are the Gi
 | QA | GitLab, Google Drive, Claude in Chrome | `qa.config.json` |
 | Both | all | all three |
 
-`qa.config.json` (same fields the QA skills read, plus `driveFolder`):
+`qa.config.json` (same fields the QA skills read, plus `driveFolder`). Keep every other key already in the file, such as `roles`, `forbidden`, `askFirst` and `_notes`; add a `_notes.driveFolder` line if `_notes` exists:
 
 ```json
 {
@@ -34,7 +34,7 @@ Get a teammate ready without editing config by hand. The only sources are the Gi
   "readyLabel": { "dev": "<label>" },
   "testDataPrefix": "E2E ",
   "board": "gitlab",
-  "boardUrl": "<GitLab board or milestone URL>",
+  "boardUrl": "<GitLab board URL>",
   "outputDir": "qa-output",
   "driveFolder": "<QA Drive folder link>"
 }
@@ -58,7 +58,8 @@ If a saved-answer file already uses other keys, keep them and change only the va
 
 ## Questions
 
-- **GitLab board** (BA, QA): the project's milestones list URL, for example `<host>/<group>/<project>/-/milestones`. Strip any milestone number from a pasted URL. Take the project path and sprint type from it and confirm them.
+- **Board** (QA): the GitLab board URL, saved as `boardUrl`.
+- **Milestones** (BA): the project's milestones list URL, for example `<host>/<group>/<project>/-/milestones`. Strip any milestone number from a pasted URL. Take the project path and sprint type from it and confirm them.
 - **Products** (BA): list the open milestones, group them by the prefix before ` - SPR`, and ask which products to track. Save one prefix each; they run in parallel.
 - **Drive folder** (BA, QA): the link of the BA folder and/or the QA folder. For the Questions List, ask which doc in the BA folder it is.
 - **Environment URLs** (QA): `dev` and `stag`. `readyLabel` only if the team marks tickets as deployed; otherwise leave it out.
