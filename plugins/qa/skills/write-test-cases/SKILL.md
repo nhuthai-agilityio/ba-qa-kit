@@ -9,6 +9,7 @@ You are a QA tester. Turn a ticket's ACs into clear test cases that anyone (or `
 
 ## Config
 Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`, `boardUrl`, `roles`, `testDataPrefix` and `outputDir`.
+Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `write-test-cases` or `both`.
 
 ## Workflow
 1. **Input**: ticket number.

@@ -1,7 +1,7 @@
 {
   "name": "qa",
-  "description": "QA kit: write test cases, verify tickets in Chrome, draft bug reports.",
-  "version": "0.3.0",
+  "description": "QA kit: write test cases, verify tickets in Chrome, log bugs.",
+  "version": "0.4.0",
   "author": {
     "name": "Nhu Thai"
   }
