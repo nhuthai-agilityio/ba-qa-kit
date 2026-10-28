@@ -17,18 +17,18 @@ Write the client's answers directly into the Questions List. Never invent or gue
 ## Steps
 
 1. **Get the reply and the list.** If not given, ask: "Please paste the client's reply (or share the link)." The Questions List is the Google Doc the user gives, else `ba-output/question-list-<name>.md`; if neither exists, ask for it. Read links with the connected app (Slack, Gmail, GitLab, Google Drive); if one can't be opened, ask the user to paste it.
-2. **Match** each part of the reply to a question number. If the client didn't use numbers, match by content. If a part fits no question or more than one, mark it **Unmatched**.
+2. **Match** each part of the reply to a question number (`Q<n>`, or `Q<n><letter>` for a sub-question). If the client didn't use numbers, match by content. If a part fits no question or more than one, mark it **Unmatched**.
 3. **Classify** each question:
    - **Answered** — clear and complete.
    - **Partly answered** — vague ("as usual", "ok", "maybe") or covers only part → add a follow-up.
    - **Not answered** — nothing in the reply → Pending.
    - **Conflict** — disagrees with the GitLab issue, a Drive doc or an earlier answer.
 4. **Show a short summary in chat** (one line per question: number, status, note), plus any Unmatched parts, and name the file or doc that will be updated. Then **stop and show the progress line**. Do not change the file until the user replies; their **go** covers writing to that file or doc.
-5. **On go, update the Questions List** following the Answers section of `assets/template.md` in the `write-questions` skill. If that skill or file is not installed, say so and use this shape: under each question, `Answer (<who>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. If the file or doc can't be edited (e.g. no access), give the user the updated text to paste.
+5. **On go, update the Questions List** following the Answers section of `assets/template.md` in the `write-questions` skill. If that skill or file is not installed, say so and use this shape: under each question or sub-question, `→ Answer (<role>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. If the file or doc can't be edited (e.g. no access), give the user the updated text to paste.
 
 ## Rules
 
-- Keep the client's words; add who answered and the date as `Mon DD, YYYY` (e.g. `Oct 26, 2026`).
+- Keep the client's words; add the answerer's role (for example PO, never a personal name) and the date as `Mon DD, YYYY` (e.g. `Oct 26, 2026`).
 - Skip passwords, tokens and personal data (names, emails, phone numbers) from the reply; write "[removed]" instead.
 - Never renumber or delete questions.
 - A vague answer is never treated as Answered.

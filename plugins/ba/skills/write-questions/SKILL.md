@@ -1,6 +1,6 @@
 ---
 name: write-questions
-description: Creates a short, clear clarification question list for the client or PO from a Gap Report, in the team template. Use when the user asks to create a question list, Q&A list or questions for the client, or a Gap Report is ready.
+description: Creates a short, clear clarification Questions List for the client or PO from a Gap Report, in the team template. Use when the user asks to create a question list, Q&A list or questions for the client, or a Gap Report is ready.
 ---
 
 # Write Questions

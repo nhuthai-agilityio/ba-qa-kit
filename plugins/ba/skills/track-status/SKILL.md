@@ -29,7 +29,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
    - **Time used %** = working days from the sprint start up to yesterday ÷ all working days of the sprint. Today is left out because its work is not finished yet (Late start counts the days left from today).
    - **Behind** when the rounded Done % is more than 20 points under the rounded Time used %; otherwise **On track**.
    - No start or end date: show Done % only and write the fallback Progress line from the template. No tickets: write `Progress: No tickets`.
-6. **Check questions.** Each requirement has its own Questions List, named after its parent ticket: `ba-output/question-list-<n>.md`, where `<n>` is the ticket's parent issue (story issues from `/ba:stories-to-board`) or the ticket itself, or the Google Doc linked in the ticket. If it is missing or has no matching Q<n>, skip that ticket and note it in the report. For each `Pending Q<n>` in a ticket's Notes, find Q<n> in that ticket's list:
+6. **Check questions.** Each requirement has its own Questions List, named after its parent ticket: `ba-output/question-list-<n>.md`, where `<n>` is the ticket's parent issue (story issues from `/ba:stories-to-board`) or the ticket itself, or the Google Doc linked in the ticket. If it is missing or has no matching Q<n>, skip that ticket and note it in the report. For each `Pending Q<n>` in a ticket's Notes, find question n (or sub-question `Q<n><letter>`, for example `Q2a`) in that ticket's list:
    - `→ Pending` → **Pending**.
    - `→ Answer …` but the ticket still says Pending → **Answered, ticket not updated**.
 7. **Write the report** with `assets/template.md`. Show it in chat and save it to `ba-output/status-<YYYY-MM-DD>.md`, then show the progress line.

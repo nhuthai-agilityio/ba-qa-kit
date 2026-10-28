@@ -60,7 +60,7 @@ End with this progress line, then wait for the user:
 
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-gaps · write-questions · collect-answers · write-stories
-Next: write-questions — turn the gaps into the client question list. Reply go, tell me what to change, or stop.
+Next: write-questions — turn the gaps into the client Questions List. Reply go, tell me what to change, or stop.
 ```
 
 - `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name. `Round <n>` (also `r<n>` in the file name): 1 for the first run; otherwise the highest existing `gap-report-<name>-r*.md` in `ba-output/` plus 1.
