@@ -30,7 +30,7 @@ Progress: <done>/<total> done (<n>%) · <n>% of sprint time used · <On track / 
 ## Rules
 
 - Summary: status counts (Done, In progress, To do) add up to the tickets total; Blocked, Stale, Sent back and Late start are flags and can overlap.
-- **Progress**: one line per sprint. With several products, start each line with the sprint name (`KD - SPR 31: 6/10 done (60%) · …`). Behind = Done % more than 20 points under time used.
+- **Progress**: one line per sprint. `<done>` is every ticket Done now, the same as the Summary's Done count, not the Done section (done in the period). Percentages are whole numbers. No start or end date: `Progress: 3/8 done (38%) · time used not measurable (no start or end date)`. No tickets: `Progress: No tickets`. With several products, start each line with the sprint name (`KD - SPR 31: 6/10 done (60%) · …`). Behind = the rounded Done % is more than 20 points under the rounded time used.
 - **Needs action** order: Blocked, Sent back, Stale, Late start.
 - **Questions** status: Pending, or Answered (ticket not updated).
 - Type: Story (`[US-nn]`), Task or Bug.
