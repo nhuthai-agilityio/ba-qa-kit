@@ -46,7 +46,7 @@ Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` list
 6. Check Chrome tools (`--chrome`) and that the user is signed in to the env. Read `<outputDir>/qa-lessons.md` if it exists and follow the lessons for `verify` or `both`.
 7. Run the tickets one by one, in ticket-number order. Do steps 8–14 for each ticket.
 8. Test cases: the description of the latest `QA test cases` sub-issue under the ticket (highest version; no suffix = v1) (the "Test cases" table: one row per case; steps and expected results are numbered the same).
-9. Round: 1 more than the highest Round for this Env and Ticket in `<outputDir>/verify-summary.md` or in the comments `QA verify – #<n> – <env> – Round <round>` on any version of the ticket's `QA test cases` sub-issue. None yet = Round 1. The comments found here (all versions) also give the links for `Earlier rounds` in the report.
+9. Round: 1 more than the highest Round for this Env and Ticket in `<outputDir>/verify-summary.md` or in the comments `QA verify – #<n> – <env> – Round <round>` on any version of the ticket's `QA test cases` sub-issue. None yet = Round 1. The comments found here (all versions) also give the links for `Earlier rounds` in the report. A round that exists only in `verify-summary.md` has no link: write `Round <r> (v<k>) no link`.
 10. Run rows with Run = `Auto`, grouped by Role (same order as `roles`): finish one role, then switch user and run the next. Then run related features. Other rows = "Not run" + reason.
 11. Ticket has a result from another env? Compare case by case.
 12. Write the report to `<outputDir>/<ticket>-verify-<env>-round-<round>.md`.

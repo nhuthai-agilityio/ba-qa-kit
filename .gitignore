@@ -1,5 +1,5 @@
-# Output sinh ra khi chạy QA plugin (test case, bug report, ảnh chụp): bỏ qua,
-# trừ bài học và incident record để cả team dùng chung
+# QA plugin output (reports, screenshots, summaries): ignored,
+# except the lessons file and incident records, which the team shares
 **/qa-output/*
 !**/qa-output/qa-lessons.md
 !**/qa-output/incidents/
