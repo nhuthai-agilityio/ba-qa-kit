@@ -16,12 +16,12 @@ Write the sprint release note email as a draft. A person reviews and sends it; n
 
 ## Config and files
 
-- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba-qa-kit:setup`.
 - **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
 
 ## Steps
 
-1. **Get the release.** Propose the products from `ba.sprintPrefixes` with each one's current sprint (its newest open `<prefix> - SPR <n>` milestone, as in `/ba:track-status`), and ask the user to confirm them and give the release date. No prefixes? Ask: "Which products and sprints are released, and on what date?" Several products released the same day go into **one note** (see Rules). The project name and build links come from `ba.releaseNote` (see Config). Missing? Ask for the project name and where the build links are (store links, version and build, Storybook, repository), then save only `project` and `links` (each link as a name and its location) to `ba-output/release-note.json` — no tokens, no personal data (not the sender name), and links are copied as text, never opened. Ask for the sender name on every run.
+1. **Get the release.** Propose the products from `ba.sprintPrefixes` with each one's current sprint (its newest open `<prefix> - SPR <n>` milestone, as in `/ba-qa-kit:track-status`), and ask the user to confirm them and give the release date. No prefixes? Ask: "Which products and sprints are released, and on what date?" Several products released the same day go into **one note** (see Rules). The project name and build links come from `ba.releaseNote` (see Config). Missing? Ask for the project name and where the build links are (store links, version and build, Storybook, repository), then save only `project` and `links` (each link as a name and its location) to `ba-output/release-note.json` — no tokens, no personal data (not the sender name), and links are copied as text, never opened. Ask for the sender name on every run.
 2. **Read each product's sprint tickets**: number, title, status, labels, comments. If GitLab can't be read, ask the user to paste the ticket list.
 3. **Sort by status:**
    - **DONE** — closed or in the Done list.

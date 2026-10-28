@@ -12,11 +12,11 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 - **Needs** (from the user): nothing; it runs on the current sprint.
 - **Reads**: `ba.project`, `ba.sprintType`, `ba.sprintPrefixes`, the sprint's tickets and comments, the latest `ba-output/status-*.md` and each ticket's Questions List.
 - **Writes**: `ba-output/status-<YYYY-MM-DD>.md`, also shown in chat. Never changes the board.
-- **Next**: reply `update` at the progress line (`/ba:write-stories`, which also updates the board tickets), or `draft` for comments or a client follow-up.
+- **Next**: reply `update` at the progress line (`/ba-qa-kit:write-stories`, which also updates the board tickets), or `draft` for comments or a client follow-up.
 
 ## Config and files
 
-- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba-qa-kit:setup`.
 - **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
 
 ## Steps
@@ -36,7 +36,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
    - **Time used %** = working days from the sprint start up to yesterday ÷ all working days of the sprint. Today is left out because its work is not finished yet (Late start counts the days left from today).
    - **Behind** when the rounded Done % is more than 20 points under the rounded Time used %; otherwise **On track**.
    - No start or end date: show Done % only and write the fallback Progress line from the template. No tickets: write `Progress: No tickets`.
-6. **Check questions.** Each requirement has its own Questions List, named after its parent ticket: `ba-output/question-list-<n>.md`, where `<n>` is the ticket's parent issue (story issues from `/ba:write-stories`) or the ticket itself, or the Google Doc linked in the ticket. If it is missing or has no matching Q<n>, skip that ticket and note it in the report. For each `Pending Q<n>` in a ticket's Notes, find question n (or sub-question `Q<n><letter>`, for example `Q2a`) in that ticket's list:
+6. **Check questions.** Each requirement has its own Questions List, named after its parent ticket: `ba-output/question-list-<n>.md`, where `<n>` is the ticket's parent issue (story issues from `/ba-qa-kit:write-stories`) or the ticket itself, or the Google Doc linked in the ticket. If it is missing or has no matching Q<n>, skip that ticket and note it in the report. For each `Pending Q<n>` in a ticket's Notes, find question n (or sub-question `Q<n><letter>`, for example `Q2a`) in that ticket's list:
    - `→ Pending` → **Pending**.
    - `→ Answer …` but the ticket still says Pending → **Answered, ticket not updated**.
 7. **Write the report** with `assets/template.md`. Show it in chat and save it to `ba-output/status-<YYYY-MM-DD>.md`, then show the progress line.
@@ -47,7 +47,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 - Only the current sprint's tickets.
 - Every line has the issue `#` and the date of the change.
 - Stale is about days without updates, never about people. Working days are Monday to Friday; public holidays are not counted unless the user says so.
-- Questions: Pending for 2+ days, counted from the date the question was asked (the Questions List date, else the date of the ticket comment that first mentions it; if neither, say the age is unknown) → add "Check for a client reply", and suggest `/ba:collect-answers` if it is installed. Answered → suggest updating the user stories, then the board tickets.
+- Questions: Pending for 2+ days, counted from the date the question was asked (the Questions List date, else the date of the ticket comment that first mentions it; if neither, say the age is unknown) → add "Check for a client reply", and suggest `/ba-qa-kit:collect-answers` if it is installed. Answered → suggest updating the user stories, then the board tickets.
 - Nothing moved → write "No change today", skip Moved and Done for tickets that moved in the period (there are none), keep Needs action.
 - GitLab not connected → ask the user to paste the sprint board.
 - Chat in the user's language; the report in English.
@@ -62,6 +62,6 @@ Next: <n>% done (<On track / Behind>), <n> blocked, <n> stale, <n> sent back, <n
 ```
 
 - Several products: one `<prefix> <n>% (<On track / Behind>)` per product, in the order of `sprintPrefixes`.
-- **update** → suggest `/ba:write-stories` to update the user stories and, after go, the board tickets. If it is not installed, stop and list what needs updating.
+- **update** → suggest `/ba-qa-kit:write-stories` to update the user stories and, after go, the board tickets. If it is not installed, stop and list what needs updating.
 - **draft** → draft comments or a client follow-up; post only after go.
 - **stop** → end here.

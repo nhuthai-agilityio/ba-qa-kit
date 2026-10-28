@@ -1,6 +1,6 @@
 ---
 name: log-bugs
-description: "Logs bugs from failed /qa:verify cases as child items of the ticket, follows them across rounds, and records verify mistakes as incident records. Use when the user asks to log, write or draft bug reports, or says a logged bug is not a real bug (review)."
+description: "Logs bugs from failed /ba-qa-kit:verify cases as child items of the ticket, follows them across rounds, and records verify mistakes as incident records. Use when the user asks to log, write or draft bug reports, or says a logged bug is not a real bug (review)."
 ---
 
 # QA Log Bugs – Log bugs and learn from verify mistakes
@@ -8,16 +8,16 @@ description: "Logs bugs from failed /qa:verify cases as child items of the ticke
 You are a QA tester. Turn failed cases into bug issues so QA can check them by hand. When QA finds that a "bug" was a mistake in the test case or in the verify run, find the cause and record it so it does not happen again. Do not fix the app.
 
 ## Config
-Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`, `boardUrl`, `env`, `qaAssignee`, `standards` (optional) and `outputDir`. `standards` missing or empty: an Expected with no source is a PO question (see step 3).
+Read `qa.config.json` in the repo root (same file as `/ba-qa-kit:verify`). Use `board`, `boardUrl`, `env`, `qaAssignee`, `standards` (optional) and `outputDir`. `standards` missing or empty: an Expected with no source is a PO question (see step 3).
 `qaAssignee` is the username of the QA who checks every bug by hand. Missing? Ask once and offer to add it.
 
 ## Modes
-- **Log** (default): called by `/qa:verify` after the user said yes, or by the user with failed cases or a description.
-- **Review**: `/qa:log-bugs review #<bug issue>`. QA says the bug is not real.
-- **Link**: `/qa:log-bugs link TC-1-09=#6`. The user names a bug by others for a case. Do the steps of "Bugs by others" for it, without the table.
+- **Log** (default): called by `/ba-qa-kit:verify` after the user said yes, or by the user with failed cases or a description.
+- **Review**: `/ba-qa-kit:log-bugs review #<bug issue>`. QA says the bug is not real.
+- **Link**: `/ba-qa-kit:log-bugs link TC-1-09=#6`. The user names a bug by others for a case. Do the steps of "Bugs by others" for it, without the table.
 
 ## Log workflow
-1. **Input**: failed cases from `/qa:verify` in this chat (ticket, env, round, cases) and any cases that now Pass; or the user's description. The user may also give `--bugs #6,#9` (bugs by others, see "Bugs by others"). Missing ticket number, env or steps? Ask. The version `v<k>` of the test cases is in the verify report (`Test cases: v<k>`). No verify report? Use the latest `QA test cases` sub-issue (highest version; ask if it is unclear).
+1. **Input**: failed cases from `/ba-qa-kit:verify` in this chat (ticket, env, round, cases) and any cases that now Pass; or the user's description. The user may also give `--bugs #6,#9` (bugs by others, see "Bugs by others"). Missing ticket number, env or steps? Ask. The version `v<k>` of the test cases is in the verify report (`Test cases: v<k>`). No verify report? Use the latest `QA test cases` sub-issue (highest version; ask if it is unclear).
 2. **Lessons**: read `<outputDir>/qa-lessons.md` if it exists. A lesson matches a failed case? Say so in the bug's "For QA" note.
 3. **Bug or PO question?** Take the Type from the Findings of the verify report.
    - Type `PO question`: do not log a bug and do not make up PO numbers. The verify report already lists it. Tell the user `skipped: <TC ID> is a PO question (see the verify report)`.
@@ -42,7 +42,7 @@ Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`,
 4. Write the incident record `<outputDir>/incidents/<ticket>-incident-<NN>.md` (template below).
 5. Add a row to `<outputDir>/qa-lessons.md` (create it if missing): ID `L-<NNN>`, Applies to (`write-test-cases` / `verify` / `both`), Feature, Lesson (one sentence: what to do next time), Incident record, Added.
 6. Ask: `Comment on bug #<n> with the cause and close it as not a bug? yes/no`. Yes: comment with the cause and the record path, add label `not-a-bug`, close it. Always ask before closing.
-7. Tell QA the record path and the lesson ID. The test case is wrong? Suggest `/qa:write-test-cases <ticket>` to fix it.
+7. Tell QA the record path and the lesson ID. The test case is wrong? Suggest `/ba-qa-kit:write-test-cases <ticket>` to fix it.
 
 ## Bugs by others
 Bugs that others logged (for example the team's own bug list) are never changed, only commented, and only after the user confirms.
@@ -51,7 +51,7 @@ Bugs that others logged (for example the team's own bug list) are never changed,
   - issues linked to the ticket (related, blocks…) with the same label or title;
   - bugs the user named (`--bugs`, `link`), the `Related bug: #<n>` note of a case, and the Bug column of `verify-summary.md`.
 - **Match**: Strong when the bug mentions the TC ID (description or a comment), the user named it, or two or more of these are the same as in the case: the Expected message, the input value in the steps, the field names. Weak when only one is (for example a similar title).
-- **Ask once** (together with `Log bugs now?` when `/qa:verify` calls this skill). Strong first.
+- **Ask once** (together with `Log bugs now?` when `/ba-qa-kit:verify` calls this skill). Strong first.
   ```
   | # | Bug (link) | Status | Case (this run) | Result | Match | Why |
   |---|---|---|---|---|---|---|
@@ -98,13 +98,13 @@ Steps
 
 **Related test case:** <TC ID> (<test case>) in <link to the QA test cases sub-issue of the version that was run>
 
-**Found by:** /qa:verify, Round <round>
+**Found by:** /ba-qa-kit:verify, Round <round>
 
 ---
 For QA (<qaAssignee>)
 1. Run the steps by hand.
 2. Real bug: assign this issue to a developer.
-3. Not a bug (the verify run or the test case was wrong): tell Claude with `/qa:log-bugs review #<this issue>`.
+3. Not a bug (the verify run or the test case was wrong): tell Claude with `/ba-qa-kit:log-bugs review #<this issue>`.
 4. Source is "assumed, not in AC"? Confirm the Expected with the PO. Write this step only for such a bug.
 ```
 
@@ -129,7 +129,7 @@ Added as lesson L-<NNN> in `qa-lessons.md`.
 ```
 
 ## Lessons file
-`<outputDir>/qa-lessons.md`. `/qa:write-test-cases` and `/qa:verify` read it before they start.
+`<outputDir>/qa-lessons.md`. `/ba-qa-kit:write-test-cases` and `/ba-qa-kit:verify` read it before they start.
 ```
 # QA lessons
 | ID | Applies to | Feature | Lesson | Incident record | Added |
