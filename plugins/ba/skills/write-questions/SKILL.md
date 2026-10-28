@@ -5,6 +5,13 @@ description: Creates a short, clear clarification question list for the client o
 
 # Write Questions
 
+## Config and files
+
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
+- **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
+- **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
+- **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
+
 ## Steps
 
 1. **Get the Gap Report.** If none exists, run `find-gaps` first and wait at its progress line for the user's go. If that skill is not installed, ask the user to paste the gaps. A Gap Report is a list of gaps, each with an impact (High, Medium or Low), the screen or part it belongs to, and a one-line description of what is missing or unclear.
@@ -12,8 +19,8 @@ description: Creates a short, clear clarification question list for the client o
 3. **Group** questions by part and screen, in user-flow order (login → home → features → settings).
 4. **One question per gap**; High-impact first. Every High gap must have a question.
 5. **Skip** anything the GitLab issue (read with the GitLab connector or `glab`), the Drive docs (Google Drive connector) or an earlier Questions List already answers.
-6. **Loop round:** add the new questions to the same Questions List file, never a new one. Find it from the Google Doc link the user gives, otherwise in `ba-output/` (if several `question-list-*.md` files exist, pick the one matching the ticket or requirement, else ask); if none exists, ask the user for the link or file. Put them under a new part `ROUND <n> — <Mon DD, YYYY>` at the end, with numbering continuing from the last question.
-7. **Deliver** into the user's Google Doc if one is given (see Rules), otherwise save it to `ba-output/question-list-<name>.md` in the current folder (ask before saving anywhere else), then show the progress line.
+6. **Loop round:** add the new questions to the same Questions List file, never a new one. Find it from the Google Doc link the user gives, otherwise `ba-output/question-list-<name>.md`; if neither exists, ask the user for the link or file. Put them under a new part `ROUND <n> — <Mon DD, YYYY>` at the end, with numbering continuing from the last question.
+7. **Deliver** into the user's Google Doc if one is given (see Rules), otherwise save it to `ba-output/question-list-<name>.md`, then show the progress line.
 
 ## Question style
 
@@ -28,7 +35,6 @@ Patterns: "Is it right if we assume...?" · "RE `<X>`, we will `<Y>`, right?" ·
 
 - **Template values**: `<App Name>` and `<source>` (for example UI/UX, PRD, ticket) come from the ticket or docs; ask the user if they don't name them.
 - **Date**: use today's date as `Mon DD, YYYY` (for example `Aug 03, 2026`) for the title and round dates.
-- **File name**: `<name>` is the GitLab issue number, or a lowercase slug of the requirement (for example `login-flow`) if there is no ticket, so the same requirement always gives the same file.
 - **Google Doc**: if the user gives a Google Doc link, write directly into that doc with the Google Drive connector — confirm once before editing an existing doc, keep its existing content and styles, add only the new content. If the connector is missing, not signed in, or the doc can't be edited, say so and give the text to paste. If the GitLab issue or Drive docs can't be read (no connector, not signed in), ask the user to paste what is needed.
 
 ## Progress
@@ -42,5 +48,5 @@ End with this progress line:
 Next: send the list to the client. When they reply, paste it to run collect-answers. Reply with changes, or stop.
 ```
 
-- `#<ticket>`: GitLab issue number, or `#-` if there is none (the file name then uses the requirement slug). `<requirement>`: short feature name.
+- `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name.
 - Show ✔ only for steps that ran in this chat; otherwise ○.

@@ -7,10 +7,15 @@ description: Daily read-only status report for the current GitLab sprint, showin
 
 Run daily. Report the current sprint's tickets so the BA knows what needs action today. Never change the board.
 
+## Config and files
+
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
+- **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
+
 ## Steps
 
-1. **First run only**, ask: the GitLab project, whether the sprint is an iteration or a milestone, and where the Questions List file is. Save the answers to `ba-output/track-status.json` (no tokens or personal data). Both this file and the report go to `ba-output/` in the current folder; create it if missing, no need to ask. Later runs read that file (or the old `ba-output/track-ticket-status.json`, then save it under the new name) instead of asking. If the file can't be read or its project path differs from the one the user names, ask again.
-2. **Find the current sprint** (dates include today). Note its name, end date and days left. No current sprint, or the iteration or milestone can't be read? Say so and ask the user to paste the sprint board.
+1. **Get the config** (see Config): `project`, `sprintType` (iteration or milestone) and `sprintPrefixes`. Missing? Ask once and save the answers to `ba-output/track-status.json` (no tokens or personal data). If the project path differs from the one the user names, ask again.
+2. **Find the current sprint**: if `sprintType` is milestone and `sprintPrefixes` is set, each product's newest open `<prefix> - SPR <n>` milestone. Otherwise (`sprintType` is iteration, or no prefixes), the iteration or milestone whose dates include today. Note its name, end date and days left. No current sprint, or the iteration or milestone can't be read? Say so and ask the user to paste the sprint board.
 3. **Read all its tickets**: status, labels, assignee, last update, comments. Period: since the date of the latest `ba-output/status-*.md`, or the previous working day if there is none (on Monday, since Friday).
 4. **Mark each ticket** (it can have more than one):
    - **Moved** — status changed in the period.
@@ -19,10 +24,10 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
    - **Stale** — not Done, no update for 2+ working days. "Update" is the latest comment or status change, whichever is newer.
    - **Sent back** — moved backward or reopened.
    - **Late start** — still To do with under 30% of the sprint's working days left (counted from today to the end date).
-5. **Check questions.** If the Questions List file is missing or has no matching Q<n>, skip this step and note it in the report. For each `Pending Q<n>` in a ticket's Notes, find Q<n> in the Questions List:
+5. **Check questions.** Each requirement has its own Questions List, named after its parent ticket: `ba-output/question-list-<n>.md`, where `<n>` is the ticket's parent issue (story issues from `/ba:stories-to-board`) or the ticket itself, or the Google Doc linked in the ticket. If it is missing or has no matching Q<n>, skip that ticket and note it in the report. For each `Pending Q<n>` in a ticket's Notes, find Q<n> in that ticket's list:
    - `→ Pending` → **Pending**.
    - `→ Answer …` but the ticket still says Pending → **Answered, ticket not updated**.
-6. **Write the report** with `assets/template.md`. Show it in chat and save it to `ba-output/status-<YYYY-MM-DD>.md` (ask before saving anywhere else), then show the progress line.
+6. **Write the report** with `assets/template.md`. Show it in chat and save it to `ba-output/status-<YYYY-MM-DD>.md`, then show the progress line.
 
 ## Rules
 

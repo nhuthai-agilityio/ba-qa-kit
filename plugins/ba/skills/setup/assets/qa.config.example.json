@@ -12,7 +12,6 @@
     "project": "<group/project>",
     "sprintType": "milestone",
     "sprintPrefixes": ["<KD>", "<F>"],
-    "questionsList": "<doc link>",
     "driveFolder": "<BA Drive folder link>",
     "releaseNote": { "project": "<name>", "links": [ { "name": "<name>", "location": "<URL or text>" } ] }
   }

@@ -14,9 +14,16 @@ The full context is always in:
 - **GitLab issue** — the ticket: description, comments, linked issues, attachments.
 - **Google Drive** — the docs for the feature (PRD, specs, previous Questions List with answers).
 
+## Config and files
+
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
+- **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
+- **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
+- **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
+
 ## Steps
 
-1. **Get the ticket.** If not given, ask: "Please provide the GitLab issue (link or #number) and the Google Drive doc(s) for this feature." No Drive doc at all? Continue with the GitLab issue only and say so in the Sources line.
+1. **Get the ticket.** If not given, ask: "Please provide the GitLab issue (link or #number) and the Google Drive doc(s) for this feature." Also look for the feature's docs in the BA Drive folder (`ba.driveFolder`). No Drive doc at all? Continue with the GitLab issue only and say so in the Sources line.
 2. **Read the GitLab issue fully** (incl. comments) and every Drive doc it links or the user gives. Use the GitLab and Google Drive connectors; if one can't be opened (no access, private or unreachable host), ask the user to share access or paste the content. If they can give neither, stop and say no sources were available. Never copy tokens or personal data from sources into the report. List sources as S1, S2… with name and last-updated date (issue last update, doc last modified).
 3. **Review each feature/screen** with the checklist. Also check:
    - Can it be written as "When `<trigger>`, the system shall `<response>`"? If not → gap.
@@ -24,7 +31,7 @@ The full context is always in:
    - Do sources disagree? → Conflict (don't pick a winner; name the newer source in the Finding column).
    - Already answered in a previous Questions List? → skip.
    - Used by **Assumption**: the sources are silent and the team must assume something to go on. Write the assumption as the finding, so the client can confirm it.
-   - **Loop round**: it is one when `ba-output/` already has a `gap-report-<ticket>-r*.md` or the user gives an answer doc.
+   - **Loop round**: it is one when `ba-output/` already has a `gap-report-<name>-r*.md` or the user gives an answer doc.
      - Also review the client answers (a Drive doc or pasted text) themselves. New rules, new cases or vague answers are new gaps.
      - Gap IDs continue (G-12, G-13…); report only new and still-open gaps.
 4. **Output the Gap Report** (see Output), then **stop and show the progress line** (see Progress). Do not start the next step until the user replies.
@@ -43,7 +50,7 @@ The full context is always in:
 
 Write the Gap Report using `assets/template.md`. A template the user provides replaces it completely.
 
-Show the report in chat and save it to `ba-output/gap-report-<ticket>-r<n>.md` in the current folder. `<ticket>` is the GitLab issue number without `#` (for example `412`). `<App Name>` in the template is the repo or GitLab project name. With no gaps, still save the report: the header, the Sources line and "No gaps found". Ask before saving anywhere else. If the file already exists (same round re-run after a change request), overwrite it. Dates use `Mon DD, YYYY` (for example Aug 02, 2026).
+Show the report in chat and save it to `ba-output/gap-report-<name>-r<n>.md`. `<App Name>` in the template is the repo or GitLab project name. With no gaps, still save the report: the header, the Sources line and "No gaps found". If the file already exists (same round re-run after a change request), overwrite it. Dates use `Mon DD, YYYY` (for example Aug 02, 2026).
 
 ## Progress
 
@@ -56,7 +63,7 @@ End with this progress line, then wait for the user:
 Next: write-questions — turn the gaps into the client question list. Reply go, tell me what to change, or stop.
 ```
 
-- `#<ticket>`: GitLab issue number. `<requirement>`: short feature name. `Round <n>` (also `r<n>` in the file name): 1 for the first run; otherwise the highest existing `gap-report-<ticket>-r*.md` in `ba-output/` plus 1.
+- `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name. `Round <n>` (also `r<n>` in the file name): 1 for the first run; otherwise the highest existing `gap-report-<name>-r*.md` in `ba-output/` plus 1.
 - **go** → run `write-questions`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
 - **Change request** → update the Gap Report, then show the progress line again.
 - **stop** → end here.
