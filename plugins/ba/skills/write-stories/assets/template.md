@@ -40,6 +40,7 @@ The user can <capability>.
 - **A/C** starts with one summary line, `The <user or role> can <capability>.` (for example "The employee can …"), then bullets. No numbers, no `AC-1` labels, no arrows.
 - **Each bullet** is one full sentence in the present tense with one behavior. Bullets follow the user's flow in order (start → action → result → what happens next).
 - **Screens**: name the screen in **bold** whenever the user moves to it or something shows on it (for example "the user is redirected to the **Agility Dashboard**").
+- **Observable**: write what the user sees or does, not how the system does it (no "a session is created", "a token is stored").
 - **Real values**: who, which data, which limit ("an approved company email domain", "max 50 characters"), never "valid", "quickly", "properly".
 - Validation, error handling and edge cases use the same full-sentence style.
 - No **New questions** or **Pending items** sections — questions live in the Questions List; only inline `Pending Q<n>` lines.
@@ -53,9 +54,9 @@ The user can <capability>.
 
 **Acceptance criteria**
 The user can sign in using Google OAuth.
+- On **Sign in**, the user selects **Sign in with Google** and chooses their Google account.
 - Only users with an approved company email domain are allowed to access the application.
 - After successful authentication, the user is redirected to the **Agility Dashboard**.
-- The authenticated session is created after a successful login.
 - The user remains signed in across browser refreshes until the session expires or the user logs out.
 
 **Validation & error handling**
