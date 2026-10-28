@@ -25,4 +25,4 @@ The team installs the kit from GitLab.
 
 ## Output
 
-In plain Vietnamese, one or two lines: synced commit (short hash and message), or what stopped it and what the user should do. Then remind them that teammates get it with `claude plugin marketplace update ba-qa-kit` and `claude plugin update <plugin>@ba-qa-kit`, and only if the plugin's `version` was raised.
+In plain Vietnamese, one or two lines: synced commit (short hash and message), or what stopped it and what the user should do. Then remind them that teammates get it with `claude plugin marketplace update ba-qa-kit` and `claude plugin update ba-qa-kit@ba-qa-kit`, and only if `version` in `plugins/ba-qa-kit/.claude-plugin/plugin.json` was raised.
