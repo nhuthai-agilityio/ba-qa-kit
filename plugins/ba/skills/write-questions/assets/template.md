@@ -89,11 +89,11 @@ This document provides the questions and answers when analyzing the UI/UX for AB
 ## MAIN APPLICATION
 
 ### AUTHENTICATION
-1. Is it right if we assume sign up is out of scope?
-2. RE login, we will use the existing ABC account system, right?
-   a. Login opens the ABC login page, then returns to the app on success. Please help confirm.
+1. We assume sign up is out of scope for this release. Is that right?
+2. We assume users log in with their existing ABC account. Is that right?
+   a. After logging in on the ABC login page, the user comes back to the app. Is that right?
 
 ### HOME
-3. The PRD lists 3 Home tabs, the ticket says 4. Which is correct?
-4. Please clarify the options under the account area on Home.
+3. The PRD shows 3 tabs on Home, the ticket shows 4 (with Reports). We will follow the ticket. Is that right?
+4. We assume the account area on Home shows only Profile and Log out. Is that right?
 ```

@@ -1,7 +1,7 @@
 {
   "name": "ba",
   "description": "BA kit: set up the kit, find requirement gaps, write the client Questions List, record the client's answers, write user stories, put them on the GitLab board, draft sprint release notes and track the sprint's tickets.",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "author": {
     "name": "Nhu Thai"
   }
