@@ -13,6 +13,7 @@
     "sprintType": "milestone",
     "sprintPrefixes": ["<KD>", "<F>"],
     "driveFolder": "<BA Drive folder link>",
+    "backlogLabel": "<label of the Backlog column>",
     "releaseNote": { "project": "<name>", "links": [ { "name": "<name>", "location": "<URL or text>" } ] }
   }
 }
