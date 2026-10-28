@@ -29,7 +29,7 @@ Title: [US-<nn>] <User can capability>
 - Copy A/C, errors and edge cases from the story as they are; do not rewrite them.
 - A/C become checkboxes (`- [ ]`) so dev and QA can tick them.
 - Drop a section only if the story has nothing for it.
-- Labels: `user-story`, the feature name (the `## <FEATURE / SCREEN>` heading in the story doc; ask if unclear), and `pending-questions` if Notes has Pending or Conflict lines.
+- Labels: `<backlog label>` (see the skill; the example uses `Backlog`), when there is one, `user-story`, the feature name (the `## <FEATURE / SCREEN>` heading in the story doc; ask if unclear), and `pending-questions` if Notes has Pending or Conflict lines.
 
 ## Example
 
@@ -52,4 +52,4 @@ Title: [US-01] Employee can submit a leave request
 - Pending Q2 – Does the 3-day rule apply to sick leave?
 ```
 
-Labels: `user-story`, `leave`, `pending-questions`
+Labels: `Backlog` (example `<backlog label>`), `user-story`, `leave`, `pending-questions`
