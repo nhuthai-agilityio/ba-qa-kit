@@ -16,22 +16,23 @@ Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`,
 - **Review**: `/qa:log-bugs review #<bug issue>`. QA says the bug is not real.
 
 ## Log workflow
-1. **Input**: failed cases from `/qa:verify` in this chat (ticket, env, round, cases) and any cases that now Pass; or the user's description. Missing ticket number, env or steps? Ask.
+1. **Input**: failed cases from `/qa:verify` in this chat (ticket, env, round, cases) and any cases that now Pass; or the user's description. Missing ticket number, env or steps? Ask. The version `v<k>` of the test cases is in the verify report (`Test cases: v<k>`). No verify report? Use the latest `QA test cases` sub-issue (highest version; ask if it is unclear).
 2. **Lessons**: read `<outputDir>/qa-lessons.md` if it exists. A lesson matches a failed case? Say so in the bug's "For QA" note.
 3. **Bug or PO question?** If the expected result comes from a rule that is not confirmed, do not log a bug. Say so and suggest a PO question instead.
-4. **Find existing bugs**: for each case, search the child items of the ticket with label `Bug` whose description has `Related test case: <TC ID>`.
-   - Open bug, case still Fail: do not create a new bug. Comment `Round <round> (<env>): still Fail` and add label `failed`.
-   - Closed bug without label `not-a-bug` (it was fixed), case Fail again: reopen it, add label `failed`, comment `Round <round> (<env>): Fail again after the fix`. Keep its assignee.
+4. **Find existing bugs**: for each case, search the child items of the ticket that have the label `Bug` or a title that starts with `[Bug]`, and whose description has `Related test case: <TC ID>`. This still finds the bugs when the label `Bug` does not exist on the board.
+   - Open bug, case still Fail: do not create a new bug. Comment `Round <round> (<env>, v<k>): still Fail`, add label `failed` and remove label `passed` if it has it.
+   - Closed bug without label `not-a-bug` (it was fixed), case Fail again: reopen it, add label `failed`, remove label `passed` if it has it, comment `Round <round> (<env>, v<k>): Fail again after the fix`. Keep its assignee.
    - Closed bug with label `not-a-bug`: do not log or reopen. Tell the user, and point to the incident record and `qa-lessons.md`.
-   - Open bug with label `failed`, case now Pass: remove label `failed`, comment `Round <round> (<env>): Pass`. Do not close it. Tell QA to check it and close it.
+   - Open bug that already has label `passed`, case Pass again: do nothing (no label change, no comment). Tell the user `bug #<n> already passed, waiting for QA to close`.
+   - Open bug (without label `passed`), case now Pass: remove label `failed` if it has it, add label `passed`, comment `Round <round> (<env>, v<k>): Pass`. Do not close it. Tell QA to check it and close it.
    - No bug yet, case Fail: go to step 5.
 5. **Draft** each new bug with the template below. One bug per file: `<outputDir>/<ticket>-bug-<NN>.md`.
 6. **Create** the bug as a child item of the ticket (GitLab: child item, Jira: sub-task, GitHub: sub-issue). Title: the `[Bug] …` line. Label: `Bug`. Assignee: `qaAssignee`. Description: the file content. Do not ask. Use the `board` tool; if it is not connected, open `boardUrl` in a new tab (the user signs in if needed). Cannot create it? Tell the user and keep the file.
 7. **Summary**: fill the Bug column in `<outputDir>/verify-summary.md` (Fail and Blocked table) for these cases.
-8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `skipped: bug #<n> was not a bug`.
+8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `bug #<n> already passed, waiting for QA to close` / `skipped: bug #<n> was not a bug`.
 
 ## Review workflow
-1. Read the bug issue, the case in the sub-issue `QA test cases – #<n>`, the verify report of that round in `outputDir`, and `qa-lessons.md`.
+1. Read the bug issue, the case in the `QA test cases` sub-issue of the version in that round's verify report (`Test cases: v<k>`), the verify report of that round in `outputDir`, and `qa-lessons.md`.
 2. Ask QA what they saw when they ran the steps by hand. One question at a time.
 3. Talk with QA to find the cause. Causes: test case wrong (missing step, wrong Expected, wrong test data), verify run wrong (checked too early, wrong element, wrong role, not signed in), environment (dirty data, env down), tool limit (the browser tool cannot do it), PO rule not confirmed. Show the evidence from the report. QA confirms the cause. Do not guess.
 4. Write the incident record `<outputDir>/incidents/<ticket>-incident-<NN>.md` (template below).
@@ -45,7 +46,8 @@ Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`,
 - Expected must name its source (AC, rule ID, design). No source? It is a PO question.
 - Only facts you saw or the user gave. Do not guess the cause.
 - Never write passwords, tokens or personal data. Blur them in screenshots.
-- Never change the ticket or issues you did not log. On a bug you logged you may only: comment, add or remove label `failed`, add label `not-a-bug`, reopen it, and close it after yes. Write files only in `outputDir`.
+- A label does not exist on the board (`Bug`, `failed`, `passed`, `not-a-bug`)? Do the work without it and tell the user which label to create. Never create labels.
+- Never change the ticket or issues you did not log. On a bug you logged you may only: comment, add or remove the labels `failed` and `passed`, add label `not-a-bug`, reopen it, and close it after yes. Write files only in `outputDir`.
 
 ## Severity
 - **Critical**: blocks a main flow, data loss or security issue, no workaround.
@@ -72,7 +74,7 @@ Steps
 
 **Evidence:** <screenshot>, <console errors>, <failed requests>
 
-**Related test case:** <TC ID> (<test case>) in <link to the sub-issue QA test cases>
+**Related test case:** <TC ID> (<test case>) in <link to the QA test cases sub-issue of the version that was run>
 
 **Found by:** /qa:verify, Round <round>
 
@@ -86,7 +88,7 @@ For QA (<qaAssignee>)
 ## Incident record template
 ```
 # Incident record <ticket>-<NN>: <short title>
-Date: <date> | Ticket: #<n> | Env: <env> | Round: <round>
+Date: <YYYY-MM-DD> | Ticket: #<n> | Env: <env> | Round: <round>
 Bug issue: #<n> | Test case: <TC ID> | Cause: <test case / verify run / environment / tool limit / PO rule>
 
 ## What happened
@@ -109,5 +111,5 @@ Added as lesson L-<NNN> in `qa-lessons.md`.
 # QA lessons
 | ID | Applies to | Feature | Lesson | Incident record | Added |
 |---|---|---|---|---|---|
-| L-001 | verify | <feature> | <what to do next time> | `incidents/<ticket>-incident-<NN>.md` | <date> |
+| L-001 | verify | <feature> | <what to do next time> | `incidents/<ticket>-incident-<NN>.md` | <YYYY-MM-DD> |
 ```

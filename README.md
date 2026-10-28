@@ -46,6 +46,11 @@ Inside Claude Code:
 
    The part after `@` is the marketplace name, the same for both.
 
+## QA setup
+
+- Create these labels once on the board: `test case`, `Bug`, `failed`, `passed`, `not-a-bug`. If one is missing, the QA skills still do their work and tell you which label to create. They never create labels.
+- The QA skills write their files in `outputDir` from `qa.config.json`. Reports, summaries, bug drafts and screenshots stay on the machine of the person who ran the skill; everything the team needs (test cases, verify reports, bugs) is also on the board. The lessons file `qa-lessons.md` and the `incidents/` folder are shared through this repo, so every QA gets them with `git pull`. Sharing is optional and done by hand (for example in GitHub Desktop): to share a new lesson, check the new files hold no personal data, then commit them on a branch and open a pull request. The skills never commit or push.
+
 ## Update
 
 In a terminal, then restart Claude Code:
