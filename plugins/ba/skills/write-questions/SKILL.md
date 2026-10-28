@@ -27,18 +27,22 @@ Turn a Gap Report into short, clear questions for the client or PO. Never invent
 2. **Load the template** from `assets/template.md` (a template the user provides replaces it completely).
 3. **Group** questions by part and screen, in user-flow order (login → home → features → settings).
 4. **One question per gap**; High-impact first. Every High gap must have a question.
-5. **Skip** anything the GitLab issue (read with the GitLab connector or `glab`), the Drive docs (Google Drive connector) or an earlier Questions List already answers.
+5. **Skip** anything the GitLab issue (read with the GitLab connector or `glab`), the Drive docs (Google Drive connector), the design or an earlier Questions List already answers. A point the team can answer (tech, small UI details) is not a client question: decide it as an assumption, or list it in chat under "Ask the team first".
 6. **Loop round:** add the new questions to the same Questions List file, never a new one. Find it from the Google Doc link the user gives, otherwise `ba-output/question-list-<name>.md`; if neither exists, ask the user for the link or file. Put them under a new part `ROUND <n> — <Mon DD, YYYY>` at the end, with numbering continuing from the last question.
-7. **Deliver** into the user's Google Doc if one is given (see Rules), otherwise save it to `ba-output/question-list-<name>.md`, then show the progress line.
+7. **Check before sending** each question, and reword it until all four pass: Do I know the requirement? Is the name the same as in the requirement? Is it yes/no? Can the client answer in 10 seconds? Say in chat how many questions were reworded.
+8. **Deliver** into the user's Google Doc if one is given (see Rules), otherwise save it to `ba-output/question-list-<name>.md`, then show the progress line.
 
-## Question style
+## Question rules
 
-- **Short**: one sentence, under 20 words.
-- **Concise**: no filler.
-- **Clear**: one point; name the exact screen, icon or field.
-- Prefer yes/no or A-or-B. Split long questions into sub-questions.
+1. **Know the project first.** Read the requirement and the design before writing. Unsure? Ask the team first (in chat), then the client.
+2. **One name for one thing.** Use the feature and screen names from the requirement, the same everywhere, so the client doesn't think they are different things.
+3. **Ask only what the client knows**: needs, habits, business rules, deadlines. Decide small details yourself and write them as assumptions.
+4. **Prefer yes/no assumptions.** Give an answer, then ask the client to confirm. Instead of "Is Take Out a separate screen?", write "We assume Take Out is a separate screen from Add Item. Is that right?"
+5. **Use the client's words** and real situations. No technical words ("tap", "API", "modal", "validation").
+6. **Easy to answer.** If the client can't answer in 10 seconds, add an example or a suggested answer, or offer A or B.
+7. **Short and clear**: one point per question, under 20 words where possible; split long ones into sub-questions.
 
-Patterns: "Is it right if we assume...?" · "RE `<X>`, we will `<Y>`, right?" · "`<Flow>`. Please help confirm." · "Please specify..." · "Please clarify..." · "`<A>` shows X, `<B>` shows Y. Which is correct?" · "What happens when...?"
+Patterns: "We assume `<X>`. Is that right?" · "When `<real situation>`, we will `<Y>`. Is that right?" · "`<A>` shows X, `<B>` shows Y. We will follow `<A>`. Is that right?" · "Should `<X>` be A or B? We suggest A." Open questions ("What should happen when…? For example …") only when no answer can be assumed.
 
 ## Rules
 
