@@ -6,6 +6,7 @@ Used by `write-stories` for the board issues. Replace this file to use a differe
 
 ```markdown
 Title: [US-<nn>] <User can capability>
+Labels: <backlog label>, user story, <feature label>, pending-questions (only those that exist and apply)
 
 **Story:** <link to user story doc, US-nn> · **Parent:** #<parent issue>
 
@@ -31,12 +32,13 @@ The user can <capability>.
 - Copy the A/C summary line from the story as it is (never write a new one); A/C bullets become checkboxes (`- [ ]`) in the same order, so dev and QA can tick them. `/qa:write-test-cases` refers to a bullet by its position (`AC-1` = the first bullet); never write `AC-<n>` labels in the issue.
 - Drop a section only if the story has nothing for it.
 - Notes collect the story's Design link, every `Pending Q<n>` line (wherever it is in the story) and `Conflict` notes.
-- Labels: see Board rules in the skill.
+- `Title:` and `Labels:` are set as the issue's title and labels, not written in the description. Labels: see Board rules in the skill.
 
 ## Example
 
 ```markdown
 Title: [US-01] User can sign in with Google
+Labels: Backlog, user story, login, pending-questions
 
 **Story:** Agility – Login – User Stories v2, US-01 · **Parent:** #412
 
@@ -57,5 +59,3 @@ The user can sign in using Google OAuth.
 - Design: Figma "Sign in"
 - Pending Q2 – Which email domains are approved?
 ```
-
-Labels: `Backlog` (the `<backlog label>`), `user story`, `login`, `pending-questions`

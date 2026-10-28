@@ -32,7 +32,7 @@ Read all before writing:
 
 If the Questions List or sources are missing, ask for them, or suggest running `/ba:find-gaps` first (if it is not installed, ask the user to paste the gaps). No Gap Report but the other inputs are present? Go on and write from the sources and the answers. If the GitLab or Google Drive connector is not available, ask the user to paste the content.
 
-**Board only**: the user asks to put an existing story doc on the board ("push", "to the board", "create tickets")? Skip steps 1–5 and use the latest `user-stories-<name>-v<n>.md` or the Google Doc given.
+**Board only**: the user asks to put an existing story doc on the board ("push", "to the board", "create tickets")? Skip steps 1–5 and use the latest `user-stories-<name>-v<n>.md` or the Google Doc given; the summary's first line becomes `Using: <file or doc> (<n> stories).`
 
 ## Steps
 
@@ -65,8 +65,8 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 8. **On go**, for each row:
    - **Create** the issue with `assets/ticket-template.md`, as a child of (or linked to) the parent ticket, with its labels and `<backlog label>`.
    - **Update** the description and add a comment with "What changed". Keep a ticked A/C checkbox ticked only when its text is unchanged. Never add or remove a list label; the issue stays in its column.
-   - Write `Ticket: #<n>` into that story's **Notes** in the story doc. The go covers this, also for a Google Doc.
-   - **Report** each issue with its link, then show the progress line.
+   - Write `Ticket: #<n>` into that story's **Notes** in the story doc. The go covers this and replaces the Google Doc rule's ask.
+   - **Report** each issue with its link, then show the progress line. A row that fails (for example the issue was created but a label failed): report it and go on; never retry a create. A re-run finds issues already created by their `[US-nn]` prefix, so nothing is duplicated.
 
 ## Rules
 
