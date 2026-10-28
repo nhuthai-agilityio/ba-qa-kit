@@ -29,16 +29,18 @@ Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` list
    - `--label "ready to test","bug fix"`: tickets with at least one of these labels.
    - `--milestone "Sprint 1","Sprint 2"`: tickets in one of these milestones (Jira: sprint or fix version).
    - `--label … --milestone …`: tickets that match both.
-   Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use.
+   Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. No tickets, label or milestone given? Ask which tickets.
 2. Find the tickets: `board` tool → else `boardUrl` in a new tab (user signs in if needed) → else ask. For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). A label or milestone not found? Tell the user, list the names that exist, and stop.
-3. Check each ticket: it has the `readyLabel` for the env (if `readyLabel` is set), and it has the sub-issue `QA test cases – #<n>`. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/qa:write-test-cases`).
-4. Confirm: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table; if it fails a check, tell the user and stop unless they say go.
+3. Check each ticket: it has the `readyLabel` for the env (if `readyLabel` is set), and it has the sub-issue `QA test cases – #<n>`. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/qa:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
+4. Confirm: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table. It has no `QA test cases` sub-issue? Stop and suggest `/qa:write-test-cases`. It is missing the ready label? Tell the user and stop unless they say go.
    ```
    | Ticket | Link | Labels | Milestone | QA test cases | Ready | Run |
    |---|---|---|---|---|---|---|
    | #12 <title> | <link> | <labels> | <milestone> | Yes (<sub-issue link>) | Yes | Will run |
-   | #18 <title> | <link> | <labels> | <milestone> | No | – | Skipped: run /qa:write-test-cases first |
+   | #18 <title> | <link> | <labels> | <milestone> | No | n/a | Skipped: run /qa:write-test-cases first |
+   | #20 <title> | <link> | <labels> | <milestone> | Yes (<sub-issue link>) | No | Skipped: missing label <readyLabel> |
    ```
+   Ready is `Yes` or `No`. It is `n/a` when `readyLabel` has no entry for the env, or when the ticket has no sub-issue.
    Then ask: `Run these <n> tickets on <env>? yes / remove #<n> / include #<n> / no`. Run only after yes.
 5. Related features: given in the input? Use them. One ticket and none given: suggest 3–5 with a reason and wait for confirm. More than one ticket: ask once together with step 4; no answer = none.
 6. Check Chrome tools (`--chrome`) and that the user is signed in to the env. Read `<outputDir>/qa-lessons.md` if it exists and follow the lessons for `verify` or `both`.
@@ -61,7 +63,7 @@ Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` list
 - Test data names start with `testDataPrefix`.
 - Start console and network tracking before each case.
 - Each Fail: screenshot, console errors, failed requests. Save screenshots in `outputDir` as `<ticket>-round-<round>-<case>-step<n>.jpg`.
-- Login page shows? Stop and ask. A step cannot be done: with one ticket, stop and ask; with many tickets, mark the case Blocked and go on with the next ticket.
+- Login page shows? Stop and ask. A step cannot be done: with one ticket, stop and ask; with many tickets, mark the case Blocked and continue with the next case. The whole ticket cannot go on? Mark its remaining cases Blocked and go to the next ticket.
 - Never type or write passwords, tokens or personal data.
 - Never change data you did not create. Never change the ticket (status, fields, AC) or an older comment; only add the verify comment. Write files only in `outputDir`.
 - Never send, pay or delete unless it is a test step.
