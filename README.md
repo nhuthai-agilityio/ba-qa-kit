@@ -9,7 +9,7 @@ Two Claude Code plugins in one marketplace (`ba-qa-kit`):
   - `/ba:stories-to-board` creates or updates one GitLab issue per user story and puts new ones in the Backlog column, after the user replies go, without duplicating existing issues.
   - `/ba:track-status` writes a daily status report for the current GitLab sprint, with how much of each sprint is done (read-only).
   - `/ba:collect-answers` matches the client's replies to a Questions List and writes the answers into it.
-  - `/ba:write-questions` turns a Gap Report into a clarification question list for the client or PO.
+  - `/ba:write-questions` turns a Gap Report into a clarification Questions List for the client or PO.
 - `qa` (`plugins/qa`): `/qa:write-test-cases` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:log-bugs` logs bugs and records verify mistakes. Settings come from `qa.config.json` in the folder where you start `claude`.
 
 ## Install

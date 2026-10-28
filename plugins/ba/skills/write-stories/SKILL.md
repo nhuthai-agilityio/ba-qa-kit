@@ -39,7 +39,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 ## Rules
 
 - **Testable**: one observable result per A/C, with real values ("max 50 characters", "within 2 seconds"), never "valid", "quickly", "properly".
-- **Open items stay pending**: write `Pending Q<n> – <short title>` in error handling, edge cases or notes — never inside A/C.
+- **Open items stay pending**: write `Pending Q<n> – <short title>` (`Q<n>` is question n of the Questions List; a sub-question is `Q<n><letter>`, for example `Q2a`) in error handling, edge cases or notes — never inside A/C.
 - **Conflict** between design and sources: follow the sources in the A/C, and write the conflict in that story's **Notes** (`Conflict – design shows X, <source> says Y. Following <source> until confirmed.`). Also list it in chat as a new question for the next loop.
 - **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List (`ba-output/question-list-<name>.md`, kept by `/ba:write-questions`). If that skill is not installed, list the new questions in chat only.
 - **Google Doc**: if the user gives a Google Doc link, write directly into that doc with the Google Drive connector — keep its existing content and styles, add only the new content. Show the doc name and ask before writing into it. If the doc can't be edited, give the text to paste.

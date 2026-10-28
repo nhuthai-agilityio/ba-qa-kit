@@ -1,4 +1,4 @@
-# Question List Template
+# Questions List Template
 
 Used by `write-questions`. Replace this file to use a different template.
 
@@ -56,10 +56,11 @@ Forward reference: this section is written by the separate `collect-answers` ski
 
 ```
 1. <question>
-   → Answer (<role>, <Mon DD>): <client's words>
+   → Answer (<role>, <Mon DD, YYYY>): <client's words>
 2. <question>
-   → Answer (<role>, <Mon DD>): <client's words>
+   → Answer (<role>, <Mon DD, YYYY>): <client's words>
    a. <follow-up question>
+      → Pending
 3. <question>
    → Pending
 ```
@@ -67,7 +68,11 @@ Forward reference: this section is written by the separate `collect-answers` ski
 - Keep the client's words. Name the answerer by role (for example PO), not by personal name.
 - Follow-ups are new sub-questions under the original question, using the next free letter.
 - A later answer to the same question is a new `→ Answer` line; the old one stays.
-- Not answered yet → `→ Pending`.
+- Not answered yet → `→ Pending`. A sub-question gets its own `→ Answer` or `→ Pending` line under it.
+
+## Question IDs
+
+Other skills and tickets refer to a question as `Q<n>` (question n of this ticket's Questions List) and to a sub-question as `Q<n><letter>` (for example `Q2a`). The list itself shows only `1.` and `a.`. Numbers and letters never change, so these IDs stay valid across rounds.
 
 ## Example
 
