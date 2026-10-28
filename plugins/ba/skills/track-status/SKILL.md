@@ -12,7 +12,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 - **Needs** (from the user): nothing; it runs on the current sprint.
 - **Reads**: `ba.project`, `ba.sprintType`, `ba.sprintPrefixes`, the sprint's tickets and comments, the latest `ba-output/status-*.md` and each ticket's Questions List.
 - **Writes**: `ba-output/status-<YYYY-MM-DD>.md`, also shown in chat. Never changes the board.
-- **Next**: **update** (`/ba:write-stories`, then `/ba:stories-to-board`) or **draft** a follow-up.
+- **Next**: reply `update` at the progress line (`/ba:write-stories`, then `/ba:stories-to-board`), or `draft` for comments or a client follow-up.
 
 ## Config and files
 

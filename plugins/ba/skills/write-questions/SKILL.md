@@ -5,6 +5,8 @@ description: Creates a short, clear clarification Questions List for the client 
 
 # Write Questions
 
+Turn a Gap Report into short, clear questions for the client or PO. Never invent answers.
+
 ## Input and output
 
 - **Needs** (from the user): the ticket, or the gaps pasted; a Google Doc link (optional).
