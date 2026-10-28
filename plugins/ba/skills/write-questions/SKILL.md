@@ -54,7 +54,7 @@ The progress line only suggests the next step. The user can run any skill at any
 End with this progress line:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ○ collect-answers · ○ write-stories · ○ stories-to-board
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ○ collect-answers · ○ write-stories
 Next: send the list to the client. When they reply, paste it to run /ba:collect-answers. Reply with changes, or stop.
 ```
 
