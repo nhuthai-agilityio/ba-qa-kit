@@ -30,7 +30,7 @@ Read all before writing:
 - **Gap Report** (the latest `gap-report-<name>-r<n>.md`) — open gaps become pending items.
 - **Design** (optional) — field names, labels, messages, states. If missing, say so in the header.
 
-If the Questions List or sources are missing, ask for them, or suggest running `find-gaps` first (if it is not installed, ask the user to paste the gaps). No Gap Report but the other inputs are present? Go on and write from the sources and the answers. If the GitLab or Google Drive connector is not available, ask the user to paste the content.
+If the Questions List or sources are missing, ask for them, or suggest running `/ba:find-gaps` first (if it is not installed, ask the user to paste the gaps). No Gap Report but the other inputs are present? Go on and write from the sources and the answers. If the GitLab or Google Drive connector is not available, ask the user to paste the content.
 
 ## Steps
 
@@ -49,7 +49,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 - **Open items stay pending**: write `Pending Q<n> – <short title>` (`Q<n>` is question n of the Questions List; a sub-question is `Q<n><letter>`, for example `Q2a`) in error handling, edge cases or notes — never inside A/C.
 - **Conflict** between design and sources: follow the sources in the A/C, and write the conflict in that story's **Notes** (`Conflict – design shows X, <source> says Y. Following <source> until confirmed.`). Also list it in chat as a new question for the next loop.
 - **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List (`ba-output/question-list-<name>.md`, kept by `/ba:write-questions`). If that skill is not installed, list the new questions in chat only.
-- **Google Doc**: if the user gives a Google Doc link, write directly into that doc with the Google Drive connector — keep its existing content and styles, add only the new content. Show the doc name and ask before writing into it. If the doc can't be edited, give the text to paste.
+- **Google Doc**: only when the user gives its link. Write with the Google Drive connector: show the doc name and ask once before writing, keep its existing content and styles, and add only the new content. If the connector is missing or the doc can't be edited, say so and give the text to paste.
 - **File**: without a Google Doc, save to `ba-output/user-stories-<name>-v<n>.md`. Older runs saved stories with no ticket as `user-stories-no-ticket-v<n>.md`; if no `<name>` file exists, look for that one too. For a new version, use the highest `-v<n>` in `ba-output/` plus 1; if the user edited an earlier version, build on that edited file. Fill the template's date from today's date, as `Mon DD, YYYY`.
 - **Style**: basic English, short lines, exact UI labels in **bold**, real example data. Chat in the user's language; the doc in English.
 
@@ -61,15 +61,14 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 
 ## Progress
 
-The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
+The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step waiting for the user's go, and ○ for the others (not run, or not installed).
 
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ✔ collect-answers · ✔ write-stories · ○ stories-to-board
 Next: <n> stories, <n> pending, <n> new questions. Review the draft manually, then reply go to put the stories on the board, loop to ask the new questions, changes, or stop.
 ```
 
-- Show ✔ only for steps that ran in this chat; steps that did not run, or whose skill is not installed, show ○.
 - **go** → suggest `/ba:stories-to-board` to put the stories on the board (after your review). If it is not installed, stop with the story doc as the result.
 - **Change request** → update the draft, then show the progress line again.
-- **loop** → run `find-gaps` with the new questions as gaps (next round). If that skill is not installed, say so and give the new questions as the result.
+- **loop** → run `/ba:find-gaps` with the new questions as gaps (next round). If that skill is not installed, say so and give the new questions as the result.
 - **stop** → end here.

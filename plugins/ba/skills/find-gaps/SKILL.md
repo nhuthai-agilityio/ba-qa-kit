@@ -61,17 +61,17 @@ Show the report in chat and save it to `ba-output/gap-report-<name>-r<n>.md`. `<
 
 ## Progress
 
-The progress line only suggests the next step. The user can run any skill at any time; only finished steps are marked ✔.
+The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step waiting for the user's go, and ○ for the others (not run, or not installed).
 
 End with this progress line, then wait for the user:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-gaps · write-questions · collect-answers · write-stories
-Next: write-questions — turn the gaps into the client Questions List. Reply go, tell me what to change, or stop.
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ○ write-questions · ○ collect-answers · ○ write-stories · ○ stories-to-board
+Next: /ba:write-questions — turn the gaps into the client Questions List. Reply go, tell me what to change, or stop.
 ```
 
 - `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name. `Round <n>` (also `r<n>` in the file name): 1 for the first run; otherwise the highest existing `gap-report-<name>-r*.md` in `ba-output/` plus 1.
-- **go** → run `write-questions`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
+- **go** → run `/ba:write-questions`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
 - **Change request** → update the Gap Report, then show the progress line again.
 - **stop** → end here.
-- No gaps → say so and use "Next: write-stories". **go** → run `write-stories`; if that skill is not installed, say so and stop with the Gap Report as the result.
+- No gaps → say so and use "Next: /ba:write-stories". **go** → run `/ba:write-stories`; if that skill is not installed, say so and stop with the Gap Report as the result.

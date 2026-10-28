@@ -47,7 +47,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 - Only the current sprint's tickets.
 - Every line has the issue `#` and the date of the change.
 - Stale is about days without updates, never about people. Working days are Monday to Friday; public holidays are not counted unless the user says so.
-- Questions: Pending for 2+ days, counted from the date the question was asked (the Questions List date, else the date of the ticket comment that first mentions it; if neither, say the age is unknown) → add "Check for a client reply", and suggest `collect-answers` if it is installed. Answered → suggest updating the user stories, then the board tickets.
+- Questions: Pending for 2+ days, counted from the date the question was asked (the Questions List date, else the date of the ticket comment that first mentions it; if neither, say the age is unknown) → add "Check for a client reply", and suggest `/ba:collect-answers` if it is installed. Answered → suggest updating the user stories, then the board tickets.
 - Nothing moved → write "No change today", skip Moved and Done for tickets that moved in the period (there are none), keep Needs action.
 - GitLab not connected → ask the user to paste the sprint board.
 - Chat in the user's language; the report in English.
