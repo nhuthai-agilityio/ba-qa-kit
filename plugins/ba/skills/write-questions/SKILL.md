@@ -23,7 +23,7 @@ Turn a Gap Report into short, clear questions for the client or PO. Never invent
 
 ## Steps
 
-1. **Get the Gap Report.** If none exists, run `find-gaps` first and wait at its progress line for the user's go. If that skill is not installed, ask the user to paste the gaps. A Gap Report is a list of gaps, each with an impact (High, Medium or Low), the screen or part it belongs to, and a one-line description of what is missing or unclear.
+1. **Get the Gap Report.** If none exists, run `/ba:find-gaps` first and wait at its progress line for the user's go. If that skill is not installed, ask the user to paste the gaps. A Gap Report is a list of gaps, each with an impact (High, Medium or Low), the screen or part it belongs to, and a one-line description of what is missing or unclear.
 2. **Load the template** from `assets/template.md` (a template the user provides replaces it completely).
 3. **Group** questions by part and screen, in user-flow order (login → home → features → settings).
 4. **One question per gap**; High-impact first. Every High gap must have a question.
@@ -44,18 +44,18 @@ Patterns: "Is it right if we assume...?" · "RE `<X>`, we will `<Y>`, right?" ·
 
 - **Template values**: `<App Name>` and `<source>` (for example UI/UX, PRD, ticket) come from the ticket or docs; ask the user if they don't name them.
 - **Date**: use today's date as `Mon DD, YYYY` (for example `Aug 03, 2026`) for the title and round dates.
-- **Google Doc**: if the user gives a Google Doc link, write directly into that doc with the Google Drive connector — confirm once before editing an existing doc, keep its existing content and styles, add only the new content. If the connector is missing, not signed in, or the doc can't be edited, say so and give the text to paste. If the GitLab issue or Drive docs can't be read (no connector, not signed in), ask the user to paste what is needed.
+- **Google Doc**: only when the user gives its link. Write with the Google Drive connector: show the doc name and ask once before writing, keep its existing content and styles, and add only the new content. If the connector is missing or the doc can't be edited, say so and give the text to paste.
+- If the GitLab issue or Drive docs can't be read (no connector, not signed in), ask the user to paste what is needed.
 
 ## Progress
 
-The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○. If the next skill is not installed, stop after delivering the list and say so instead of trying to run it.
+The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step the user's go runs next (this step, if it waits for go before writing), and ○ for the others (not run, or not installed). If the next skill is not installed, stop after delivering the list and say so instead of trying to run it.
 
 End with this progress line:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ○ collect-answers · ○ write-stories
-Next: send the list to the client. When they reply, paste it to run collect-answers. Reply with changes, or stop.
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ○ collect-answers · ○ write-stories · ○ stories-to-board
+Next: send the list to the client. When they reply, paste it to run /ba:collect-answers. Reply with changes, or stop.
 ```
 
 - `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name.
-- Show ✔ only for steps that ran in this chat; otherwise ○.

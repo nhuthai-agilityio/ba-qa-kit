@@ -43,7 +43,7 @@ Create or update one GitLab issue per user story. Nothing is created or changed 
 6. **On go**, for each row:
    - **Create** the issue with `assets/template.md`, as a child of (or linked to) the parent ticket, with `<backlog label>` so it shows in that column. None? It shows in the Open list; say so in the report.
    - **Update** the description and add a comment with "What changed". Never add or remove `<backlog label>` or any other list label; the issue stays in its column.
-   - Write `Ticket: #<n>` into that story's **Notes** in the story doc. The go covers this. For a Google Doc, show the doc name and ask first, and keep its content.
+   - Write `Ticket: #<n>` into that story's **Notes** in the story doc. The go covers this. For a Google Doc, follow the Google Doc rule below.
 7. **Report** each issue with its link, then show the progress line.
 
 ## Rules
@@ -53,12 +53,13 @@ Create or update one GitLab issue per user story. Nothing is created or changed 
 - Stories with `Pending Q<n>` or a `Conflict` note get the label `pending-questions` and keep those lines.
 - Use only labels that exist or that the user gives; never create labels.
 - No passwords, tokens or personal data in issues.
+- **Google Doc**: only when the user gives its link. Write with the Google Drive connector: show the doc name and ask once before writing, keep its existing content and styles, and add only the new content. If the connector is missing or the doc can't be edited, say so and give the text to paste.
 - GitLab not connected or access fails: give each issue as ready-to-paste text (title, labels, description).
 - Chat in the user's language; issues in English.
 
 ## Progress
 
-The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
+The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step the user's go runs next (this step, if it waits for go before writing), and ○ for the others (not run, or not installed).
 
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ✔ collect-answers · ✔ write-stories · ▶ stories-to-board
@@ -67,5 +68,5 @@ Next: <n> create, <n> update, <n> skip. Reply go, tell me what to change, or sto
 
 After the board update, show ✔ stories-to-board and `Next: <n> issues need answers (label pending-questions). Run /ba:track-status to follow progress, or stop.`
 
-- Show ✔ only for steps that ran in this chat; others show ○. `#<ticket>`: parent issue number (`#-` if none). `<requirement>`: short feature name; `Round <n>`: reuse it from the story doc or earlier chat, or leave it out.
+- `#<ticket>`: parent issue number (`#-` if none). `<requirement>`: short feature name; `Round <n>`: reuse it from the story doc or earlier chat, or leave it out.
 - **Change request** → update the plan, then show the progress line again. **stop** → end; nothing is created.

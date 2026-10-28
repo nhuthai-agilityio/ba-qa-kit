@@ -40,7 +40,7 @@ Write the sprint release note email as a draft. A person reviews and sends it; n
 - Tickets not in the sprint are not included; list them in chat as "Not included" with the reason.
 - **Same day, several products → one note.** One subject and intro naming all products, one key highlight per product, and each product as its own sub-heading in every section. Don't make separate notes unless the user asks.
 - Draft only: never send or post it.
-- **Google Doc**: if the user gives a Google Doc link, write directly into that doc with the Google Drive connector — keep its existing content and styles, add only the new content. Confirm the doc link before writing. If the doc can't be edited or the Google Drive connector is not installed, say so and give the text to paste.
+- **Google Doc**: only when the user gives its link. Write with the Google Drive connector: show the doc name and ask once before writing, keep its existing content and styles, and add only the new content. If the connector is missing or the doc can't be edited, say so and give the text to paste.
 - Chat in the user's language; the release note in English.
 
 ## Progress
