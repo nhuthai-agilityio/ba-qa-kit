@@ -3,5 +3,7 @@
 **/qa-output/*
 !**/qa-output/qa-lessons.md
 !**/qa-output/incidents/
+# Shared test accounts (passwords): local only, never commit
+qa.accounts.local.json
 # Output sinh ra khi chạy BA plugin (release note, cấu hình)
 ba-output/
