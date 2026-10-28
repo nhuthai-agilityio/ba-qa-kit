@@ -37,7 +37,7 @@ The user can <capability>.
 
 ## Rules
 
-- **A/C** starts with one summary line, `The user can <capability>.`, then bullets. No numbers, no `AC-1` labels, no arrows.
+- **A/C** starts with one summary line, `The <user or role> can <capability>.` (for example "The employee can …"), then bullets. No numbers, no `AC-1` labels, no arrows.
 - **Each bullet** is one full sentence in the present tense with one behavior. Bullets follow the user's flow in order (start → action → result → what happens next).
 - **Screens**: name the screen in **bold** whenever the user moves to it or something shows on it (for example "the user is redirected to the **Agility Dashboard**").
 - **Real values**: who, which data, which limit ("an approved company email domain", "max 50 characters"), never "valid", "quickly", "properly".

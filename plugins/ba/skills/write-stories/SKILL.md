@@ -38,7 +38,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 2. **Collect** for each story its rules, flow steps, screens and related questions.
 3. **Write** each story with `assets/template.md`, keeping its section order. If the user gives another template, follow that template's sections and keep the A/C, error handling and edge-case content.
 4. **Check** each story before saving, and fix what fails:
-   - **Format**: the A/C starts with `The user can <capability>.`; each bullet is one full sentence with one behavior; bullets follow the flow in order; screens are named in **bold**.
+   - **Format**: the A/C starts with `The <user or role> can <capability>.`; each bullet is one full sentence with one behavior; bullets follow the flow in order; screens are named in **bold**.
    - **Content**: every answered question and rule for this feature appears in an A/C or error line; every screen state (empty, loading, error, success) is covered or raised as a question; no A/C is written from a pending question.
 5. **Save the draft** (see File below), **show it**, then **stop and show the progress line**. Later edits update the saved file.
 
