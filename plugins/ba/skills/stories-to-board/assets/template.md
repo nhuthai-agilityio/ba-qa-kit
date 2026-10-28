@@ -28,7 +28,7 @@ The user can <capability>.
 ## Rules
 
 - Copy A/C, errors and edge cases from the story as they are; do not rewrite them.
-- Copy the A/C summary line from the story as it is (never write a new one); A/C bullets become checkboxes (`- [ ]`) in the same order, so dev and QA can tick them and QA can refer to them as AC-1, AC-2… by position.
+- Copy the A/C summary line from the story as it is (never write a new one); A/C bullets become checkboxes (`- [ ]`) in the same order, so dev and QA can tick them. `/qa:write-test-cases` refers to a bullet by its position (`AC-1` = the first bullet); never write `AC-<n>` labels in the issue.
 - Drop a section only if the story has nothing for it.
 - Labels: `<backlog label>` (see the skill; the example uses `Backlog`), when there is one, `user-story`, the feature name (the `## <FEATURE / SCREEN>` heading in the story doc; ask if unclear), and `pending-questions` if Notes has Pending or Conflict lines.
 

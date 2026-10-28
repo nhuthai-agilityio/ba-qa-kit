@@ -64,7 +64,7 @@ The user can sign in using Google OAuth.
 - Pending Q2 – Which email domains are approved?
 
 **Edge cases**
-- The user closes the Google window before finishing; they stay on **Sign in** and no session is created.
+- The user closes the Google window before finishing; they stay on **Sign in** and are not signed in.
 - The session expires while the user is on the **Agility Dashboard**; the next action takes them to **Sign in**.
 
 **Notes**
