@@ -7,9 +7,16 @@ description: Turns a reviewed user story doc into GitLab issues, one per story, 
 
 Create or update one GitLab issue per user story. Nothing is created or changed until the user replies go.
 
+## Config and files
+
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
+- **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
+- **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
+- **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
+
 ## Steps
 
-1. **Get the inputs.** Read the story doc (highest `ba-output/user-stories-<ticket>-v<n>.md`, or the Google Doc the user gives). Read the GitLab project from `ba.project` in `qa.config.json`, else `project` in `ba-output/track-status.json` (or the old `track-ticket-status.json`); ask only for what is missing (story doc, project, parent issue #). If the story doc is a Google Doc and the Drive connector is missing, ask the user to paste the stories. Say which project and parent ticket you will use.
+1. **Get the inputs.** Read the story doc (the latest `ba-output/user-stories-<name>-v<n>.md`, or the Google Doc the user gives) and the GitLab project (`ba.project`, see Config). Ask only for what is missing (story doc, project, parent issue #). If the story doc is a Google Doc and the Drive connector is missing, ask the user to paste the stories. Say which project and parent ticket you will use.
 2. **Check for duplicates.** US numbers restart for each requirement, so never search the whole project for `[US-nn]`. Look only at issues that are children of, or linked to, the parent ticket, matched by the `[US-nn]` title prefix. No parent ticket: ask the user for the issues to check.
 3. **Build the plan**, one row per story:
 

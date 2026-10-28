@@ -7,9 +7,14 @@ description: Drafts the sprint release note email (Done, In-progress, Known issu
 
 Write the sprint release note email as a draft. A person reviews and sends it; never send it.
 
+## Config and files
+
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
+- **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
+
 ## Steps
 
-1. **Get the release.** If not given, ask: "Which products and sprints are released, and on what date?" Several products released the same day go into **one note** (see Rules). First run only, also ask the project name for the subject and where the build links are (store links, version and build, Storybook, repository). Tell the user, then save only `project` and `links` (each link as a name and its location) to `ba-output/release-note.json`, creating the folder if missing — no tokens, no personal data (not the sender name), and links are copied as text, never opened. Later runs read that file (or the old `ba-output/draft-release-note.json`, then save it under the new name) instead of asking. Ask for the sender name on every run.
+1. **Get the release.** Propose the products from `ba.sprintPrefixes` with each one's current sprint, and ask the user to confirm them and give the release date. No prefixes? Ask: "Which products and sprints are released, and on what date?" Several products released the same day go into **one note** (see Rules). The project name and build links come from `ba.releaseNote` (see Config). Missing? Ask for the project name and where the build links are (store links, version and build, Storybook, repository), then save only `project` and `links` (each link as a name and its location) to `ba-output/release-note.json` — no tokens, no personal data (not the sender name), and links are copied as text, never opened. Ask for the sender name on every run.
 2. **Read each product's sprint tickets**: number, title, status, labels, comments. If GitLab can't be read, ask the user to paste the ticket list.
 3. **Sort by status:**
    - **DONE** — closed or in the Done list.
@@ -19,7 +24,7 @@ Write the sprint release note email as a draft. A person reviews and sends it; n
 5. **NEXT PLAN**: "Continue working on in-progress tasks", then the planned work per product from the next sprint's tickets, if any.
 6. **Fill NOTES** from the links and versions the user gave; leave `link` where one is missing.
 7. **Write the key highlights**: one line per product, from the Done tickets.
-8. **Write the draft.** Read `assets/template.md` from this skill's folder first, then write with it. Dates use the long form `Month DDth, YYYY` with the right ending (1st, 2nd, 3rd, 4th…). Always show the draft in chat and save it to `ba-output/release-note-<YYYY-MM-DD>.md`, creating the folder if missing (ask before saving anywhere else). If the user gave a Google Doc, also write it there (see Rules). Then **stop and show the progress line**.
+8. **Write the draft.** Read `assets/template.md` from this skill's folder first, then write with it. Dates use the long form `Month DDth, YYYY` with the right ending (1st, 2nd, 3rd, 4th…). Always show the draft in chat and save it to `ba-output/release-note-<YYYY-MM-DD>.md`. If the user gave a Google Doc, also write it there (see Rules). Then **stop and show the progress line**.
 
 ## Rules
 

@@ -7,9 +7,16 @@ description: Collects the client's or PO's answers to a Questions List (pasted t
 
 Write the client's answers directly into the Questions List. Never invent or guess an answer.
 
+## Config and files
+
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
+- **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
+- **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
+- **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
+
 ## Steps
 
-1. **Get the reply and the list.** If not given, ask: "Please paste the client's reply (or share the link) and the Questions List it answers." Read links with the connected app (Slack, Gmail, GitLab, Google Drive); if one can't be opened, ask the user to paste it.
+1. **Get the reply and the list.** If not given, ask: "Please paste the client's reply (or share the link)." The Questions List is the Google Doc the user gives, else `ba-output/question-list-<name>.md`; if neither exists, ask for it. Read links with the connected app (Slack, Gmail, GitLab, Google Drive); if one can't be opened, ask the user to paste it.
 2. **Match** each part of the reply to a question number. If the client didn't use numbers, match by content. If a part fits no question or more than one, mark it **Unmatched**.
 3. **Classify** each question:
    - **Answered** — clear and complete.
@@ -50,7 +57,7 @@ Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (R
 ```
 
 - **loop** → run `find-gaps` again with the updated Questions List as a source (next round). Suggest loop when there are follow-ups, conflicts or answers that add new rules; suggest go when all High questions are answered.
-- `#<ticket>`: GitLab issue number. `<requirement>`: short feature name.
+- `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name.
 - **go** → do the next step (after the update: `write-stories`). If that skill (or `find-gaps` for loop) is not installed, tell the user it isn't installed and stop.
 - **Change request** → fix it, then show the progress line again.
 - **stop** → end here.

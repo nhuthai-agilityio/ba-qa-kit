@@ -5,7 +5,7 @@ description: First-run setup for the BA/QA kit. Checks the GitLab and Google Dri
 
 # Setup
 
-Get a teammate ready without editing config by hand. The only sources are the GitLab board and the BA/QA Drive folders; the same two places receive the output (GitLab tickets, files in the Drive folder). Safe to re-run: it reads what exists and asks only for what is missing.
+Get a teammate ready without editing config by hand. The only sources are the GitLab board and the BA/QA Drive folders. BA files are written to `ba-output/` in the current folder; GitLab tickets are written by the skills that create them. Safe to re-run: it reads what exists and asks only for what is missing.
 
 ## Steps
 
@@ -20,7 +20,7 @@ Get a teammate ready without editing config by hand. The only sources are the Gi
 
 ## Files
 
-One shared config, `qa.config.json`, holds every answer for both roles. The BA files are copies written from it, so the BA skills keep working until they read the shared file.
+One shared config, `qa.config.json`, holds every answer for both roles. The BA skills read its `ba` section first; the `ba-output` copies are a fallback for older setups.
 
 | Role | Connectors | Writes |
 |---|---|---|
@@ -28,12 +28,12 @@ One shared config, `qa.config.json`, holds every answer for both roles. The BA f
 | QA | GitLab, Google Drive, Claude in Chrome | the top-level fields of `qa.config.json` |
 | Both | all | all of it |
 
-`qa.config.json` (the QA fields keep the shape `/qa:verify` and `/qa:write-test-cases` already read, plus `qaAssignee`, `qaDriveFolder` and `ba`). Keep every other key already in the file, such as `forbidden`, `askFirst` and `_notes`; add `_notes` lines for `qaAssignee`, `qaDriveFolder` and `ba` if `_notes` exists. The QA skills read this file from the repo root, so tell the user to start `claude` in the repo root, or in the folder where the file is.
+`qa.config.json` (the QA fields keep the shape `/qa:verify` and `/qa:write-test-cases` already read, plus `qaAssignee`, `qaDriveFolder` and `ba`). Keep every other key already in the file, such as `forbidden`, `askFirst` and `_notes`; add `_notes` lines for `qaAssignee`, `qaDriveFolder` and `ba` if `_notes` exists. An older `ba.questionsList` is no longer read by any skill; keep it and tell the user they can delete it. The QA skills read this file from the repo root, so tell the user to start `claude` in the repo root, or in the folder where the file is.
 
 The shape is in `assets/qa.config.example.json`. Read it from this skill's folder before writing; replace each `<placeholder>` with the user's value, and drop `readyLabel`, `qaAssignee` and the optional `ba` parts that have no value.
 
 Copies, written only for BA, with the same values as the `ba` section:
-- `ba-output/track-status.json`: `project`, `sprintType`, `sprintPrefixes`, `questionsList`, `driveFolder`.
+- `ba-output/track-status.json`: `project`, `sprintType`, `sprintPrefixes`, `driveFolder`.
 - `ba-output/release-note.json`: `project` and `links` from `releaseNote`.
 
 Older setups saved these as `ba-output/track-ticket-status.json` and `ba-output/draft-release-note.json`. If a new file is missing, read the old one; write only the new name.
@@ -46,7 +46,7 @@ If a copy already uses other keys, keep them and change only the values the user
 
 - **Milestones** (BA, QA): the project's milestones list URL, saved as `boardUrl` for QA. The board of each sprint is its milestone page (`.../-/milestones/<n>`), found on each run, so never save one. Example: `<host>/<group>/<project>/-/milestones`. Strip any milestone number from a pasted URL. Take the project path and sprint type from it and confirm them.
 - **Products** (BA): list the open milestones, group them by the prefix before ` - SPR`, and ask which products to track. Save one prefix each; they run in parallel.
-- **Drive folder** (BA, QA): the link of the BA folder and/or the QA folder. For the Questions List, ask which doc in the BA folder it is.
+- **Drive folder** (BA, QA): the link of the BA folder and/or the QA folder. Never save a Questions List: each ticket has its own (`ba-output/question-list-<ticket>.md` or a Google Doc), found on each run.
 - **Environment URLs** (QA): `dev` and `stag`. `readyLabel` only if the team marks tickets as deployed; otherwise leave it out.
 - **Roles** (QA): the user roles of the app, for example Owner and Member. `/qa:write-test-cases` and `/qa:verify` read them; without them test cases use `Any`.
 - **QA assignee** (QA): the GitLab username (the handle only, never an email or full name) of the person tickets are assigned to for QA. Optional; leave it out if the team has no fixed QA.
