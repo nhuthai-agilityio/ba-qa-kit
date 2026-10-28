@@ -12,18 +12,18 @@ Turn a Gap Report into short, clear questions for the client or PO. Never invent
 - **Needs** (from the user): the ticket, or the gaps pasted; a Google Doc link (optional).
 - **Reads**: the latest `gap-report-<name>-r<n>.md`, the GitLab issue, the Drive docs, the design (if any) and the ticket's Questions List.
 - **Writes**: `ba-output/question-list-<name>.md`, or the Google Doc given; a loop round adds a new part to the same list.
-- **Next**: send the list to the client, then `/kit:collect-answers` with their reply.
+- **Next**: send the list to the client, then `/ba-qa-kit:collect-answers` with their reply.
 
 ## Config and files
 
-- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/kit:setup`.
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba-qa-kit:setup`.
 - **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
 - **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
 - **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
 
 ## Steps
 
-1. **Get the Gap Report.** If none exists, run `/kit:find-gaps` first and wait at its progress line for the user's go. If that skill is not installed, ask the user to paste the gaps. A Gap Report is a list of gaps, each with an impact (High, Medium or Low), the screen or part it belongs to, and a one-line description of what is missing or unclear.
+1. **Get the Gap Report.** If none exists, run `/ba-qa-kit:find-gaps` first and wait at its progress line for the user's go. If that skill is not installed, ask the user to paste the gaps. A Gap Report is a list of gaps, each with an impact (High, Medium or Low), the screen or part it belongs to, and a one-line description of what is missing or unclear.
 2. **Load the template** from `assets/template.md` (a template the user provides replaces it completely).
 3. **Group** questions by part and screen, in user-flow order (login → home → features → settings).
 4. **One question per gap**; High-impact first. Every High gap must have a question, in the list or under "Ask the team first". A team point the team can't answer becomes a client question in the next round.
@@ -66,7 +66,7 @@ End with this progress line:
 
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ○ collect-answers · ○ write-stories
-Next: send the list to the client. When they reply, paste it to run /kit:collect-answers. Reply with changes, or stop.
+Next: send the list to the client. When they reply, paste it to run /ba-qa-kit:collect-answers. Reply with changes, or stop.
 ```
 
 - `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name.

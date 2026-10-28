@@ -6,8 +6,8 @@
   },
   "plugins": [
     {
-      "name": "kit",
-      "source": "./plugins/kit",
+      "name": "ba-qa-kit",
+      "source": "./plugins/ba-qa-kit",
       "description": "BA and QA: requirement gaps, client questions and answers, user stories on the board, sprint status, release notes, test cases, verify in Chrome, bug reports"
     }
   ]

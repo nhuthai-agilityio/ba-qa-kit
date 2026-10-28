@@ -29,7 +29,7 @@ The user can <capability>.
 ## Rules
 
 - Copy A/C, errors and edge cases from the story as they are; do not rewrite them.
-- Copy the A/C summary line from the story as it is (never write a new one); A/C bullets become checkboxes (`- [ ]`) in the same order, so dev and QA can tick them. `/kit:write-test-cases` refers to a bullet by its position (`AC-1` = the first bullet); never write `AC-<n>` labels in the issue.
+- Copy the A/C summary line from the story as it is (never write a new one); A/C bullets become checkboxes (`- [ ]`) in the same order, so dev and QA can tick them. `/ba-qa-kit:write-test-cases` refers to a bullet by its position (`AC-1` = the first bullet); never write `AC-<n>` labels in the issue.
 - Drop a section only if the story has nothing for it.
 - Notes collect the story's Design link, every `Pending Q<n>` line (wherever it is in the story) and `Conflict` notes.
 - `Title:` and `Labels:` are set as the issue's title and labels, not written in the description. Labels: see Board rules in the skill.

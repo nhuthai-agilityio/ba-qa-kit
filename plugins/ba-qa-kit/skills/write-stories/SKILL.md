@@ -12,11 +12,11 @@ Turn the requirements and client answers into short, testable user stories, then
 - **Needs** (from the user): the ticket (the parent issue); a design link and a Google Doc link (optional).
 - **Reads**: the GitLab issue, the Drive docs, the ticket's Questions List, the latest `gap-report-<name>-r<n>.md`, the design and the latest story version; for the board: `ba.project`, `ba.backlogLabel`, the board's lists, the project's labels and the parent's child or linked issues (read-only).
 - **Writes**: `ba-output/user-stories-<name>-v<n>.md` (a new version each time), or the Google Doc given; after go, GitLab issues (created or updated) and `Ticket: #<n>` in each story's Notes.
-- **Next**: `/kit:track-status` to follow progress; new questions: `/kit:find-gaps` (loop).
+- **Next**: `/ba-qa-kit:track-status` to follow progress; new questions: `/ba-qa-kit:find-gaps` (loop).
 
 ## Config and files
 
-- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/kit:setup`.
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba-qa-kit:setup`.
 - **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
 - **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
 - **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
@@ -30,7 +30,7 @@ Read all before writing:
 - **Gap Report** (the latest `gap-report-<name>-r<n>.md`) — open gaps become pending items.
 - **Design** (optional) — field names, labels, messages, states. If missing, say so in the header.
 
-If the Questions List or sources are missing, ask for them, or suggest running `/kit:find-gaps` first (if it is not installed, ask the user to paste the gaps). No Gap Report but the other inputs are present? Go on and write from the sources and the answers. If the GitLab or Google Drive connector is not available, ask the user to paste the content.
+If the Questions List or sources are missing, ask for them, or suggest running `/ba-qa-kit:find-gaps` first (if it is not installed, ask the user to paste the gaps). No Gap Report but the other inputs are present? Go on and write from the sources and the answers. If the GitLab or Google Drive connector is not available, ask the user to paste the content.
 
 **Board only**: the user asks to put an existing story doc on the board ("push", "to the board", "create tickets")? Skip steps 1–5 and use the latest `user-stories-<name>-v<n>.md` or the Google Doc given; the summary's first line becomes `Using: <file or doc> (<n> stories).`
 
@@ -45,7 +45,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 5. **Save the draft** (see File below). Don't paste the stories in chat; the user reviews the file.
 6. **Plan the board** (read-only, nothing is written yet):
    - **Project and parent**: `ba.project` (see Config) and the parent ticket. No parent ticket? Ask for it, or for the issues to check.
-   - **Backlog column**, in this order (this field has no `ba-output` copy): `ba.backlogLabel`; else read the board's lists once — a label list named Backlog gives its label; else none. A list based on assignee or milestone can't be set by a label: use none. None → new issues show in the Open list. Found on the board? Suggest `/kit:setup` to save it.
+   - **Backlog column**, in this order (this field has no `ba-output` copy): `ba.backlogLabel`; else read the board's lists once — a label list named Backlog gives its label; else none. A list based on assignee or milestone can't be set by a label: use none. None → new issues show in the Open list. Found on the board? Suggest `/ba-qa-kit:setup` to save it.
    - **Duplicates**: US numbers restart for each requirement, so never search the whole project for `[US-nn]`. Look only at the parent's child or linked issues, matched by the `[US-nn]` title prefix. **Create**: no issue yet. **Update #n**: the issue exists and the story changed. **Skip**: no change. Two issues match one story, or the match is closed? Show it as **Check #n**; it is left out of go until the user says what to do.
    - **Labels** (see Board rules).
 7. **Show the review summary**, then **stop and show the progress line**:
@@ -73,7 +73,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 - **Clear A/C**: a teammate reading only the A/C knows the flow and the screens. One observable behavior per bullet, with real values ("an approved company email domain", "max 50 characters"), never "valid", "quickly", "properly".
 - **Open items stay pending**: write `Pending Q<n> – <short title>` (`Q<n>` is question n of the Questions List; a sub-question is `Q<n><letter>`, for example `Q2a`) in error handling, edge cases or notes — never inside A/C.
 - **Conflict** between design and sources: follow the sources in the A/C, and write the conflict in that story's **Notes** (`Conflict – design shows X, <source> says Y. Following <source> until confirmed.`). Also list it in chat as a new question for the next loop.
-- **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List (`ba-output/question-list-<name>.md`, kept by `/kit:write-questions`). If that skill is not installed, list the new questions in chat only.
+- **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List (`ba-output/question-list-<name>.md`, kept by `/ba-qa-kit:write-questions`). If that skill is not installed, list the new questions in chat only.
 - **Google Doc**: only when the user gives its link. Write with the Google Drive connector: show the doc name and ask once before writing, keep its existing content and styles, and add only the new content. If the connector is missing or the doc can't be edited, say so and give the text to paste.
 - **File**: without a Google Doc, save to `ba-output/user-stories-<name>-v<n>.md`. Older runs saved stories with no ticket as `user-stories-no-ticket-v<n>.md`; if no `<name>` file exists, look for that one too. For a new version, use the highest `-v<n>` in `ba-output/` plus 1; if the user edited an earlier version, build on that edited file. Fill the template's date from today's date, as `Mon DD, YYYY`.
 - **Style**: basic English, short lines, exact UI labels in **bold**, real example data. Chat in the user's language; the doc and issues in English.
@@ -106,9 +106,9 @@ The progress line only suggests the next step. The user can run any skill at any
 Next: <n> pending, <n> new questions. Review the file, then reply go to push <n> create and <n> update to the board, tell me what to change, loop to ask the new questions, or stop.
 ```
 
-After the board update, show ✔ write-stories and `Next: <n> issues need answers (label pending-questions). Run /kit:track-status to follow progress, or stop.`
+After the board update, show ✔ write-stories and `Next: <n> issues need answers (label pending-questions). Run /ba-qa-kit:track-status to follow progress, or stop.`
 
 - **go** → step 8.
 - **Change request** → update the draft, then show the summary and the progress line again.
-- **loop** → run `/kit:find-gaps` with the new questions as gaps (next round); nothing goes to the board. If that skill is not installed, say so and give the new questions as the result.
+- **loop** → run `/ba-qa-kit:find-gaps` with the new questions as gaps (next round); nothing goes to the board. If that skill is not installed, say so and give the new questions as the result.
 - **stop** → end here; nothing goes to the board.

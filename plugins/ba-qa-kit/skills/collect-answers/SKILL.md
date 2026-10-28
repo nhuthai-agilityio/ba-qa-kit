@@ -12,11 +12,11 @@ Write the client's answers directly into the Questions List. Never invent or gue
 - **Needs** (from the user): the client's reply (pasted text or a Slack, email, GitLab or Drive link).
 - **Reads**: the reply, the ticket's Questions List, and the GitLab issue and Drive docs (to find conflicts).
 - **Writes**: the answers into the same Questions List (file or Google Doc), after go; never a new file.
-- **Next**: `/kit:find-gaps` for a new round (loop), or `/kit:write-stories`.
+- **Next**: `/ba-qa-kit:find-gaps` for a new round (loop), or `/ba-qa-kit:write-stories`.
 
 ## Config and files
 
-- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/kit:setup`.
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba-qa-kit:setup`.
 - **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
 - **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
 - **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
@@ -31,7 +31,7 @@ Write the client's answers directly into the Questions List. Never invent or gue
    - **Not answered** — nothing in the reply → Pending.
    - **Conflict** — disagrees with the GitLab issue, a Drive doc or an earlier answer.
 4. **Show a short summary in chat** (one line per question: number, status, note), plus any Unmatched parts, and name the file or doc that will be updated. Then **stop and show the progress line**. Do not change the file until the user replies; their **go** covers writing to that file or doc.
-5. **On go, update the Questions List** following the Answers section of `assets/template.md` in the `/kit:write-questions` skill. If that skill or file is not installed, say so and use this shape: under each question or sub-question, `→ Answer (<role>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. If the file or doc can't be edited (e.g. no access), give the user the updated text to paste.
+5. **On go, update the Questions List** following the Answers section of `assets/template.md` in the `/ba-qa-kit:write-questions` skill. If that skill or file is not installed, say so and use this shape: under each question or sub-question, `→ Answer (<role>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. If the file or doc can't be edited (e.g. no access), give the user the updated text to paste.
 
 ## Rules
 
@@ -60,11 +60,11 @@ After the update:
 
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ✔ collect-answers · ▶ write-stories
-Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (Round <n+1>), go for /kit:write-stories, or stop.
+Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (Round <n+1>), go for /ba-qa-kit:write-stories, or stop.
 ```
 
-- **loop** → run `/kit:find-gaps` again with the updated Questions List as a source (next round). Suggest loop when there are follow-ups, conflicts or answers that add new rules; suggest go when all High questions are answered.
+- **loop** → run `/ba-qa-kit:find-gaps` again with the updated Questions List as a source (next round). Suggest loop when there are follow-ups, conflicts or answers that add new rules; suggest go when all High questions are answered.
 - `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name.
-- **go** → do the next step (after the update: `/kit:write-stories`). If that skill (or `/kit:find-gaps` for loop) is not installed, tell the user it isn't installed and stop.
+- **go** → do the next step (after the update: `/ba-qa-kit:write-stories`). If that skill (or `/ba-qa-kit:find-gaps` for loop) is not installed, tell the user it isn't installed and stop.
 - **Change request** → fix it, then show the progress line again.
 - **stop** → end here.
