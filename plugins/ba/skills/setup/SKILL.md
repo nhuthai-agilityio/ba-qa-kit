@@ -46,7 +46,7 @@ If a copy already uses other keys, keep them and change only the values the user
 
 - **Milestones** (BA, QA): the project's milestones list URL, saved as `boardUrl` for QA. The board of each sprint is its milestone page (`.../-/milestones/<n>`), found on each run, so never save one. Example: `<host>/<group>/<project>/-/milestones`. Strip any milestone number from a pasted URL. Take the project path and sprint type from it and confirm them.
 - **Products** (BA): list the open milestones, group them by the prefix before ` - SPR`, and ask which products to track. Save one prefix each; they run in parallel.
-- **Backlog column** (BA): read the project board's lists once (read-only) and suggest the label of the list named Backlog; the user confirms. `/ba:stories-to-board` puts new story issues there. No such list? Leave `backlogLabel` out; new issues then show in the Open list.
+- **Backlog column** (BA): read the project board's lists once (read-only; setup writes nothing to GitLab) and suggest the label of the label list named Backlog; the user confirms. `/ba:stories-to-board` puts new story issues there. No such list, or it is not label-based? Leave `backlogLabel` out; new issues then show in the Open list.
 - **Drive folder** (BA, QA): the link of the BA folder and/or the QA folder. Never save a Questions List: each ticket has its own (`ba-output/question-list-<name>.md` or a Google Doc), found on each run.
 - **Environment URLs** (QA): `dev` and `stag`. `readyLabel` only if the team marks tickets as deployed; otherwise leave it out.
 - **Roles** (QA): the user roles of the app, for example Owner and Member. `/qa:write-test-cases` and `/qa:verify` read them; without them test cases use `Any`.

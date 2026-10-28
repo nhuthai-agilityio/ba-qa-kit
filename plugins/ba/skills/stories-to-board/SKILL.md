@@ -17,7 +17,11 @@ Create or update one GitLab issue per user story. Nothing is created or changed 
 ## Steps
 
 1. **Get the inputs.** Read the story doc (the latest `ba-output/user-stories-<name>-v<n>.md`, or the Google Doc the user gives) and the GitLab project (`ba.project`, see Config). Ask only for what is missing (story doc, project, parent issue #). If the story doc is a Google Doc and the Drive connector is missing, ask the user to paste the stories. Say which project and parent ticket you will use.
-2. **Find the Backlog column.** Use the label in `ba.backlogLabel`. Missing? Read the project board's lists once (read-only): a list named Backlog gives its label. None? Ask which column new stories go to, or none (the Open list), and suggest `/ba:setup` to save it.
+2. **Find the Backlog column**, in this order (this field has no `ba-output` copy):
+   1. `ba.backlogLabel` in `qa.config.json`.
+   2. Read the project board's lists once (read-only): a label list named Backlog gives its label.
+   3. Ask which label list new stories go to, or none.
+   A Backlog list based on assignee or milestone can't be set by a label: say so and use none. None → new issues show in the Open list. Found in 2 or 3? Suggest `/ba:setup` to save it. The result is `<backlog label>`.
 3. **Check for duplicates.** US numbers restart for each requirement, so never search the whole project for `[US-nn]`. Look only at issues that are children of, or linked to, the parent ticket, matched by the `[US-nn]` title prefix. No parent ticket: ask the user for the issues to check.
 4. **Build the plan**, one row per story:
 
@@ -27,11 +31,11 @@ Create or update one GitLab issue per user story. Nothing is created or changed 
    | US-02 | Update #135 | [US-02] Manager can approve a leave request | user-story, leave | no change | A/C 3 changed |
    | US-03 | Skip | — | — | no change | No change since #136 |
 
-   **Create**: no issue yet. **Update**: the issue exists and the story changed. **Skip**: no change. List labels missing from the project under the table. If two issues match one story, show both and ask. If the matching issue is closed, show it as **Check** and ask; never update or reopen it on your own.
+   **Column**: `<backlog label>` for Create (the example uses `Backlog`), `Open` when there is none; `no change` otherwise. **Create**: no issue yet. **Update**: the issue exists and the story changed. **Skip**: no change. List labels missing from the project under the table. If two issues match one story, show both and ask. If the matching issue is closed, show it as **Check** and ask; never update or reopen it on your own.
 5. **Show the plan**, then **stop and show the progress line**.
 6. **On go**, for each row:
-   - **Create** the issue with `assets/template.md`, as a child of (or linked to) the parent ticket, with the Backlog label so it shows in the Backlog column. No Backlog label (the user chose none)? It shows in the Open list; say so in the report.
-   - **Update** the description and add a comment with "What changed". Never move it to another column.
+   - **Create** the issue with `assets/template.md`, as a child of (or linked to) the parent ticket, with `<backlog label>` so it shows in that column. None? It shows in the Open list; say so in the report.
+   - **Update** the description and add a comment with "What changed". Never add or remove `<backlog label>` or any other list label; the issue stays in its column.
    - Write `Ticket: #<n>` into that story's **Notes** in the story doc. The go covers this. For a Google Doc, show the doc name and ask first, and keep its content.
 7. **Report** each issue with its link, then show the progress line.
 
