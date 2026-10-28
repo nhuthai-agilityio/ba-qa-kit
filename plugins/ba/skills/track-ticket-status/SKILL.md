@@ -44,6 +44,6 @@ The progress line only suggests the next step. The user can run any skill at any
 Next: <n> blocked, <n> stale, <n> sent back, <n> answers to apply (the number of "Answered, ticket not updated" rows). Reply: update / draft / stop.
 ```
 
-- **update** → update the user stories, then the board tickets, with whatever skills the user has for that. If there are none, stop and list what needs updating.
+- **update** → suggest `/ba:write-user-stories` to update the user stories, then `/ba:write-stories-to-board` to update the board tickets. If one is not installed, stop and list what needs updating.
 - **draft** → draft comments or a client follow-up; post only after go.
 - **stop** → end here.
