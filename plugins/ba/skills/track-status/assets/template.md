@@ -50,7 +50,7 @@ Progress: 1/4 done (25%) · 56% of sprint time used · Behind
 | Issue | Type | Status | Why | Suggested action |
 |---|---|---|---|---|
 | #134 | Story | Blocked | Pending Q2 | Check for a client reply |
-| #136 | Story | Sent back | QA → In progress (Nov 10): A/C 2 failed | Ask dev if A/C 2 is clear |
+| #136 | Story | Sent back | QA → In progress (Nov 10): A/C "reason is required" failed | Ask dev if that A/C is clear |
 | #137 | Task | Stale | No update since Nov 4 | Ask the assignee |
 
 ## Moved

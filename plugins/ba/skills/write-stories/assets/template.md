@@ -18,15 +18,16 @@ How to read: **Pending Q<n>** = question n (or sub-question `Q<n><letter>`) of t
 ### US-01 – User can <capability>
 
 **Acceptance criteria**
-1. <Action or condition> → <result>.
-2. <Action or condition> → <result>.
+The user can <capability>.
+- <One behavior, as a full sentence, naming the **Screen**.>
+- <The next behavior in the flow.>
 
 **Validation & error handling**
-- <Condition> → <what the user sees>.
+- <When this condition happens, what the user sees on **Screen**.>
 - Pending Q<n> – <short title>.
 
 **Edge cases**
-- <Case> → <result>.
+- <Case, and what happens.>
 
 **Notes**
 - Design: <link to screen> (leave this line out when there is no design)
@@ -36,8 +37,11 @@ How to read: **Pending Q<n>** = question n (or sub-question `Q<n><letter>`) of t
 
 ## Rules
 
-- A/C is a plain numbered list; no `AC-1` labels.
-- Each A/C is one line: `<action or condition> → <result>.`
+- **A/C** starts with one summary line, `The user can <capability>.`, then bullets. No numbers, no `AC-1` labels, no arrows.
+- **Each bullet** is one full sentence in the present tense with one behavior. Bullets follow the user's flow in order (start → action → result → what happens next).
+- **Screens**: name the screen in **bold** whenever the user moves to it or something shows on it (for example "the user is redirected to the **Agility Dashboard**").
+- **Real values**: who, which data, which limit ("an approved company email domain", "max 50 characters"), never "valid", "quickly", "properly".
+- Validation, error handling and edge cases use the same full-sentence style.
 - No **New questions** or **Pending items** sections — questions live in the Questions List; only inline `Pending Q<n>` lines.
 - Each story has the four parts; drop a part only if it has nothing to say (no placeholders).
 - Edge cases: only those that apply — empty data, first use, min/max, duplicates, long text, double tap, going back, session timeout, concurrent changes.
@@ -45,23 +49,24 @@ How to read: **Pending Q<n>** = question n (or sub-question `Q<n><letter>`) of t
 ## Example
 
 ```markdown
-### US-01 – Employee can submit a leave request
+### US-01 – User can sign in with Google
 
 **Acceptance criteria**
-1. Choose **Annual leave**, Nov 3 – Nov 5, tap **Submit** → request saved as **Pending**; manager notified.
-2. Choose **Half day** → pick **Morning** or **Afternoon**; counts as 0.5 day.
-3. Weekends and public holidays in the range → not counted.
+The user can sign in using Google OAuth.
+- Only users with an approved company email domain are allowed to access the application.
+- After successful authentication, the user is redirected to the **Agility Dashboard**.
+- The authenticated session is created after a successful login.
+- The user remains signed in across browser refreshes until the session expires or the user logs out.
 
 **Validation & error handling**
-- Start date less than 3 days from today → "Please request at least 3 days in advance."; **Submit** disabled.
-- Days requested > days left → request blocked with "Not enough leave days."
-- Pending Q2 – Does the 3-day rule apply to sick leave?
+- A user whose email is not on an approved company domain sees "Your account is not allowed to access this app." and stays on **Sign in**.
+- Pending Q2 – Which email domains are approved?
 
 **Edge cases**
-- Range overlaps an existing request → blocked with "You already have leave on these dates."
-- Tap **Submit** twice → only one request created.
+- The user closes the Google window before finishing; they stay on **Sign in** and no session is created.
+- The session expires while the user is on the **Agility Dashboard**; the next action takes them to **Sign in**.
 
 **Notes**
-- Design: Figma "Leave request"
-- Conflict – design shows 4 leave types, PRD says 2 (Annual, Sick). Following PRD until confirmed.
+- Design: Figma "Sign in"
+- Conflict – design shows a Microsoft sign-in button, the ticket says Google only. Following the ticket until confirmed.
 ```
