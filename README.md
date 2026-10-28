@@ -6,6 +6,7 @@ Two Claude Code plugins in one marketplace (`ba-qa-kit`):
   - `/ba:setup` checks the connectors and writes `qa.config.json` and the BA saved answers, so nobody edits config by hand. Run it first. It is part of `ba`, so a QA-only install does not have it.
   - `/ba:draft-release-note` drafts the sprint release note email from the sprint's GitLab tickets, for a person to review and send.
   - `/ba:write-user-stories` writes stories with acceptance criteria, error handling and edge cases from the sources and the answered Questions List. The skills before and after it in the chain are optional companions: if one is not installed, the skill says so and stops.
+  - `/ba:write-stories-to-board` creates or updates one GitLab issue per user story, after the user replies go, without duplicating existing issues.
   - `/ba:track-ticket-status` writes a daily status report for the current GitLab sprint (read-only).
   - `/ba:collect-client-answers` matches the client's replies to a Questions List and writes the answers into it.
   - `/ba:create-question-list` turns a Gap Report into a clarification question list for the client or PO.
