@@ -35,7 +35,7 @@ Create or update one GitLab issue per user story. Nothing is created or changed 
    | US | Action | Title | Labels | Column | Note |
    |---|---|---|---|---|---|
    | US-01 | Create | [US-01] Employee can submit a leave request | user-story, leave | Backlog | Pending Q2 |
-   | US-02 | Update #135 | [US-02] Manager can approve a leave request | user-story, leave | no change | A/C 3 changed |
+   | US-02 | Update #135 | [US-02] Manager can approve a leave request | user-story, leave | no change | A/C "employee is notified" changed |
    | US-03 | Skip | — | — | no change | No change since #136 |
 
    **Column**: `<backlog label>` for Create (the example uses `Backlog`), `Open` when there is none; `no change` otherwise. **Create**: no issue yet. **Update**: the issue exists and the story changed. **Skip**: no change. List labels missing from the project under the table. If two issues match one story, show both and ask. If the matching issue is closed, show it as **Check** and ask; never update or reopen it on your own.
