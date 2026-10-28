@@ -33,8 +33,10 @@ One shared config, `qa.config.json`, holds every answer for both roles. The BA f
 The shape is in `assets/qa.config.example.json`. Read it from this skill's folder before writing; replace each `<placeholder>` with the user's value, and drop `readyLabel`, `qaAssignee` and the optional `ba` parts that have no value.
 
 Copies, written only for BA, with the same values as the `ba` section:
-- `ba-output/track-ticket-status.json`: `project`, `sprintType`, `sprintPrefixes`, `questionsList`, `driveFolder`.
-- `ba-output/draft-release-note.json`: `project` and `links` from `releaseNote`.
+- `ba-output/track-status.json`: `project`, `sprintType`, `sprintPrefixes`, `questionsList`, `driveFolder`.
+- `ba-output/release-note.json`: `project` and `links` from `releaseNote`.
+
+Older setups saved these as `ba-output/track-ticket-status.json` and `ba-output/draft-release-note.json`. If a new file is missing, read the old one; write only the new name.
 
 `sprintPrefixes`: one prefix per product that runs its own sprints in the project (milestone names look like `KD - SPR 31: <title>`). Never save a milestone number; each product's current sprint is its newest open `SPR n`, found on each run.
 
@@ -78,4 +80,4 @@ Next: <n> connectors missing, <n> fields missing. Reply: fix, run <skill>, or st
 ```
 
 - **fix** → ask again only for the missing items, then plan and ask before writing.
-- BA ready → suggest `find-requirement-gaps`; QA ready → suggest `/qa:write-test-cases`.
+- BA ready → suggest `find-gaps`; QA ready → suggest `/qa:write-test-cases`.

@@ -1,15 +1,15 @@
 ---
-name: track-ticket-status
+name: track-status
 description: Daily read-only status report for the current GitLab sprint, showing what moved, what is blocked, stale or sent back, and which client questions hold work. Use when it is time for the daily check, or when asked for ticket status, a standup summary or what is blocked.
 ---
 
-# Track Ticket Status
+# Track Status
 
 Run daily. Report the current sprint's tickets so the BA knows what needs action today. Never change the board.
 
 ## Steps
 
-1. **First run only**, ask: the GitLab project, whether the sprint is an iteration or a milestone, and where the Questions List file is. Save the answers to `ba-output/track-ticket-status.json` (no tokens or personal data). Both this file and the report go to `ba-output/` in the current folder; create it if missing, no need to ask. Later runs read that file instead of asking. If the file can't be read or its project path differs from the one the user names, ask again.
+1. **First run only**, ask: the GitLab project, whether the sprint is an iteration or a milestone, and where the Questions List file is. Save the answers to `ba-output/track-status.json` (no tokens or personal data). Both this file and the report go to `ba-output/` in the current folder; create it if missing, no need to ask. Later runs read that file (or the old `ba-output/track-ticket-status.json`, then save it under the new name) instead of asking. If the file can't be read or its project path differs from the one the user names, ask again.
 2. **Find the current sprint** (dates include today). Note its name, end date and days left. No current sprint, or the iteration or milestone can't be read? Say so and ask the user to paste the sprint board.
 3. **Read all its tickets**: status, labels, assignee, last update, comments. Period: since the date of the latest `ba-output/status-*.md`, or the previous working day if there is none (on Monday, since Friday).
 4. **Mark each ticket** (it can have more than one):
@@ -30,7 +30,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 - Only the current sprint's tickets.
 - Every line has the issue `#` and the date of the change.
 - Stale is about days without updates, never about people. Working days are Monday to Friday; public holidays are not counted unless the user says so.
-- Questions: Pending for 2+ days, counted from the date the question was asked (the Questions List date, else the date of the ticket comment that first mentions it; if neither, say the age is unknown) → add "Check for a client reply", and suggest `collect-client-answers` if it is installed. Answered → suggest updating the user stories, then the board tickets.
+- Questions: Pending for 2+ days, counted from the date the question was asked (the Questions List date, else the date of the ticket comment that first mentions it; if neither, say the age is unknown) → add "Check for a client reply", and suggest `collect-answers` if it is installed. Answered → suggest updating the user stories, then the board tickets.
 - Nothing moved → write "No change today", skip Moved and Done for tickets that moved in the period (there are none), keep Needs action.
 - GitLab not connected → ask the user to paste the sprint board.
 - Chat in the user's language; the report in English.
@@ -40,10 +40,10 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 The progress line only suggests the next step. The user can run any skill at any time.
 
 ```
-<sprint>   ✔ track-ticket-status
+<sprint>   ✔ track-status
 Next: <n> blocked, <n> stale, <n> sent back, <n> answers to apply (the number of "Answered, ticket not updated" rows). Reply: update / draft / stop.
 ```
 
-- **update** → suggest `/ba:write-user-stories` to update the user stories, then `/ba:write-stories-to-board` to update the board tickets. If one is not installed, stop and list what needs updating.
+- **update** → suggest `/ba:write-stories` to update the user stories, then `/ba:stories-to-board` to update the board tickets. If one is not installed, stop and list what needs updating.
 - **draft** → draft comments or a client follow-up; post only after go.
 - **stop** → end here.

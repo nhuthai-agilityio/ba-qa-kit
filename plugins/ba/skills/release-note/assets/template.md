@@ -1,6 +1,6 @@
 # Release Note Template
 
-Used by `draft-release-note`. Replace this file to use a different template.
+Used by `release-note`. Replace this file to use a different template.
 
 ## Format
 

@@ -46,8 +46,8 @@ Sources
 
 Files
 - ✔ qa.config.json: written
-- ✔ ba-output/track-ticket-status.json: unchanged
-- ✖ ba-output/draft-release-note.json: missing: links
+- ✔ ba-output/track-status.json: unchanged
+- ✖ ba-output/release-note.json: missing: links
 
 Warnings: MS1 has no end date; KD and F sprints ended and are still open
 Missing: Google Drive connector, release note build links

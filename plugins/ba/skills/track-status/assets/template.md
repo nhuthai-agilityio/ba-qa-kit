@@ -1,6 +1,6 @@
 # Status Report Template
 
-Used by `track-ticket-status`. Replace this file to use a different template.
+Used by `track-status`. Replace this file to use a different template.
 
 ## Format
 

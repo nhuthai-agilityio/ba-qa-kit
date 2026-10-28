@@ -1,15 +1,15 @@
 ---
-name: draft-release-note
+name: release-note
 description: Drafts the sprint release note email (Done, In-progress, Known issues, notes, next plan) from the sprint's GitLab tickets, for a person to review. Use when a sprint or release ends, or when asked for a release note.
 ---
 
-# Draft Release Note
+# Release Note
 
 Write the sprint release note email as a draft. A person reviews and sends it; never send it.
 
 ## Steps
 
-1. **Get the release.** If not given, ask: "Which products and sprints are released, and on what date?" Several products released the same day go into **one note** (see Rules). First run only, also ask the project name for the subject and where the build links are (store links, version and build, Storybook, repository). Tell the user, then save only `project` and `links` (each link as a name and its location) to `ba-output/draft-release-note.json`, creating the folder if missing — no tokens, no personal data (not the sender name), and links are copied as text, never opened. Later runs read that file instead of asking. Ask for the sender name on every run.
+1. **Get the release.** If not given, ask: "Which products and sprints are released, and on what date?" Several products released the same day go into **one note** (see Rules). First run only, also ask the project name for the subject and where the build links are (store links, version and build, Storybook, repository). Tell the user, then save only `project` and `links` (each link as a name and its location) to `ba-output/release-note.json`, creating the folder if missing — no tokens, no personal data (not the sender name), and links are copied as text, never opened. Later runs read that file (or the old `ba-output/draft-release-note.json`, then save it under the new name) instead of asking. Ask for the sender name on every run.
 2. **Read each product's sprint tickets**: number, title, status, labels, comments. If GitLab can't be read, ask the user to paste the ticket list.
 3. **Sort by status:**
    - **DONE** — closed or in the Done list.
@@ -36,7 +36,7 @@ Write the sprint release note email as a draft. A person reviews and sends it; n
 The progress line only suggests the next step. The user can run any skill at any time.
 
 ```
-<sprint>   ✔ draft-release-note
+<sprint>   ✔ release-note
 Next: <n> products, <n> done, <n> in-progress, <n> known issues, <n> links missing. Review the draft, then reply changes, or stop.
 ```
 
