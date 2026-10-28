@@ -5,12 +5,12 @@ description: Creates a short, clear clarification Questions List for the client 
 
 # Write Questions
 
-Turn a Gap Report into short, clear questions for the client or PO. Never invent answers.
+Turn a Gap Report into short, clear questions for the client or PO. Never invent answers: an assumption is always sent to the client to confirm and is never recorded as an answer.
 
 ## Input and output
 
 - **Needs** (from the user): the ticket, or the gaps pasted; a Google Doc link (optional).
-- **Reads**: the latest `gap-report-<name>-r<n>.md`, the GitLab issue, the Drive docs and the ticket's Questions List.
+- **Reads**: the latest `gap-report-<name>-r<n>.md`, the GitLab issue, the Drive docs, the design (if any) and the ticket's Questions List.
 - **Writes**: `ba-output/question-list-<name>.md`, or the Google Doc given; a loop round adds a new part to the same list.
 - **Next**: send the list to the client, then `/ba:collect-answers` with their reply.
 
@@ -26,10 +26,10 @@ Turn a Gap Report into short, clear questions for the client or PO. Never invent
 1. **Get the Gap Report.** If none exists, run `/ba:find-gaps` first and wait at its progress line for the user's go. If that skill is not installed, ask the user to paste the gaps. A Gap Report is a list of gaps, each with an impact (High, Medium or Low), the screen or part it belongs to, and a one-line description of what is missing or unclear.
 2. **Load the template** from `assets/template.md` (a template the user provides replaces it completely).
 3. **Group** questions by part and screen, in user-flow order (login → home → features → settings).
-4. **One question per gap**; High-impact first. Every High gap must have a question.
-5. **Skip** anything the GitLab issue (read with the GitLab connector or `glab`), the Drive docs (Google Drive connector), the design or an earlier Questions List already answers. A point the team can answer (tech, small UI details) is not a client question: decide it as an assumption, or list it in chat under "Ask the team first".
+4. **One question per gap**; High-impact first. Every High gap must have a question, in the list or under "Ask the team first". A team point the team can't answer becomes a client question in the next round.
+5. **Skip** anything the GitLab issue (read with the GitLab connector or `glab`), the Drive docs (Google Drive connector), the design or an earlier Questions List already answers. A point the team can answer (tech, small UI details) is not a client question: decide it as an assumption, or list it in chat under "Ask the team first" (see Progress).
 6. **Loop round:** add the new questions to the same Questions List file, never a new one. Find it from the Google Doc link the user gives, otherwise `ba-output/question-list-<name>.md`; if neither exists, ask the user for the link or file. Put them under a new part `ROUND <n> — <Mon DD, YYYY>` at the end, with numbering continuing from the last question.
-7. **Check before sending** each question, and reword it until all four pass: Do I know the requirement? Is the name the same as in the requirement? Is it yes/no? Can the client answer in 10 seconds? Say in chat how many questions were reworded.
+7. **Check before sending** each question, and reword it until all four pass: Do I know the requirement? Is the name the same as in the requirement? Is it yes/no or A-or-B (open only when no answer can be assumed)? Can the client answer in 10 seconds? A "no" to the first check can't be fixed by rewording: move the point to "Ask the team first". Say in chat how many questions were reworded.
 8. **Deliver** into the user's Google Doc if one is given (see Rules), otherwise save it to `ba-output/question-list-<name>.md`, then show the progress line.
 
 ## Question rules
@@ -49,11 +49,18 @@ Patterns: "We assume `<X>`. Is that right?" · "When `<real situation>`, we will
 - **Template values**: `<App Name>` and `<source>` (for example UI/UX, PRD, ticket) come from the ticket or docs; ask the user if they don't name them.
 - **Date**: use today's date as `Mon DD, YYYY` (for example `Aug 03, 2026`) for the title and round dates.
 - **Google Doc**: only when the user gives its link. Write with the Google Drive connector: show the doc name and ask once before writing, keep its existing content and styles, and add only the new content. If the connector is missing or the doc can't be edited, say so and give the text to paste.
-- If the GitLab issue or Drive docs can't be read (no connector, not signed in), ask the user to paste what is needed.
+- If the GitLab issue, Drive docs or design can't be read (no connector, not signed in, no link), ask the user to paste or link what is needed.
 
 ## Progress
 
 The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step the user's go runs next (this step, if it waits for go before writing), and ○ for the others (not run, or not installed). If the next skill is not installed, stop after delivering the list and say so instead of trying to run it.
+
+If there are team points, show them just before the progress line, one line each:
+
+```
+Ask the team first
+- <screen or part>: <point> (gap <n>, <impact>)
+```
 
 End with this progress line:
 
