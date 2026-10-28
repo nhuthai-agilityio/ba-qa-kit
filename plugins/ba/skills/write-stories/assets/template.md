@@ -1,6 +1,6 @@
 # User Stories Template
 
-Used by `write-user-stories`. Replace this file to use a different template.
+Used by `write-stories`. Replace this file to use a different template.
 
 ## Format
 

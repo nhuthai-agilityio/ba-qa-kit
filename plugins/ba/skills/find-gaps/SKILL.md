@@ -1,9 +1,9 @@
 ---
-name: find-requirement-gaps
+name: find-gaps
 description: Reviews a feature's requirements from the team's sources (GitLab issue and the Google Docs on Drive) as a BA/QA and lists missing, unclear and conflicting points in a Gap Report. Use when asked to analyze requirements, find gaps, review a spec or check what is missing for a ticket.
 ---
 
-# Find Requirement Gaps
+# Find Gaps
 
 Find what is missing, unclear or conflicting in the requirements. Never invent answers.
 
@@ -52,12 +52,12 @@ The progress line only suggests the next step. The user can run any skill at any
 End with this progress line, then wait for the user:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-requirement-gaps · create-question-list · collect-client-answers · write-user-stories
-Next: create-question-list — turn the gaps into the client question list. Reply go, tell me what to change, or stop.
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · write-questions · collect-answers · write-stories
+Next: write-questions — turn the gaps into the client question list. Reply go, tell me what to change, or stop.
 ```
 
 - `#<ticket>`: GitLab issue number. `<requirement>`: short feature name. `Round <n>` (also `r<n>` in the file name): 1 for the first run; otherwise the highest existing `gap-report-<ticket>-r*.md` in `ba-output/` plus 1.
-- **go** → run `create-question-list`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
+- **go** → run `write-questions`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
 - **Change request** → update the Gap Report, then show the progress line again.
 - **stop** → end here.
-- No gaps → say so and use "Next: write-user-stories". **go** → run `write-user-stories`; if that skill is not installed, say so and stop with the Gap Report as the result.
+- No gaps → say so and use "Next: write-stories". **go** → run `write-stories`; if that skill is not installed, say so and stop with the Gap Report as the result.

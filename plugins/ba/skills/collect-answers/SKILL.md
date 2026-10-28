@@ -1,9 +1,9 @@
 ---
-name: collect-client-answers
+name: collect-answers
 description: Collects the client's or PO's answers to a Questions List (pasted text, email, Slack thread, GitLab comment or Drive doc), matches each answer to its question, flags unclear or conflicting answers, and writes the answers directly into the Questions List. Use when the user shares a client reply or asks to collect, record or update answers.
 ---
 
-# Collect Client Answers
+# Collect Answers
 
 Write the client's answers directly into the Questions List. Never invent or guess an answer.
 
@@ -17,7 +17,7 @@ Write the client's answers directly into the Questions List. Never invent or gue
    - **Not answered** — nothing in the reply → Pending.
    - **Conflict** — disagrees with the GitLab issue, a Drive doc or an earlier answer.
 4. **Show a short summary in chat** (one line per question: number, status, note), plus any Unmatched parts, and name the file or doc that will be updated. Then **stop and show the progress line**. Do not change the file until the user replies; their **go** covers writing to that file or doc.
-5. **On go, update the Questions List** following the Answers section of `assets/template.md` in the `create-question-list` skill. If that skill or file is not installed, say so and use this shape: under each question, `Answer (<who>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. If the file or doc can't be edited (e.g. no access), give the user the updated text to paste.
+5. **On go, update the Questions List** following the Answers section of `assets/template.md` in the `write-questions` skill. If that skill or file is not installed, say so and use this shape: under each question, `Answer (<who>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. If the file or doc can't be edited (e.g. no access), give the user the updated text to paste.
 
 ## Rules
 
@@ -38,19 +38,19 @@ The progress line only suggests the next step. The user can run any skill at any
 After the summary:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-requirement-gaps · ✔ create-question-list · ▶ collect-client-answers · ○ write-user-stories
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ▶ collect-answers · ○ write-stories
 Next: write the answers into the Questions List. Reply go, tell me what to change, or stop.
 ```
 
 After the update:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-requirement-gaps · ✔ create-question-list · ✔ collect-client-answers · ○ write-user-stories
-Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (Round <n+1>), go for write-user-stories, or stop.
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ✔ collect-answers · ○ write-stories
+Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (Round <n+1>), go for write-stories, or stop.
 ```
 
-- **loop** → run `find-requirement-gaps` again with the updated Questions List as a source (next round). Suggest loop when there are follow-ups, conflicts or answers that add new rules; suggest go when all High questions are answered.
+- **loop** → run `find-gaps` again with the updated Questions List as a source (next round). Suggest loop when there are follow-ups, conflicts or answers that add new rules; suggest go when all High questions are answered.
 - `#<ticket>`: GitLab issue number. `<requirement>`: short feature name.
-- **go** → do the next step (after the update: `write-user-stories`). If that skill (or `find-requirement-gaps` for loop) is not installed, tell the user it isn't installed and stop.
+- **go** → do the next step (after the update: `write-stories`). If that skill (or `find-gaps` for loop) is not installed, tell the user it isn't installed and stop.
 - **Change request** → fix it, then show the progress line again.
 - **stop** → end here.

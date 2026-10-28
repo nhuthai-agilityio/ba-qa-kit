@@ -1,6 +1,6 @@
 # Question List Template
 
-Used by `create-question-list`. Replace this file to use a different template.
+Used by `write-questions`. Replace this file to use a different template.
 
 ## Format
 
@@ -52,7 +52,7 @@ This document provides the questions and answers when analyzing the <source> for
 
 ## Answers
 
-Forward reference: this section is written by the separate `collect-client-answers` skill, not by `create-question-list`, which leaves questions unanswered. If that skill is not installed, add answers by hand in the same format. Never renumber or delete questions.
+Forward reference: this section is written by the separate `collect-answers` skill, not by `write-questions`, which leaves questions unanswered. If that skill is not installed, add answers by hand in the same format. Never renumber or delete questions.
 
 ```
 1. <question>

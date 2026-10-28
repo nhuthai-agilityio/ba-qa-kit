@@ -1,6 +1,6 @@
 # Gap Report Template
 
-Used by `find-requirement-gaps`. Replace this file to use a different template.
+Used by `find-gaps`. Replace this file to use a different template.
 
 ## Format
 

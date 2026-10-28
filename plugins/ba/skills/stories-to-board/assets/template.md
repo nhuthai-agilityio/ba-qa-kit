@@ -1,6 +1,6 @@
 # Ticket Template
 
-Used by `write-stories-to-board`. Replace this file to use a different template.
+Used by `stories-to-board`. Replace this file to use a different template.
 
 ## Format
 

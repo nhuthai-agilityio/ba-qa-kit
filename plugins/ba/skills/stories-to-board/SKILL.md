@@ -1,15 +1,15 @@
 ---
-name: write-stories-to-board
+name: stories-to-board
 description: Turns a reviewed user story doc into GitLab issues, one per story, linked to the parent ticket, with no duplicates. Shows the plan and waits for go before creating or updating anything. Use when the user story doc is reviewed, or when asked to create tickets, issues or board items from user stories.
 ---
 
-# Write Stories to the Board
+# Stories to Board
 
 Create or update one GitLab issue per user story. Nothing is created or changed until the user replies go.
 
 ## Steps
 
-1. **Get the inputs.** Read the story doc (highest `ba-output/user-stories-<ticket>-v<n>.md`, or the Google Doc the user gives). Read the GitLab project from `ba.project` in `qa.config.json`, else `project` in `ba-output/track-ticket-status.json`; ask only for what is missing (story doc, project, parent issue #). If the story doc is a Google Doc and the Drive connector is missing, ask the user to paste the stories. Say which project and parent ticket you will use.
+1. **Get the inputs.** Read the story doc (highest `ba-output/user-stories-<ticket>-v<n>.md`, or the Google Doc the user gives). Read the GitLab project from `ba.project` in `qa.config.json`, else `project` in `ba-output/track-status.json` (or the old `track-ticket-status.json`); ask only for what is missing (story doc, project, parent issue #). If the story doc is a Google Doc and the Drive connector is missing, ask the user to paste the stories. Say which project and parent ticket you will use.
 2. **Check for duplicates.** US numbers restart for each requirement, so never search the whole project for `[US-nn]`. Look only at issues that are children of, or linked to, the parent ticket, matched by the `[US-nn]` title prefix. No parent ticket: ask the user for the issues to check.
 3. **Build the plan**, one row per story:
 
@@ -42,11 +42,11 @@ Create or update one GitLab issue per user story. Nothing is created or changed 
 The progress line only suggests the next step. The user can run any skill at any time; skills that are not installed are shown as ○.
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-requirement-gaps · ✔ create-question-list · ✔ collect-client-answers · ✔ write-user-stories · ▶ write-stories-to-board
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ✔ collect-answers · ✔ write-stories · ▶ stories-to-board
 Next: <n> create, <n> update, <n> skip. Reply go, tell me what to change, or stop.
 ```
 
-After the board update, show ✔ write-stories-to-board and `Next: <n> issues need answers (label pending-questions). Run /ba:track-ticket-status to follow progress, or stop.`
+After the board update, show ✔ stories-to-board and `Next: <n> issues need answers (label pending-questions). Run /ba:track-status to follow progress, or stop.`
 
 - Show ✔ only for steps that ran in this chat; others show ○. `#<ticket>`: parent issue number (`#-` if none). `<requirement>`: short feature name; `Round <n>`: reuse it from the story doc or earlier chat, or leave it out.
 - **Change request** → update the plan, then show the progress line again. **stop** → end; nothing is created.
