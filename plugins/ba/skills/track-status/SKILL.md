@@ -7,6 +7,13 @@ description: Daily read-only status report for the current GitLab sprint, showin
 
 Run daily. Report the current sprint's tickets so the BA knows what needs action today. Never change the board.
 
+## Input and output
+
+- **Needs** (from the user): nothing; it runs on the current sprint.
+- **Reads**: `ba.project`, `ba.sprintType`, `ba.sprintPrefixes`, the sprint's tickets and comments, the latest `ba-output/status-*.md` and each ticket's Questions List.
+- **Writes**: `ba-output/status-<YYYY-MM-DD>.md`, also shown in chat. Never changes the board.
+- **Next**: reply `update` at the progress line (`/ba:write-stories`, then `/ba:stories-to-board`), or `draft` for comments or a client follow-up.
+
 ## Config and files
 
 - **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.

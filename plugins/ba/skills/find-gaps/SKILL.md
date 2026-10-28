@@ -7,6 +7,13 @@ description: Reviews a feature's requirements from the team's sources (GitLab is
 
 Find what is missing, unclear or conflicting in the requirements. Never invent answers.
 
+## Input and output
+
+- **Needs** (from the user): the GitLab issue (link or #number); Drive docs (optional).
+- **Reads**: the issue with its comments, the Drive docs it links or the user gives and those in `ba.driveFolder`, the ticket's Questions List and earlier gap reports.
+- **Writes**: `ba-output/gap-report-<name>-r<n>.md`, also shown in chat.
+- **Next**: `/ba:write-questions`; no gaps: `/ba:write-stories`.
+
 ## Sources
 
 The full context is always in:
