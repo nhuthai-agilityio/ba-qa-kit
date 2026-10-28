@@ -52,14 +52,14 @@ The progress line only suggests the next step. The user can run any skill at any
 After the summary:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ▶ collect-answers · ○ write-stories · ○ stories-to-board
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ▶ collect-answers · ○ write-stories
 Next: write the answers into the Questions List. Reply go, tell me what to change, or stop.
 ```
 
 After the update:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ✔ collect-answers · ▶ write-stories · ○ stories-to-board
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ✔ collect-answers · ▶ write-stories
 Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (Round <n+1>), go for /ba:write-stories, or stop.
 ```
 

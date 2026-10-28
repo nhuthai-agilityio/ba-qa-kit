@@ -66,7 +66,7 @@ The progress line only suggests the next step. The user can run any skill at any
 End with this progress line, then wait for the user:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ▶ write-questions · ○ collect-answers · ○ write-stories · ○ stories-to-board
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ▶ write-questions · ○ collect-answers · ○ write-stories
 Next: /ba:write-questions — turn the gaps into the client Questions List. Reply go, tell me what to change, or stop.
 ```
 
