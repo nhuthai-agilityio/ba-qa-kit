@@ -1,4 +1,7 @@
-# Output sinh ra khi chạy QA plugin (test case, bug report, ảnh chụp)
-qa-output/
+# Output sinh ra khi chạy QA plugin (test case, bug report, ảnh chụp): bỏ qua,
+# trừ bài học và incident record để cả team dùng chung
+**/qa-output/*
+!**/qa-output/qa-lessons.md
+!**/qa-output/incidents/
 # Output sinh ra khi chạy BA plugin (release note, cấu hình)
 ba-output/

@@ -31,7 +31,7 @@ Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` list
    - `--label … --milestone …`: tickets that match both.
    Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. No tickets, label or milestone given? Ask which tickets.
 2. Find the tickets: `board` tool → else `boardUrl` in a new tab (user signs in if needed) → else ask. For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). A label or milestone not found? Tell the user, list the names that exist, and stop.
-3. Check each ticket: it has the `readyLabel` for the env (if `readyLabel` is set), and it has a sub-issue `QA test cases – #<n>`. A ticket can have several versions (`QA test cases – #<n> – v2`, `– v3`…): use the one with the highest version. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/qa:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
+3. Check each ticket: it has the `readyLabel` for the env (if `readyLabel` is set), and it has a `QA test cases` sub-issue. A ticket can have several versions (`QA test cases – #<n> – v2`, `– v3`…). Find the latest: among the child items of the ticket, take those with the label `test case` or a title that starts with `QA test cases – #<n>`. The version is the number after `– v` in the title (no suffix = v1). Take the highest. Two with the same version, or a version that cannot be read? Ask the user which one to use. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/qa:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
 4. Confirm: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table. It has no `QA test cases` sub-issue? Stop and suggest `/qa:write-test-cases`. It is missing the ready label? Tell the user and stop unless they say go.
    ```
    | Ticket | Link | Labels | Milestone | QA test cases | Ready | Run |
@@ -46,15 +46,15 @@ Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` list
 6. Check Chrome tools (`--chrome`) and that the user is signed in to the env. Read `<outputDir>/qa-lessons.md` if it exists and follow the lessons for `verify` or `both`.
 7. Run the tickets one by one, in ticket-number order. Do steps 8–14 for each ticket.
 8. Test cases: the description of the latest `QA test cases` sub-issue under the ticket (highest version; no suffix = v1) (the "Test cases" table: one row per case; steps and expected results are numbered the same).
-9. Round: 1 more than the highest Round for this Env and Ticket in `<outputDir>/verify-summary.md` or in the comments `QA verify – #<n> – <env> – Round <round>` on any version of the ticket's `QA test cases` sub-issue. None yet = Round 1.
+9. Round: 1 more than the highest Round for this Env and Ticket in `<outputDir>/verify-summary.md` or in the comments `QA verify – #<n> – <env> – Round <round>` on any version of the ticket's `QA test cases` sub-issue. None yet = Round 1. The comments found here (all versions) also give the links for `Earlier rounds` in the report.
 10. Run rows with Run = `Auto`, grouped by Role (same order as `roles`): finish one role, then switch user and run the next. Then run related features. Other rows = "Not run" + reason.
 11. Ticket has a result from another env? Compare case by case.
 12. Write the report to `<outputDir>/<ticket>-verify-<env>-round-<round>.md`.
 13. Update the summary `<outputDir>/verify-summary.md` (create it if missing): add this round to Totals; replace this Env and Ticket's rows in Results and in Fail and Blocked. Keep other tickets and older rounds in Totals.
-14. Post the report as a new comment on the latest `QA test cases` sub-issue. Do not ask. First line: `QA verify – #<n> – <env> – Round <round> – <date>`. Always add a new comment; never edit or delete an older one. Cannot comment? Tell the user and keep the files.
+14. Post the report as a new comment on the latest `QA test cases` sub-issue. Do not ask. First line: `QA verify – #<n> – <env> – Round <round> – <YYYY-MM-DD>`. The comment holds the report, including the line `Earlier rounds`. Always add a new comment; never edit or delete an older one. Cannot comment? Tell the user and keep the files.
 15. After the last ticket, show the chat report (see Report).
 16. Any Fail in any ticket? Ask once in chat: `Fail: <ticket and case list>. Log bugs now? yes/no`. Yes: run the `log-bugs` skill for the failed cases, with the ticket, env, round and related test cases already filled. It creates the bugs without asking.
-17. Any case that now Pass and has an open bug with label `failed`? Run the `log-bugs` skill for those cases without asking. It removes the label and adds a comment.
+17. Any case that now Pass and has an open bug (with or without label `failed`)? Run the `log-bugs` skill for those cases without asking. It sets the label `passed` and adds a comment.
 
 ## Rules
 - New tab. Open only the env URL and `boardUrl`. Never production.
@@ -87,7 +87,8 @@ Summary: <outputDir>/verify-summary.md
 Report file (also the comment text):
 ```
 # QA verify – Ticket #<n>: <ticket title>
-Env: <env> | Round: <round> | Test cases: v<k> | Date: <date>
+Env: <env> | Round: <round> | Test cases: v<k> | Date: <YYYY-MM-DD>
+Earlier rounds: Round <r> (v<k>) <comment link> · … (or "none")
 
 **Result: <p> Pass, <f> Fail, <b> Blocked, <r> Not run**
 

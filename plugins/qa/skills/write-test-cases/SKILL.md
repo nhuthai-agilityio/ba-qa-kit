@@ -17,9 +17,9 @@ Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `writ
    - `--label "ready to test","bug fix"`: tickets with at least one of these labels.
    - `--milestone "Sprint 1","Sprint 2"`: tickets in one of these milestones (Jira: sprint or fix version).
    - `--label … --milestone …`: tickets that match both.
-   Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. Nothing given? Ask which tickets. The user may also say what to change in a ticket that already has test cases (for example "add cases for AC-3").
+   Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. Nothing given? Ask which tickets. The ACs are read from the ticket, so new ACs need no mention. The user may also say what to change in one named ticket (for example "fix TC-12-05"). A change request with more than one ticket and no ticket named? Ask which ticket it applies to.
 2. **Find the tickets**: `board` tool → else `boardUrl` in a new tab (the user signs in if needed) → else ask. For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). A label or milestone not found? Tell the user, list the names that exist, and stop.
-3. **Existing test cases**: for each ticket, look for the sub-issues `QA test cases – #<n>` (v1) and `QA test cases – #<n> – v<k>`. The one with the highest version is the latest. None: the ticket is new (v1). Some: the new version is v<k+1>.
+3. **Existing test cases**: find the latest `QA test cases` sub-issue of each ticket: among the child items of the ticket, take those with the label `test case` or a title that starts with `QA test cases – #<n>`. The version is the number after `– v` in the title (no suffix = v1). Take the highest. Two with the same version, or a version that cannot be read? Ask the user which one to use. None: the ticket is new (v1). Some: the new version is v<k+1>.
 4. **Confirm**: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table.
    ```
    | Ticket | Link | Labels | Milestone | QA test cases | Run |
@@ -32,7 +32,7 @@ Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `writ
 6. Run the tickets one by one, in ticket-number order. Do steps 7–13 for each ticket.
 7. **Find the ticket** (US + AC): `board` tool → else `boardUrl` → else ask. Not found, or no AC? One ticket: tell the user and ask for what is missing. Many tickets: mark it "Skipped" with the reason and go on.
 8. **Base** (only when the ticket has test cases): the base is the description of the latest sub-issue, with the QA's hand edits.
-   - Compare it with `<outputDir>/<ticket>-test-cases.md` (or `…-v<k>.md`, the latest file) and list the cases QA changed. Keep every QA change. File missing? Say "cannot compare" and use the sub-issue as it is.
+   - Compare it with the file of that version in `<outputDir>` (`<ticket>-test-cases.md` for v1, `<ticket>-test-cases-v<k>.md` for v2 and later) and list the cases QA changed. Keep every QA change. File missing? Say "cannot compare" and use the sub-issue as it is.
    - Keep every case with the same TC ID. Never renumber. New cases get the next numbers.
    - ACs with no case: add cases. Cases whose AC changed or was removed: write "AC changed" in Note. Do not delete or rewrite them.
    - The base has a PO answer in section 4? Use it: replace "Pending PO-<n>" in Expected with the answer, add "PO answered PO-<n>" in Note, and leave the question out of the new section 4.
@@ -92,7 +92,7 @@ In the file:
 
 ```
 # QA test cases – Ticket #<n>: <ticket title> (v<k>)
-Date: <date> | Sources: <ticket link>, <doc links> | Based on: <v<k-1> sub-issue link, or "new">
+Date: <YYYY-MM-DD> | Sources: <ticket link>, <doc links> | Based on: <v<k-1> sub-issue link, or "new">
 Screens not built yet: <list or "none">
 
 ## 1. Ticket gaps
@@ -138,7 +138,7 @@ Written by /qa:write-test-cases. One row per ticket, for its latest version. Run
 ## 1. Tickets
 | Ticket | Title | Version | Sub-issue | Test cases | Auto | Manual only | Blocked | Roles | Ticket gaps | PO questions | Updated |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| #<n> | <title> | v<k> | [QA test cases – #<n>](<link>) | <x> | <a> | <m> | <b> | <roles used> | <n> | <n> | <date> |
+| #<n> | <title> | v<k> | [QA test cases – #<n>](<link>) | <x> | <a> | <m> | <b> | <roles used> | <n> | <n> | <YYYY-MM-DD> |
 
 ## 2. All test cases
 | Ticket | TC ID | Test case | Role | Run | Priority |
