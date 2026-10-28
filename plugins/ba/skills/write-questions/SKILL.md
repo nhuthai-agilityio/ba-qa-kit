@@ -49,13 +49,13 @@ Patterns: "Is it right if we assume...?" · "RE `<X>`, we will `<Y>`, right?" ·
 
 ## Progress
 
-The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step waiting for the user's go, and ○ for the others (not run, or not installed). If the next skill is not installed, stop after delivering the list and say so instead of trying to run it.
+The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step the user's go runs next (this step, if it waits for go before writing), and ○ for the others (not run, or not installed). If the next skill is not installed, stop after delivering the list and say so instead of trying to run it.
 
 End with this progress line:
 
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ○ collect-answers · ○ write-stories · ○ stories-to-board
-Next: send the list to the client. When they reply, paste it to run collect-answers. Reply with changes, or stop.
+Next: send the list to the client. When they reply, paste it to run /ba:collect-answers. Reply with changes, or stop.
 ```
 
 - `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name.

@@ -47,7 +47,7 @@ Write the client's answers directly into the Questions List. Never invent or gue
 
 ## Progress
 
-The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step waiting for the user's go, and ○ for the others (not run, or not installed).
+The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step the user's go runs next (this step, if it waits for go before writing), and ○ for the others (not run, or not installed).
 
 After the summary:
 
@@ -59,8 +59,8 @@ Next: write the answers into the Questions List. Reply go, tell me what to chang
 After the update:
 
 ```
-#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ✔ collect-answers · ○ write-stories · ○ stories-to-board
-Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (Round <n+1>), go for write-stories, or stop.
+#<ticket> · <requirement> · Round <n>   ✔ find-gaps · ✔ write-questions · ✔ collect-answers · ▶ write-stories · ○ stories-to-board
+Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (Round <n+1>), go for /ba:write-stories, or stop.
 ```
 
 - **loop** → run `/ba:find-gaps` again with the updated Questions List as a source (next round). Suggest loop when there are follow-ups, conflicts or answers that add new rules; suggest go when all High questions are answered.
