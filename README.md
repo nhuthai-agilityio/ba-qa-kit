@@ -45,6 +45,7 @@ Inside Claude Code:
    /plugin uninstall ba@ba-qa-kit
    /plugin uninstall qa@ba-qa-kit
    ```
+   Then restart Claude Code; until then the old commands can still show.
 
 ## QA setup
 
@@ -62,7 +63,7 @@ claude plugin marketplace update ba-qa-kit
 claude plugin update ba-qa-kit@ba-qa-kit
 ```
 
-From `ba-qa-kit` 1.0.0 the `ba` and `qa` plugins are one plugin: every `/ba:<skill>` and `/qa:<skill>` is now `/ba-qa-kit:<skill>`, with the same skill name. `/stories-to-board` is part of `/ba-qa-kit:write-stories`: reply go after reviewing the stories, or ask it to put an existing story doc on the board.
+From `ba-qa-kit` 1.0.0 the `ba` and `qa` plugins are one plugin: every `/ba:<skill>` and `/qa:<skill>` is now `/ba-qa-kit:<skill>`, with the same skill name. The old `/ba:stories-to-board` is part of `/ba-qa-kit:write-stories`: reply go after reviewing the stories, or ask it to put an existing story doc on the board.
 
 ## Maintaining
 
