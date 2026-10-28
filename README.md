@@ -2,15 +2,31 @@
 
 Two Claude Code plugins in one marketplace (`ba-qa-kit`):
 
-- `ba` (`plugins/ba`): user stories with Given/When/Then acceptance criteria. `/ba:find-gaps` reviews a ticket's GitLab issue and Drive docs and writes a Gap Report of missing, unclear and conflicting points.
+- `ba` (`plugins/ba`): from a ticket to user stories with acceptance criteria on the GitLab board, plus sprint status and release notes. In workflow order:
   - `/ba:setup` checks the connectors and writes `qa.config.json` and the BA saved answers, so nobody edits config by hand. Run it first. It is part of `ba`, so a QA-only install does not have it.
-  - `/ba:release-note` drafts the sprint release note email from the sprint's GitLab tickets, for a person to review and send.
+  - `/ba:find-gaps` reviews a ticket's GitLab issue and Drive docs and writes a Gap Report of missing, unclear and conflicting points.
+  - `/ba:write-questions` turns a Gap Report into a clarification Questions List for the client or PO.
+  - `/ba:collect-answers` matches the client's replies to a Questions List and writes the answers into it.
   - `/ba:write-stories` writes stories with acceptance criteria, error handling and edge cases from the sources and the answered Questions List. The skills before and after it in the chain are optional companions: if one is not installed, the skill says so and stops.
   - `/ba:stories-to-board` creates or updates one GitLab issue per user story and puts new ones in the Backlog column, after the user replies go, without duplicating existing issues.
   - `/ba:track-status` writes a daily status report for the current GitLab sprint, with how much of each sprint is done (read-only).
-  - `/ba:collect-answers` matches the client's replies to a Questions List and writes the answers into it.
-  - `/ba:write-questions` turns a Gap Report into a clarification Questions List for the client or PO.
+  - `/ba:release-note` drafts the sprint release note email from the sprint's GitLab tickets, for a person to review and send.
 - `qa` (`plugins/qa`): `/qa:write-test-cases` writes test cases, `/qa:verify` checks a ticket in Chrome, `/qa:log-bugs` logs bugs and records verify mistakes. Settings come from `qa.config.json` in the folder where you start `claude`.
+
+## BA workflow
+
+| When | Run | You get |
+|---|---|---|
+| Once, or when a teammate joins | `/ba:setup` | `qa.config.json` in the current folder, and the saved answers in `ba-output/` |
+| A new ticket arrives | `/ba:find-gaps` | `ba-output/gap-report-<name>-r<n>.md` |
+| Gaps are found | `/ba:write-questions` | `ba-output/question-list-<name>.md` to send to the client |
+| The client replies | `/ba:collect-answers` | the answers in the same Questions List; reply `loop` for a new round of gaps, or `go` to write stories |
+| The questions are answered | `/ba:write-stories` | `ba-output/user-stories-<name>-v<n>.md` to review |
+| The stories are reviewed | `/ba:stories-to-board` | one GitLab issue per story, new ones in the Backlog column |
+| Every day of the sprint | `/ba:track-status` | `ba-output/status-<YYYY-MM-DD>.md` with the percent done |
+| The sprint ends | `/ba:release-note` | `ba-output/release-note-<YYYY-MM-DD>.md`, a draft email |
+
+Each skill ends with a progress line: ✔ ran, ▶ what `go` runs next, ○ not run. Reply `go`, a change, or `stop`. `<name>` is the GitLab issue number, or a short name of the requirement (for example `login-flow`) when there is no ticket.
 
 ## Install
 

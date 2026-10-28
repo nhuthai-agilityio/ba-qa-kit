@@ -1,6 +1,6 @@
 {
   "name": "ba-qa-kit",
-  "description": "Claude Code kit for BA and QA: user stories, test cases, UI checks in Chrome, bug reports.",
+  "description": "Claude Code kit for BA and QA: requirement gaps, user stories, sprint status, release notes, test cases, UI checks in Chrome, bug reports.",
   "owner": {
     "name": "nhu thai"
   },
@@ -8,7 +8,7 @@
     {
       "name": "ba",
       "source": "./plugins/ba",
-      "description": "BA kit: user stories with Given/When/Then acceptance criteria"
+      "description": "BA kit: requirement gaps, client questions and answers, user stories with acceptance criteria, board tickets, sprint status and release notes"
     },
     {
       "name": "qa",
