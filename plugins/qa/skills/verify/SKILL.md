@@ -18,14 +18,10 @@ Run the test cases of one ticket, or of every ticket that matches a label or mil
   "board": "jira",
   "boardUrl": "https://company.atlassian.net",
   "roles": ["Owner", "Member"],
-  "accounts": {
-    "Owner": { "email": "e2e.owner@example.com", "password": "<password>" },
-    "Member": { "email": "e2e.member@example.com", "password": "<password>" }
-  },
   "outputDir": "qa-output"
 }
 ```
-Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` lists the user roles; cases are run one role at a time. No `roles`? Run all cases as the signed-in user. `accounts` is optional: the shared test account of each role, for dev and stag only. Without it, the user signs in.
+Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` lists the user roles; cases are run one role at a time. No `roles`? Run all cases as the signed-in user. Test accounts are not in this file. They are in `qa.accounts.local.json` in the repo root (git-ignored, never committed): `{ "Owner": { "email": "<email>", "password": "<password>" }, "Member": { … } }`, one shared test account for each role, for dev and stag only. Optional. Without the file, the user signs in.
 
 ## Workflow
 1. Input: `--env` (default `dev`), related features (optional), and the tickets, in one of these ways:
@@ -69,8 +65,8 @@ Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` list
 - Test data names start with `testDataPrefix`.
 - Start console and network tracking before each case.
 - Each Fail: screenshot, console errors, failed requests. Save screenshots in `outputDir` as `<ticket>-round-<round>-<case>-step<n>.jpg`.
-- Login page shows? Find the account of the role you are running in `accounts`. Found: sign in with it. Not found, or its value still starts with `<`: stop at the login page, do not type a password, and ask the user to sign in. Sign-in fails? Stop and ask; do not try again. A step cannot be done: with one ticket, stop and ask; with many tickets, mark the case Blocked and continue with the next case. The whole ticket cannot go on? Mark its remaining cases Blocked and go to the next ticket.
-- Never type or write passwords, tokens or personal data. Only exception: sign in with the test account of the current role from `accounts`, on the env URL (dev or stag, never production). Never write that password anywhere else: not in files, comments, reports, chat or screenshots. Do not take a screenshot of the sign-in form.
+- Login page shows? Find the account of the role you are running in `qa.accounts.local.json`. Found: sign in with it. Not found, or its value still starts with `<`: stop at the login page, do not type a password, and ask the user to sign in. Sign-in fails? Stop and ask; do not try again. A step cannot be done: with one ticket, stop and ask; with many tickets, mark the case Blocked and continue with the next case. The whole ticket cannot go on? Mark its remaining cases Blocked and go to the next ticket.
+- Never type or write passwords, tokens or personal data. Only exception: sign in with the test account of the current role from `qa.accounts.local.json`, on the env URL (dev or stag, never production). Never write that password anywhere else: not in files, comments, reports, chat or screenshots. Do not take a screenshot of the sign-in form.
 - Never change data you did not create. Never change the ticket (status, fields, AC) or an older comment; only add the verify comment. Write files only in `outputDir`.
 - Never send, pay or delete unless it is a test step.
 
