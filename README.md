@@ -15,18 +15,18 @@ Two Claude Code plugins in one marketplace (`ba-qa-kit`):
 
 ## BA workflow
 
-| When | Run | You get (in `ba-output/`) |
+| When | Run | You get |
 |---|---|---|
-| Once, or when a teammate joins | `/ba:setup` | `qa.config.json` and the saved answers |
-| A new ticket arrives | `/ba:find-gaps` | `gap-report-<ticket>-r<n>.md` |
-| Gaps are found | `/ba:write-questions` | `question-list-<ticket>.md` to send to the client |
-| The client replies | `/ba:collect-answers` | the answers in the same Questions List; reply `loop` for a new round of gaps |
-| The questions are answered | `/ba:write-stories` | `user-stories-<ticket>-v<n>.md` to review |
+| Once, or when a teammate joins | `/ba:setup` | `qa.config.json` in the current folder, and the saved answers in `ba-output/` |
+| A new ticket arrives | `/ba:find-gaps` | `ba-output/gap-report-<name>-r<n>.md` |
+| Gaps are found | `/ba:write-questions` | `ba-output/question-list-<name>.md` to send to the client |
+| The client replies | `/ba:collect-answers` | the answers in the same Questions List; reply `loop` for a new round of gaps, or `go` to write stories |
+| The questions are answered | `/ba:write-stories` | `ba-output/user-stories-<name>-v<n>.md` to review |
 | The stories are reviewed | `/ba:stories-to-board` | one GitLab issue per story, new ones in the Backlog column |
-| Every day of the sprint | `/ba:track-status` | `status-<YYYY-MM-DD>.md` with the percent done |
-| The sprint ends | `/ba:release-note` | `release-note-<YYYY-MM-DD>.md`, a draft email |
+| Every day of the sprint | `/ba:track-status` | `ba-output/status-<YYYY-MM-DD>.md` with the percent done |
+| The sprint ends | `/ba:release-note` | `ba-output/release-note-<YYYY-MM-DD>.md`, a draft email |
 
-Each skill ends with a progress line: ✔ ran, ▶ what `go` runs next, ○ not run. Reply `go`, a change, or `stop`. With no ticket, files use a short name of the requirement instead of the ticket number.
+Each skill ends with a progress line: ✔ ran, ▶ what `go` runs next, ○ not run. Reply `go`, a change, or `stop`. `<name>` is the GitLab issue number, or a short name of the requirement (for example `login-flow`) when there is no ticket.
 
 ## Install
 
