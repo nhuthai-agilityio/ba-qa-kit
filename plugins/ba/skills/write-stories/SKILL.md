@@ -7,6 +7,13 @@ description: Writes a user story doc that dev and QA can build and test from —
 
 Turn the requirements and client answers into short, testable user stories. Never invent facts.
 
+## Input and output
+
+- **Needs** (from the user): the ticket; a design link and a Google Doc link (optional).
+- **Reads**: the GitLab issue, the Drive docs, the ticket's Questions List, the latest `gap-report-<name>-r<n>.md`, the design and the latest story version.
+- **Writes**: `ba-output/user-stories-<name>-v<n>.md` (a new version each time), or the Google Doc given.
+- **Next**: review the draft, then `/ba:stories-to-board`; new questions: `/ba:find-gaps` (loop).
+
 ## Config and files
 
 - **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.

@@ -5,6 +5,13 @@ description: Creates a short, clear clarification Questions List for the client 
 
 # Write Questions
 
+## Input and output
+
+- **Needs** (from the user): the ticket, or the gaps pasted; a Google Doc link (optional).
+- **Reads**: the latest `gap-report-<name>-r<n>.md`, the GitLab issue, the Drive docs and the ticket's Questions List.
+- **Writes**: `ba-output/question-list-<name>.md`, or the Google Doc given; a loop round adds a new part to the same list.
+- **Next**: send the list to the client, then `/ba:collect-answers` with their reply.
+
 ## Config and files
 
 - **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.

@@ -7,6 +7,13 @@ description: Drafts the sprint release note email (Done, In-progress, Known issu
 
 Write the sprint release note email as a draft. A person reviews and sends it; never send it.
 
+## Input and output
+
+- **Needs** (from the user): confirm the products, sprints and release date; the sender name; a Google Doc link (optional).
+- **Reads**: `ba.sprintPrefixes`, `ba.releaseNote`, and the tickets of each product's sprint and next sprint.
+- **Writes**: `ba-output/release-note-<YYYY-MM-DD>.md` (a draft, never sent), or the Google Doc given; `ba-output/release-note.json` when the project or links were missing.
+- **Next**: a person reviews and sends the email.
+
 ## Config and files
 
 - **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.

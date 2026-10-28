@@ -7,6 +7,13 @@ description: Turns a reviewed user story doc into GitLab issues, one per story, 
 
 Create or update one GitLab issue per user story. Nothing is created or changed until the user replies go.
 
+## Input and output
+
+- **Needs** (from the user): the parent issue number and the reviewed story doc.
+- **Reads**: the latest `user-stories-<name>-v<n>.md` or the Google Doc given, `ba.project`, `ba.backlogLabel`, the board's lists and the parent's child or linked issues.
+- **Writes**: GitLab issues (created or updated after go), and `Ticket: #<n>` in each story's Notes.
+- **Next**: `/ba:track-status` to follow progress.
+
 ## Config and files
 
 - **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.

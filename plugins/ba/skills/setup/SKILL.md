@@ -7,6 +7,13 @@ description: First-run setup for the BA/QA kit. Checks the GitLab and Google Dri
 
 Get a teammate ready without editing config by hand. The only sources are the GitLab board and the BA/QA Drive folders. BA files are written to `ba-output/` in the current folder; GitLab tickets are written by the skills that create them. Safe to re-run: it reads what exists and asks only for what is missing.
 
+## Input and output
+
+- **Needs** (from the user): the role (BA, QA or both) and the answers it is missing.
+- **Reads**: `qa.config.json`, the `ba-output/*.json` copies, the connectors, and the GitLab board and Drive folders (read-only).
+- **Writes**: `qa.config.json`, `ba-output/track-status.json` and `ba-output/release-note.json`, after go.
+- **Next**: BA: `/ba:find-gaps`; QA: `/qa:write-test-cases`.
+
 ## Steps
 
 1. **Ask the role**: BA, QA or both. Set up only what that role needs (see Files).

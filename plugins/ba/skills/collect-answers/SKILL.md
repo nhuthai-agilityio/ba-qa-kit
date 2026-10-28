@@ -7,6 +7,13 @@ description: Collects the client's or PO's answers to a Questions List (pasted t
 
 Write the client's answers directly into the Questions List. Never invent or guess an answer.
 
+## Input and output
+
+- **Needs** (from the user): the client's reply (pasted text or a Slack, email, GitLab or Drive link).
+- **Reads**: the reply, the ticket's Questions List, and the GitLab issue and Drive docs (to find conflicts).
+- **Writes**: the answers into the same Questions List (file or Google Doc), after go; never a new file.
+- **Next**: `/ba:find-gaps` for a new round (loop), or `/ba:write-stories`.
+
 ## Config and files
 
 - **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
