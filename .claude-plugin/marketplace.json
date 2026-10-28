@@ -6,14 +6,9 @@
   },
   "plugins": [
     {
-      "name": "ba",
-      "source": "./plugins/ba",
-      "description": "BA kit: requirement gaps, client questions and answers, user stories with acceptance criteria, board tickets, sprint status and release notes"
-    },
-    {
-      "name": "qa",
-      "source": "./plugins/qa",
-      "description": "QA kit: test cases, verify in Chrome, bug reports"
+      "name": "kit",
+      "source": "./plugins/kit",
+      "description": "BA and QA: requirement gaps, client questions and answers, user stories on the board, sprint status, release notes, test cases, verify in Chrome, bug reports"
     }
   ]
 }

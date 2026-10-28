@@ -32,13 +32,13 @@ Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` list
    - Optional: `--bugs #6,#9`: bugs by others to check against these tickets.
    Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. No tickets, label or milestone given? Ask which tickets.
 2. Find the tickets: `board` tool → else `boardUrl` in a new tab (user signs in if needed) → else ask. For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). A label or milestone not found? Tell the user, list the names that exist, and stop.
-3. Check each ticket: it has the `readyLabel` for the env (if `readyLabel` is set), and it has a `QA test cases` sub-issue. A ticket can have several versions (`QA test cases – #<n> – v2`, `– v3`…). Find the latest: among the child items of the ticket, take those with the label `test case` or a title that starts with `QA test cases – #<n>`. The version is the number after `– v` in the title (no suffix = v1). Take the highest. Two with the same version, or a version that cannot be read? Ask the user which one to use. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/qa:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
-4. Confirm: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table. It has no `QA test cases` sub-issue? Stop and suggest `/qa:write-test-cases`. It is missing the ready label? Tell the user and stop unless they say go.
+3. Check each ticket: it has the `readyLabel` for the env (if `readyLabel` is set), and it has a `QA test cases` sub-issue. A ticket can have several versions (`QA test cases – #<n> – v2`, `– v3`…). Find the latest: among the child items of the ticket, take those with the label `test case` or a title that starts with `QA test cases – #<n>`. The version is the number after `– v` in the title (no suffix = v1). Take the highest. Two with the same version, or a version that cannot be read? Ask the user which one to use. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/kit:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
+4. Confirm: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table. It has no `QA test cases` sub-issue? Stop and suggest `/kit:write-test-cases`. It is missing the ready label? Tell the user and stop unless they say go.
    ```
    | Ticket | Link | Labels | Milestone | QA test cases | Ready | Run |
    |---|---|---|---|---|---|---|
    | #12 <title> | <link> | <labels> | <milestone> | Yes (<sub-issue link>) | Yes | Will run |
-   | #18 <title> | <link> | <labels> | <milestone> | No | n/a | Skipped: run /qa:write-test-cases first |
+   | #18 <title> | <link> | <labels> | <milestone> | No | n/a | Skipped: run /kit:write-test-cases first |
    | #20 <title> | <link> | <labels> | <milestone> | Yes (<sub-issue link>) | No | Skipped: missing label <readyLabel> |
    ```
    Ready is `Yes` or `No`. It is `n/a` when `readyLabel` has no entry for the env, or when the ticket has no sub-issue.
@@ -114,7 +114,7 @@ One row for each Fail, Blocked or Not run case. For Blocked and Not run, write t
 |---|---|---|---|---|---|
 Sort the rows by Type in this order: Bug, PO question, Test limit, Env issue. Inside a Type, sort by TC ID.
 Type: Bug / PO question / Test limit / Env issue. A Fail on a case whose Note says "Assumed" (any form, with or without PO-<n>) is Type PO question, not Bug: the Expected may differ from what the PO wants. Exceptions, these stay Type Bug: a clear defect (the user cannot finish the action, a field is hidden, the page hangs, or the app shows an error), and a case whose Expected has a real source (an AC, or Covers = "Not in AC (<standard>)"). Say which step failed (e.g. "Step 4: …"). Evidence: screenshot, console errors, failed requests.
-Under the table write `PO questions: <TC ID>, <TC ID>` (or `PO questions: none`). `/qa:write-test-cases` reads this line for the next version.
+Under the table write `PO questions: <TC ID>, <TC ID>` (or `PO questions: none`). `/kit:write-test-cases` reads this line for the next version.
 
 ## 5. Next steps
 - <TC ID>: QA runs it by hand to confirm. Real bug: assign it to a developer.
@@ -125,7 +125,7 @@ Under the table write `PO questions: <TC ID>, <TC ID>` (or `PO questions: none`)
 ```
 # QA verify summary
 Updated: <date and time>
-Written by /qa:verify. The Bug column is filled by /qa:log-bugs. Running it again for the same Env and Ticket adds a new Round to Totals and replaces that Env and Ticket's rows in Results and in Fail and Blocked.
+Written by /kit:verify. The Bug column is filled by /kit:log-bugs. Running it again for the same Env and Ticket adds a new Round to Totals and replaces that Env and Ticket's rows in Results and in Fail and Blocked.
 
 ## 1. Totals
 | Env | Ticket | Round | Status |

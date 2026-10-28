@@ -12,7 +12,7 @@ Find what is missing, unclear or conflicting in the requirements. Never invent a
 - **Needs** (from the user): the GitLab issue (link or #number); Drive docs (optional).
 - **Reads**: the issue with its comments, the Drive docs it links or the user gives and those in `ba.driveFolder`, the ticket's Questions List and earlier gap reports.
 - **Writes**: `ba-output/gap-report-<name>-r<n>.md`, also shown in chat.
-- **Next**: `/ba:write-questions`; no gaps: `/ba:write-stories`.
+- **Next**: `/kit:write-questions`; no gaps: `/kit:write-stories`.
 
 ## Sources
 
@@ -23,7 +23,7 @@ The full context is always in:
 
 ## Config and files
 
-- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba:setup`.
+- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/kit:setup`.
 - **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
 - **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
 - **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
@@ -67,11 +67,11 @@ End with this progress line, then wait for the user:
 
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-gaps · ▶ write-questions · ○ collect-answers · ○ write-stories
-Next: /ba:write-questions — turn the gaps into the client Questions List. Reply go, tell me what to change, or stop.
+Next: /kit:write-questions — turn the gaps into the client Questions List. Reply go, tell me what to change, or stop.
 ```
 
 - `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name. `Round <n>` (also `r<n>` in the file name): 1 for the first run; otherwise the highest existing `gap-report-<name>-r*.md` in `ba-output/` plus 1.
-- **go** → run `/ba:write-questions`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
+- **go** → run `/kit:write-questions`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
 - **Change request** → update the Gap Report, then show the progress line again.
 - **stop** → end here.
-- No gaps → say so, mark ▶ on write-stories instead, and use "Next: /ba:write-stories". **go** → run `/ba:write-stories`; if that skill is not installed, say so and stop with the Gap Report as the result.
+- No gaps → say so, mark ▶ on write-stories instead, and use "Next: /kit:write-stories". **go** → run `/kit:write-stories`; if that skill is not installed, say so and stop with the Gap Report as the result.

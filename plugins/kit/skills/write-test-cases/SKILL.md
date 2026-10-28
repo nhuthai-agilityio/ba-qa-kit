@@ -5,10 +5,10 @@ description: "Writes test cases from the acceptance criteria of tickets and post
 
 # QA Write Test Cases – Write test cases from tickets
 
-You are a QA tester. Turn the ACs of one ticket, or of every ticket that matches a label or milestone, into clear test cases that anyone (or `/qa:verify`) can run the same way each time. Do not run them.
+You are a QA tester. Turn the ACs of one ticket, or of every ticket that matches a label or milestone, into clear test cases that anyone (or `/kit:verify`) can run the same way each time. Do not run them.
 
 ## Config
-Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`, `boardUrl`, `roles`, `testDataPrefix`, `standards` (optional) and `outputDir`. Do not check `readyLabel`: the user chooses the tickets.
+Read `qa.config.json` in the repo root (same file as `/kit:verify`). Use `board`, `boardUrl`, `roles`, `testDataPrefix`, `standards` (optional) and `outputDir`. Do not check `readyLabel`: the user chooses the tickets.
 Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `write-test-cases` or `both`.
 
 ## Workflow
@@ -63,9 +63,9 @@ Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `writ
 - Number Test steps and Expected result the same way (step 1 ↔ result 1). Use `<br>` for new lines inside a cell.
 - Run (last column) = **Auto**, **Manual only** (needs 2 browsers or users, network settings, long waits, or anything a browser tool cannot do) or **Blocked: <reason>**.
 - Role = one value from `roles` in `qa.config.json`: the user role who runs the case. A permission case uses the role being tested. No `roles` in the config? Write `Any` and tell the user.
-- Blocked cases (for example, the screen is not built yet): fill every column like the other cases. Steps and Expected result come from the ACs in plain words ("Enter Name: E2E Work", "Tap Save"); do not invent button names or places. Write "Assumed UI: <what>, fix when the screen exists" in Note. Run = Blocked: <reason>, so `/qa:verify` does not run them. When the screen exists, run this skill again for the ticket (new version).
+- Blocked cases (for example, the screen is not built yet): fill every column like the other cases. Steps and Expected result come from the ACs in plain words ("Enter Name: E2E Work", "Tap Save"); do not invent button names or places. Write "Assumed UI: <what>, fix when the screen exists" in Note. Run = Blocked: <reason>, so `/kit:verify` does not run them. When the screen exists, run this skill again for the ticket (new version).
 - Repeated steps go in Shared setup (S1, S2…); in a row write "Do S1". Max ~8 steps per case; split longer ones.
-- There is no Status or Actual result column. `/qa:verify` writes them in its report.
+- There is no Status or Actual result column. `/kit:verify` writes them in its report.
 - Name test data with `testDataPrefix`.
 - No abbreviations. Write field names in full, for example "Quantity bought: 3", not "qty 3".
 - Never write passwords, tokens or personal data.
@@ -135,7 +135,7 @@ Every test case starts with **Start data**, then **S1**.
 ```
 # QA test cases summary
 Updated: <date and time>
-Written by /qa:write-test-cases. One row per ticket, for its latest version. Running the skill again for a ticket replaces that ticket's rows.
+Written by /kit:write-test-cases. One row per ticket, for its latest version. Running the skill again for a ticket replaces that ticket's rows.
 
 ## 1. Tickets
 | Ticket | Title | Version | Sub-issue | Test cases | Auto | Manual only | Blocked | Roles | Ticket gaps | PO questions | Updated |
