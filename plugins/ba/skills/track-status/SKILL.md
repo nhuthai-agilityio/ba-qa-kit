@@ -15,7 +15,7 @@ Run daily. Report the current sprint's tickets so the BA knows what needs action
 ## Steps
 
 1. **Get the config** (see Config): `project`, `sprintType` (iteration or milestone) and `sprintPrefixes`. Missing? Ask once and save the answers to `ba-output/track-status.json` (no tokens or personal data). If the project path differs from the one the user names, ask again.
-2. **Find the current sprint**: with `sprintPrefixes`, each product's newest open `<prefix> - SPR <n>` milestone; otherwise the iteration or milestone whose dates include today. Note its name, end date and days left. No current sprint, or the iteration or milestone can't be read? Say so and ask the user to paste the sprint board.
+2. **Find the current sprint**: if `sprintType` is milestone and `sprintPrefixes` is set, each product's newest open `<prefix> - SPR <n>` milestone. Otherwise (`sprintType` is iteration, or no prefixes), the iteration or milestone whose dates include today. Note its name, end date and days left. No current sprint, or the iteration or milestone can't be read? Say so and ask the user to paste the sprint board.
 3. **Read all its tickets**: status, labels, assignee, last update, comments. Period: since the date of the latest `ba-output/status-*.md`, or the previous working day if there is none (on Monday, since Friday).
 4. **Mark each ticket** (it can have more than one):
    - **Moved** — status changed in the period.

@@ -63,7 +63,7 @@ End with this progress line, then wait for the user:
 Next: write-questions — turn the gaps into the client question list. Reply go, tell me what to change, or stop.
 ```
 
-- `#<ticket>`: GitLab issue number. `<requirement>`: short feature name. `Round <n>` (also `r<n>` in the file name): 1 for the first run; otherwise the highest existing `gap-report-<name>-r*.md` in `ba-output/` plus 1.
+- `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name. `Round <n>` (also `r<n>` in the file name): 1 for the first run; otherwise the highest existing `gap-report-<name>-r*.md` in `ba-output/` plus 1.
 - **go** → run `write-questions`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
 - **Change request** → update the Gap Report, then show the progress line again.
 - **stop** → end here.
