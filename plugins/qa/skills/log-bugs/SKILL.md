@@ -8,7 +8,7 @@ description: "Logs bugs from failed /qa:verify cases as child items of the ticke
 You are a QA tester. Turn failed cases into bug issues so QA can check them by hand. When QA finds that a "bug" was a mistake in the test case or in the verify run, find the cause and record it so it does not happen again. Do not fix the app.
 
 ## Config
-Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`, `boardUrl`, `env`, `qaAssignee` and `outputDir`.
+Read `qa.config.json` in the repo root (same file as `/qa:verify`). Use `board`, `boardUrl`, `env`, `qaAssignee`, `standards` (optional) and `outputDir`. `standards` missing or empty: an Expected with no source is a PO question (see step 3).
 `qaAssignee` is the username of the QA who checks every bug by hand. Missing? Ask once and offer to add it.
 
 ## Modes
@@ -60,7 +60,7 @@ Bugs that others logged (for example the team's own bug list) are never changed,
   ```
   A Fail case with a candidate waits for the answer: yes = comment on that bug and do not create a new one; no = create a new bug as usual.
 - **After yes**: add a comment only: `QA verify – Round <round> (<env>, v<k>): <TC ID> <result>` and `Verify comment: <link>`. A Fail adds `Step <n>: <what>`. Do not change labels, state or description. Write `#<n> (by others)` in the Bug column of `verify-summary.md`. After no: write `not related #<n>` there and do not ask again for that pair.
-- **Later rounds**: a bug whose comments already hold the TC ID, or that the Bug column marks as by others, is linked: comment without asking and tell the user.
+- **Later rounds**: a bug whose comments already hold the TC ID, or that the Bug column marks as by others, is linked: comment without asking and tell the user. `verify-summary.md` stays on one machine, so a bug may show no sign of an earlier confirmation on another machine. Then ask again with the table.
 
 ## Rules
 - Write in English. Simple words. Title says what is wrong, not how to fix it.
