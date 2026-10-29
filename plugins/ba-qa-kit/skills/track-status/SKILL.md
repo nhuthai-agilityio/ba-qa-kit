@@ -19,7 +19,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 ## Steps
 
 1. **Get the sprint setup** from the profile: the project (Board line); milestones or iterations, and the product prefixes (Sprints line). Missing or `?:`: ask for that line only and offer to save it in the profile.
-2. **Find the current sprint**: milestones with prefixes: each product's newest open `<prefix> - SPR <n>` milestone. Otherwise (iterations, or no prefixes), the iteration or milestone whose dates include today. Note its name, start date, end date and days left. No current sprint, or the iteration or milestone can't be read? Say so and ask the user to paste the sprint board.
+2. **Find the current sprint**: milestones with prefixes: each product's newest open `<prefix> - SPR <n>` milestone. Otherwise (iterations, or no prefixes), the iteration or milestone whose dates include today. Note its name, start date, end date and days left. No `<prefix> - SPR <n>` sprints (Trello, or another naming): ask how the team marks the current sprint and offer to save it in the Sprints line. No current sprint, or the iteration or milestone can't be read? Say so and ask the user to paste the sprint board.
 3. **Read all its tickets**: status, labels, assignee, last update, comments. Period: since the date of the latest `ba-output/status-*.md`, or the previous working day if there is none (on Monday, since Friday).
 4. **Mark each ticket** (it can have more than one):
    - **Moved** — status changed in the period.
