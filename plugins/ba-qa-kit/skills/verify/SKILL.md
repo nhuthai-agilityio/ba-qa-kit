@@ -1,6 +1,6 @@
 ---
 name: verify
-description: "Runs the test cases of tickets in Chrome on Dev or Stag. Pick tickets by number, by label, by milestone, or by label and milestone together. Writes a report and a summary file, and comments the result on each ticket's QA test cases sub-issue. Use when the user asks to verify, test or re-check tickets, to compare results between environments, or to check that related features are not broken (Claude in Chrome)."
+description: "Runs the test cases of tickets in Chrome on Dev or Stag. Pick tickets by number, by label, by sprint (milestone), or by label and sprint together. Writes a report and a summary file, and comments the result on each ticket's QA test cases child item. Use when the user asks to verify, test or re-check tickets, to compare results between environments, or to check that related features are not broken (Claude in Chrome)."
 ---
 
 # QA Verify – Claude in Chrome

@@ -1,6 +1,6 @@
 ---
 name: write-test-cases
-description: "Writes test cases from the acceptance criteria of tickets and posts them as a `QA test cases` sub-issue on each ticket. Pick tickets by number, by label, by milestone, or by label and milestone together. Writes a file per ticket and a summary file. A ticket that already has test cases gets a new version (v2, v3…) built from the latest one. Use when the user asks to write or create test cases from tickets' acceptance criteria, to add cases for new or changed ACs, or to find which cases (error, edge, permission, state) the ACs are missing."
+description: "Writes test cases from the acceptance criteria of tickets and posts them as a `QA test cases` child item (sub-issue) on each ticket. Pick tickets by number, by label, by sprint (milestone), or by label and sprint together. Writes a file per ticket and a summary file. A ticket that already has test cases gets a new version (v2, v3…) built from the latest one. Use when the user asks to write or create test cases from tickets' acceptance criteria, to add cases for new or changed ACs, or to find which cases (error, edge, permission, state) the ACs are missing."
 ---
 
 # QA Write Test Cases – Write test cases from tickets
