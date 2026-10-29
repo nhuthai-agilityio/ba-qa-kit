@@ -35,7 +35,7 @@ Never in the profile: passwords, tokens, personal emails or names (a board usern
 
 ## Labels
 
-GitLab label names are case-sensitive: `bug` and `Bug` are two labels, and a filter on `bug` finds none of the `Bug` tickets. On GitLab, board columns are labels too.
+GitLab label names are case-sensitive: `bug` and `Bug` are two labels, and a filter on `bug` finds none of the `Bug` tickets. On GitLab, board columns are labels too. GitHub matches label names without regard to case.
 
 - The skills name labels by their role, with the kit's default name: story `user story`, open questions `pending-questions`, known issue `Known issue`, test cases `test case`, bug `Bug`, failed `failed`, passed `passed`, not a bug `not-a-bug`. The Labels line maps each role to the board's real label, spelled exactly as on the board. Always add and filter with that name.
 - A role missing from the Labels line: find the board label by name without regard to case and use the board's spelling; none found: do the work without that label and say which one is missing.
@@ -63,7 +63,7 @@ The Board line names the tracker and the project or board: `GitLab <host>/<group
 | CLI | `glab` | `gh` | none | none |
 | Connector | optional | optional | Atlassian (Jira) | Trello |
 
-Child items: test cases (`QA test cases`) and bugs are child items wherever the tracker has them. Story tickets are child items on GitHub and Jira; on GitLab an issue can't be the child of an issue, so a story is linked to its parent with a relates-to link. Another tracker: ask the user what it uses for a sprint and a child item, and offer to save it in the profile. Jira and Trello need their connector (an MCP server) to be read or written directly; without it they work through Chrome and pasted text. GitHub Project columns need the `read:project` scope to read and `project` to change (`gh auth refresh -s project`). Labels are case-sensitive on GitLab and GitHub; match without regard to case only to find a label, then use its exact name (see "Labels").
+Child items: test cases (`QA test cases`) and bugs are child items wherever the tracker has them. Story tickets are child items on GitHub. On GitLab (an issue can't be the child of an issue) and Jira (a sub-task can't be a story) a story is linked to its parent with a relates-to link. To make a child item: GitLab, create it, then `glab api graphql` with `workItemUpdate(input:{id:"<child gid>", hierarchyWidget:{parentId:"<parent gid>"}})` (gids from `project(fullPath:"<path>"){workItems(iids:["<n>"]){nodes{id}}}`); GitHub, `gh api repos/<owner>/<repo>/issues/<parent>/sub_issues -F sub_issue_id=<child id>` (the issue's `id`, not its number); Jira and Trello, the connector. Another tracker: ask the user what it uses for a sprint and a child item, and offer to save it in the profile. Jira and Trello need their connector (an MCP server) to be read or written directly; without it they work through Chrome and pasted text. GitHub Project columns need the `read:project` scope to read and `project` to change (`gh auth refresh -s project`). Labels are case-sensitive on GitLab; match without regard to case only to find a label, then use its exact name (see "Labels").
 
 ## Reading the board
 

@@ -58,7 +58,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 
    The user may ask to see one ticket ("show US-01 ticket"): show only that ticket text. The board can't be read: show the table without the Board column. The board can't be written (see "Writing to the board" in `project-profile.md`): say go will give ready-to-paste text.
 8. **On go**, for each row:
-   - **Create** the ticket with `assets/ticket-template.md`, linked to the parent ticket (a child item where the tracker allows it, as on GitHub and Jira; on GitLab a relates-to link, since an issue can't be the child of an issue), with its labels, in the Backlog column.
+   - **Create** the ticket with `assets/ticket-template.md`, linked to the parent ticket (a child item on GitHub; a relates-to link on GitLab and Jira, where a story can't be a child item; see "Boards" in `project-profile.md`), with its labels, in the Backlog column.
    - **Update** the description and add a comment with "What changed". When an A/C changed, end the comment with `QA: A/C changed. Run /ba-qa-kit:write-test-cases <n> for a new version.` (`<n>` is this story ticket's number) Keep a ticked A/C checkbox ticked only when its text is unchanged. Never add or remove a list label; the ticket stays in its column.
    - Write `Ticket: #<n>` into that story's **Notes** in the story doc. The go covers this.
    - **Report** each ticket with its link, then show the progress line. A row that fails (for example the ticket was created but a label failed): report it and go on; never retry a create. A re-run finds tickets already created by their `[US-nn]` prefix, so nothing is duplicated.

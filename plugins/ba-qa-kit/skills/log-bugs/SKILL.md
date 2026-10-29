@@ -67,7 +67,7 @@ Bugs that others logged (for example the team's own bug list) are never changed,
 - Expected must name its source (AC, rule ID, design, or the profile's standard). No source? It is a PO question. Only exception: a clear defect (step 3): write `assumed, not in AC`.
 - Only facts you saw or the user gave. Do not guess the cause.
 - Never write passwords, tokens or personal data. Blur them in screenshots.
-- Label names: the profile's Labels line gives the board's exact name for each role (see "Labels" in `project-profile.md`); the names below are the kit's defaults. Labels are case-sensitive on GitLab and GitHub: add and filter with exactly that name.
+- Label names: the profile's Labels line gives the board's exact name for each role (see "Labels" in `project-profile.md`); the names below are the kit's defaults. Labels are case-sensitive on GitLab: add and filter with exactly that name.
 - A label does not exist on the board (`Bug`, `failed`, `passed`, `not-a-bug`)? Do the work without it and tell the user which label to create. Never create labels.
 - Never change the ticket or other tickets you did not log. On a bug you logged you may only: comment, add or remove the labels `failed` and `passed`, add label `not-a-bug`, reopen it, and close it after yes. On a bug someone else logged you may only add a comment, after the user confirmed. Write files only in `outputDir`.
 
