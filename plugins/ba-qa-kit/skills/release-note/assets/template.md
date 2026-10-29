@@ -4,7 +4,7 @@ Used by `release-note`. Replace this file to use a different template.
 
 ## Format
 
-```
+```markdown
 Subject: [<project>] <Product> Sprint <n> Release - <Month DDth, YYYY>
 (several products the same day: [<project>] <Product A> & <Product B> Release - <Month DDth, YYYY>)
 
@@ -36,13 +36,13 @@ I. NOTES
 
 II. DONE
 (one product: list directly. Several products: one sub-heading per product, as in NOTES.)
-- <ticket #> <title>
+- [#<n>](<ticket link>) <title>
 
 III. IN-PROGRESS
-- <ticket #> <title>
+- [#<n>](<ticket link>) <title>
 
 IV. KNOWN ISSUE
-- <ticket #> <title> - <what goes wrong>
+- [#<n>](<ticket link>) <title> - <what goes wrong>
 
 V. NEXT PLAN
 - Continue working on in-progress tasks
@@ -60,13 +60,13 @@ Thanks & Regards,
 - **Subject**: `[<project>] <Product> Sprint <n> Release - <Month DDth, YYYY>`.
 - **Key highlights**: one line per product, in the reader's words.
 - **NOTES**: one block per product; build versions, store links and source code. Links the user doesn't give stay as `link` for the reviewer.
-- **DONE / IN-PROGRESS / KNOWN ISSUE**: one line per ticket: `<ticket #> <title>`. Keep ticket titles short and clear.
+- **DONE / IN-PROGRESS / KNOWN ISSUE**: one line per ticket: `[#<n>](<ticket link>) <title>`, the ticket number linked to the ticket. Keep ticket titles short and clear.
 - **NEXT PLAN**: first line "Continue working on in-progress tasks", then planned work per product.
 - Drop a block that has nothing to say, but keep KNOWN ISSUE with "None" when there are none.
 
 ## Example
 
-```
+```markdown
 Subject: [ABC Project] ABC Mobile Sprint 16 Release - June 11th, 2026
 
 Hi all,
@@ -95,13 +95,13 @@ ABC Mobile
   - Tag: link
 
 II. DONE
-- 4196 Fixed known issues from Sprint 15
+- [#4196](https://gitlab.example.com/abc/mobile/-/issues/4196) Fixed known issues from Sprint 15
 
 III. IN-PROGRESS
-- 4265 Exploring and applying AI tools to speed up the development process
+- [#4265](https://gitlab.example.com/abc/mobile/-/issues/4265) Exploring and applying AI tools to speed up the development process
 
 IV. KNOWN ISSUE
-- 4015 Chatbot - responded incorrectly when requesting statistics with multiple subjects
+- [#4015](https://gitlab.example.com/abc/mobile/-/issues/4015) Chatbot - responded incorrectly when requesting statistics with multiple subjects
 
 V. NEXT PLAN
 - Continue working on in-progress tasks
@@ -115,7 +115,7 @@ Thanks & Regards,
 
 ## Example — two products, same day
 
-```
+```markdown
 Subject: [ABC Project] ABC Mobile & ABC Dashboard Release - June 11th, 2026
 
 Hi all,
@@ -145,20 +145,20 @@ ABC Dashboard
 II. DONE
 
 ABC Mobile
-- 4196 Fixed known issues from Sprint 15
+- [#4196](https://gitlab.example.com/abc/mobile/-/issues/4196) Fixed known issues from Sprint 15
 
 ABC Dashboard
-- 4310 Answers now cover statistics with one subject
+- [#4310](https://gitlab.example.com/abc/dashboard/-/issues/4310) Answers now cover statistics with one subject
 
 III. IN-PROGRESS
 
 ABC Mobile
-- 4265 Exploring and applying AI tools to speed up the development process
+- [#4265](https://gitlab.example.com/abc/mobile/-/issues/4265) Exploring and applying AI tools to speed up the development process
 
 IV. KNOWN ISSUE
 
 ABC Dashboard
-- 4015 Chatbot - responded incorrectly when requesting statistics with multiple subjects
+- [#4015](https://gitlab.example.com/abc/dashboard/-/issues/4015) Chatbot - responded incorrectly when requesting statistics with multiple subjects
 
 V. NEXT PLAN
 - Continue working on in-progress tasks
