@@ -8,7 +8,7 @@ Every project that uses this kit carries a short profile as a marked block in th
 <!-- ba-qa-kit:profile:start -->
 ## BA/QA profile
 **Board:** <GitLab | GitHub | Jira | Trello | other> `<project or board>`; tickets read with <glab | gh | connector>, else Chrome, else pasted
-**Sprints:** <milestones | iterations | sprints> `<prefix> - SPR <n>` for <prefix>, <prefix>; new stories go to the `<Backlog>` column
+**Sprints:** <milestones | iterations | sprints> `<prefix> - SPR <n>` for <prefix>, <prefix> (Trello: `list <name>` or `label <name>`, the way the team marks a sprint); new stories go to the `<Backlog>` column
 **Docs:** Drive folder <link> | none
 **Test envs:** dev <URL> (ready label `<label>`); stag <URL> (ready label `<label>`). Never production.
 **Roles:** <role>, <role> · test data starts with `<prefix>` · standard <name> | none

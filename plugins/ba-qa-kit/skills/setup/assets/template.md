@@ -29,7 +29,7 @@ Warnings: <milestones with no end date or ended and still open, or "none">
 Setup · both
 
 Access
-- ✔ glab: logged in, can write (GitLab)
+- ✔ glab: logged in, can write
 - ✖ Chrome: not started with --chrome (needed for /ba-qa-kit:verify)
 - ✔ Board: readable
 
