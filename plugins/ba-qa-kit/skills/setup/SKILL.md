@@ -10,13 +10,13 @@ Get a project ready, or change one setting, without anyone opening a file. The s
 ## Input and output
 
 - **Needs** (from the user): nothing for a first run; or what to change, in plain words ("change the dev URL to …", "bugs now go to @lan").
-- **Reads**: `CLAUDE.md`, an older `qa.config.json` or `ba-output/*.json` if present, and the GitLab board (read-only).
+- **Reads**: `CLAUDE.md` and the GitLab board (read-only).
 - **Writes**: the profile block in `CLAUDE.md`, after go. Nothing else.
 - **Next**: BA: `/ba-qa-kit:find-gaps`; QA: `/ba-qa-kit:write-test-cases`.
 
 ## Steps
 
-1. **Read what exists.** The profile block in `CLAUDE.md` (in the current folder; inside a git repo, also the repo root). Older settings: `qa.config.json` and `ba-output/track-status.json`, `release-note.json` (or their older names `track-ticket-status.json`, `draft-release-note.json`); take their values as the starting point.
+1. **Read what exists.** The profile block in `CLAUDE.md` (in the current folder; inside a git repo, also the repo root).
 2. **Pick the mode.**
    - The user named a change: change only that line (step 7). Run steps 3–4 only if the change is the board.
    - A profile exists and nothing was named: show it as a short list in plain words and ask what to change; no change: stop.
@@ -33,7 +33,7 @@ Get a project ready, or change one setting, without anyone opening a file. The s
    - **Labels the kit uses** (`user story`, `pending-questions`, `test case`, `Bug`, `failed`, `passed`, `not-a-bug`, matched without regard to case): list the missing ones. Setup never creates labels.
 5. **Ask only what step 4 could not find**, in one short list, each with a suggestion: dev and stag URLs (never production), the app's user roles, who checks bugs (a GitLab username, or nobody fixed), the Drive folder, a standard such as WCAG 2.2 AA (optional), the test data prefix (default `E2E `), the QA folder (default `qa-output`), the release note project name and build links (optional). Ask BA-only or QA-only lines only when the user does that job; leave the others as they are, or `?:`.
 6. **Show the block** exactly as it will be written (Markdown, never JSON), each changed line marked `new` or `was: <old>`. Then the progress line. Stop until go.
-7. **On go, write**: replace the text between `<!-- ba-qa-kit:profile:start -->` and `<!-- ba-qa-kit:profile:end -->`, or append the block; create `CLAUDE.md` if missing. Never touch anything outside the markers. Older settings files were read: ask once whether to delete them; delete only after yes.
+7. **On go, write**: replace the text between `<!-- ba-qa-kit:profile:start -->` and `<!-- ba-qa-kit:profile:end -->`, or append the block; create `CLAUDE.md` if missing. Never touch anything outside the markers.
 8. **Show the checklist**: read `assets/template.md` from this skill's folder, then use it.
 
 ## Rules

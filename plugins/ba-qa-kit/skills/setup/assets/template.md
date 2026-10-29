@@ -36,5 +36,5 @@ Access
 Profile in CLAUDE.md: written
 Still to answer: stag URL, release note build links
 Labels missing on the board: test case, passed, not-a-bug
-Warnings: INV - SPR 2 has no end date
+Warnings: ABC - SPR 4 has no end date
 ```

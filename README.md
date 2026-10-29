@@ -40,16 +40,10 @@ Inside Claude Code:
    /plugin install ba-qa-kit@ba-qa-kit
    ```
    The part after `@` is the marketplace name.
-3. Already had the old `ba` or `qa` plugin? Remove it, so the old `/ba:` and `/qa:` commands go away:
-   ```
-   /plugin uninstall ba@ba-qa-kit
-   /plugin uninstall qa@ba-qa-kit
-   ```
-   Then restart Claude Code; until then the old commands can still show.
 
 ## Project profile
 
-The profile is a short block in `CLAUDE.md` (Board, Sprints, Docs, Test envs, Roles, Bugs, Release note). Claude Code reads `CLAUDE.md` in every session, so skills need no config file. A line nobody knows yet stays `?:`; the first skill that needs it asks and offers to save the answer. Commit `CLAUDE.md` when the folder is a git repo, so teammates get the same profile with `git pull`. An older `qa.config.json` is moved into the profile the first time you run `/ba-qa-kit:setup`. Format: `plugins/ba-qa-kit/references/project-profile.md`.
+The profile is a short block in `CLAUDE.md` (Board, Sprints, Docs, Test envs, Roles, Bugs, Release note). Claude Code reads `CLAUDE.md` in every session, so skills need no config file. A line nobody knows yet stays `?:`; the first skill that needs it asks and offers to save the answer. Commit `CLAUDE.md` when the folder is a git repo, so teammates get the same profile with `git pull`. Format: `plugins/ba-qa-kit/references/project-profile.md`.
 
 GitLab: the skills read and write the board with `glab` (`glab auth login --hostname <host>`; a token with `api` scope to write; VPN if the host needs it). Without glab they read tickets in your Chrome (`claude --chrome`) or ask you to paste them, and give board changes as text to paste. Google Docs can be read, not written: the skills give the text to paste.
 
@@ -70,10 +64,6 @@ In a terminal, then restart Claude Code:
 claude plugin marketplace update ba-qa-kit
 claude plugin update ba-qa-kit@ba-qa-kit
 ```
-
-**Upgrading to 2.0.0:** settings live in the project profile in `CLAUDE.md`, not in `qa.config.json` or `ba-output/*.json`. Run `/ba-qa-kit:setup` once to move them. The kit keeps no test accounts; you can delete `qa.accounts.local.json`.
-
-From `ba-qa-kit` 1.0.0 the `ba` and `qa` plugins are one plugin: every `/ba:<skill>` and `/qa:<skill>` is now `/ba-qa-kit:<skill>`, with the same skill name. The old `/ba:stories-to-board` (folded in with `ba` 0.6.0) is part of `/ba-qa-kit:write-stories`: reply go after reviewing the stories, or ask it to put an existing story doc on the board.
 
 ## Maintaining
 

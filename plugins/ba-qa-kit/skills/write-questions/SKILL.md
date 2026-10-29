@@ -32,7 +32,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-file
 1. **Know the project first.** Read the requirement and the design before writing. Unsure? Ask the team first (in chat), then the client.
 2. **One name for one thing.** Use the feature and screen names from the requirement, the same everywhere, so the client doesn't think they are different things.
 3. **Ask only what the client knows**: needs, habits, business rules, deadlines. Decide small details yourself and write them as assumptions.
-4. **Prefer yes/no assumptions.** Give an answer, then ask the client to confirm. Instead of "Is Take Out a separate screen?", write "We assume Take Out is a separate screen from Add Item. Is that right?"
+4. **Prefer yes/no assumptions.** Give an answer, then ask the client to confirm. Instead of "Is Export a separate screen?", write "We assume Export is a separate screen from Reports. Is that right?"
 5. **Use the client's words** and real situations. No technical words ("tap", "API", "modal", "validation").
 6. **Easy to answer.** If the client can't answer in 10 seconds, add an example or a suggested answer, or offer A or B.
 7. **Short and clear**: one point per question, under 20 words where possible; split long ones into sub-questions.

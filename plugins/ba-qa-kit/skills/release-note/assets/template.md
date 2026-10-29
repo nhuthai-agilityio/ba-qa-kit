@@ -67,22 +67,22 @@ Thanks & Regards,
 ## Example
 
 ```
-Subject: [ABC Project] Flash Mobile Sprint 16 Release - June 11th, 2026
+Subject: [ABC Project] ABC Mobile Sprint 16 Release - June 11th, 2026
 
 Hi all,
 
 We hope you are doing well!
 
-During this sprint, our team focused on delivering the planned features for Flash Mobile Sprint 16.
+During this sprint, our team focused on delivering the planned features for ABC Mobile Sprint 16.
 
 Key highlights:
-- Flash Mobile: Enhanced the experience with redesigned request flows, performance optimizations, bug fixes, and applied Evalite testing.
+- ABC Mobile: Enhanced the experience with redesigned request flows, performance optimizations, and bug fixes.
 
 Please find the detailed report below.
 
 I. NOTES
 
-Flash Mobile
+ABC Mobile
 - Android
   - Download the app in the Play Store via the link
   - Version: 1.0 (build 82)
@@ -106,7 +106,7 @@ IV. KNOWN ISSUE
 V. NEXT PLAN
 - Continue working on in-progress tasks
 
-Flash Mobile
+ABC Mobile
 - Update E2E test coverage for Time-off, Room Booking, and Reallocation requests
 
 Thanks & Regards,
@@ -116,54 +116,54 @@ Thanks & Regards,
 ## Example — two products, same day
 
 ```
-Subject: [ABC Project] Flash Mobile & Kitchen Dashboard Release - June 11th, 2026
+Subject: [ABC Project] ABC Mobile & ABC Dashboard Release - June 11th, 2026
 
 Hi all,
 
 We hope you are doing well!
 
-During this sprint, our team focused on delivering the planned features for Flash Mobile Sprint 16 and Kitchen Dashboard Sprint 8.
+During this sprint, our team focused on delivering the planned features for ABC Mobile Sprint 16 and ABC Dashboard Sprint 8.
 
 Key highlights:
-- Flash Mobile: Redesigned request flows, performance optimizations, and bug fixes.
-- Kitchen Dashboard: Improved answers for statistics questions.
+- ABC Mobile: Redesigned request flows, performance optimizations, and bug fixes.
+- ABC Dashboard: Improved answers for statistics questions.
 
 Please find the detailed report below.
 
 I. NOTES
 
-Flash Mobile
+ABC Mobile
 - Android
   - Version: 1.0 (build 82)
 - iOS
   - Version: 1.0 (build 212)
 
-Kitchen Dashboard
+ABC Dashboard
 - Repository: link
 - New deployment address: link
 
 II. DONE
 
-Flash Mobile
+ABC Mobile
 - 4196 Fixed known issues from Sprint 15
 
-Kitchen Dashboard
+ABC Dashboard
 - 4310 Answers now cover statistics with one subject
 
 III. IN-PROGRESS
 
-Flash Mobile
+ABC Mobile
 - 4265 Exploring and applying AI tools to speed up the development process
 
 IV. KNOWN ISSUE
 
-Kitchen Dashboard
+ABC Dashboard
 - 4015 Chatbot - responded incorrectly when requesting statistics with multiple subjects
 
 V. NEXT PLAN
 - Continue working on in-progress tasks
 
-Flash Mobile
+ABC Mobile
 - Update E2E test coverage for Time-off, Room Booking, and Reallocation requests
 
 Thanks & Regards,

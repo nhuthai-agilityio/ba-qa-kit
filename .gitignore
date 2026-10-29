@@ -1,9 +1,7 @@
-# QA plugin output (reports, screenshots, summaries): ignored,
+# QA output (reports, screenshots, summaries): ignored,
 # except the lessons file and incident records, which the team shares
 **/qa-output/*
 !**/qa-output/qa-lessons.md
 !**/qa-output/incidents/
-# Shared test accounts (passwords): local only, never commit
-qa.accounts.local.json
-# Output sinh ra khi chạy BA plugin (release note, cấu hình)
+# BA output (gap reports, questions, stories, status, release notes)
 ba-output/

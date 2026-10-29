@@ -1,7 +1,7 @@
 # CLAUDE.md
 
 ## Project
-Repo for the BA/QA Claude Code kit: one plugin, `ba-qa-kit` in `plugins/ba-qa-kit`, in the marketplace `ba-qa-kit`. BA and QA skills sit side by side and are called `/ba-qa-kit:<skill>`. Code is reviewed on GitHub (pull requests, CI, Claude review). GitLab is where the team installs the kit from; it receives `main` after each merge through `/sync-gitlab`. `nhu/` holds BA practice work (notes, a sample app, Playwright tests); it is not part of the kit.
+Repo for the BA/QA Claude Code kit: one plugin, `ba-qa-kit` in `plugins/ba-qa-kit`, in the marketplace `ba-qa-kit`. BA and QA skills sit side by side and are called `/ba-qa-kit:<skill>`. Code is reviewed on GitHub (pull requests, CI, Claude review). GitLab is where the team installs the kit from; it receives `main` after each merge through `/sync-gitlab`.
 
 ## Commands
 - `claude plugin validate --strict .` and `claude plugin validate --strict plugins/ba-qa-kit`: marketplace and plugin manifests.
@@ -12,7 +12,7 @@ Repo for the BA/QA Claude Code kit: one plugin, `ba-qa-kit` in `plugins/ba-qa-ki
 - Project settings live in the project profile block in `CLAUDE.md` (`plugins/ba-qa-kit/references/project-profile.md`). Skills never read or write a config file, and the shared rules for BA files and the progress line are in `references/ba-files.md`.
 - Kit skills live in `plugins/ba-qa-kit/skills/<skill>/SKILL.md`. Each description says what the skill does, then "Use when …". Keep `SKILL.md` at 200 lines or fewer.
 - A pull request that changes anything under `plugins/ba-qa-kit/` raises `version` in `plugins/ba-qa-kit/.claude-plugin/plugin.json`. Installed copies only update when it changes. If another open pull request raised it too, the second one to merge raises it again.
-- Kit files (`plugins/`, `.claude/`, `.github/`, `README.md`, this file) are in English, and so are the outputs the skills write. `nhu/` may be in Vietnamese.
+- Kit files (`plugins/`, `.claude/`, `.github/`, `README.md`, this file) are in English, and so are the outputs the skills write.
 - Branches: `feat/<short-desc>`, `fix/<short-desc>`, `docs/<short-desc>`, `chore/<short-desc>`. One topic per pull request.
 - Commits: Conventional Commits, lowercase imperative (`feat: add ...`, `fix: ...`).
 - Skills never write passwords, tokens or personal data, and never act on production URLs. Skills never type a password: QA signs in to the test app in Chrome, and `/ba-qa-kit:verify` stops at a login page.
