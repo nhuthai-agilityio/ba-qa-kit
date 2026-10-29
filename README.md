@@ -43,7 +43,7 @@ Inside Claude Code:
 
 ## Project profile
 
-The profile is a short block in `CLAUDE.md` (Board, Sprints, Docs, Test envs, Roles, Bugs, Release note). Claude Code reads `CLAUDE.md` in every session, so skills need no config file. A line nobody knows yet stays `?:`; the first skill that needs it asks and offers to save the answer. Commit `CLAUDE.md` when the folder is a git repo, so teammates get the same profile with `git pull`. Format: `plugins/ba-qa-kit/references/project-profile.md`.
+The profile is a short block in `CLAUDE.md` (Board, Sprints, Docs, Test envs, Roles, Bugs, Release note, Labels). Claude Code reads `CLAUDE.md` in every session, so skills need no config file. A line nobody knows yet stays `?:`; the first skill that needs it asks and offers to save the answer. Commit `CLAUDE.md` when the folder is a git repo, so teammates get the same profile with `git pull`. Format: `plugins/ba-qa-kit/references/project-profile.md`.
 
 GitLab: the skills read and write the board with `glab` (`glab auth login --hostname <host>`; a token with `api` scope to write; VPN if the host needs it). Without glab they read tickets in your Chrome (`claude --chrome`) or ask you to paste them, and give board changes as text to paste. Google Docs can be read, not written: the skills give the text to paste.
 
