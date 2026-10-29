@@ -24,7 +24,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 4. **Mark each ticket** (it can have more than one):
    - **Moved** — status changed in the period.
    - **Done** — closed or moved to the Done list in the period.
-   - **Blocked** — label `blocked`, `pending-questions` or `Pending` (any case), or a comment says so.
+   - **Blocked** — label `blocked`, or the profile's open-questions label (default `pending-questions`), or a comment says so.
    - **Stale** — not Done, no update for 2+ working days. "Update" is the latest comment or status change, whichever is newer.
    - **Sent back** — moved backward or reopened.
    - **Late start** — still To do with under 30% of the sprint's working days left (counted from today to the end date).

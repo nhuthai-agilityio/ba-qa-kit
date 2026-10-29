@@ -75,11 +75,10 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 ## Board rules
 
 - One issue per story; the title starts with `[US-nn]`. The issue copies the story as it is (see `assets/ticket-template.md`).
-- **Labels**, only if the label already exists in the project; never create labels:
-  - `user story` on every story issue.
+- **Labels**, only if the label exists on the board; never create labels. Label names: the profile's Labels line gives the board's exact name for each role (see "Labels" in `project-profile.md`); the names below are the kit's defaults.
+  - The story label (`user story`) on every story issue.
   - The feature name: the project label that matches the story's `## <FEATURE / SCREEN>` heading or the requirement name, ignoring case. No match? None.
-  - `pending-questions` when the story has a `Pending Q<n>` line or a `Conflict` note.
-  - Label names are matched without regard to upper or lower case; use the project's spelling.
+  - The open-questions label (`pending-questions`) when the story has a `Pending Q<n>` line or a `Conflict` note.
   - Labels that don't exist are listed under "Missing labels"; the issue is created without them.
 - Never close, delete or reopen issues, and never change status, column, assignee or milestone of an existing issue unless the user asks. New issues get no milestone or assignee unless the user asks.
 - No passwords, tokens or personal data in issues.

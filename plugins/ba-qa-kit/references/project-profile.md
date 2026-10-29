@@ -14,6 +14,7 @@ Every project that uses this kit carries a short profile as a marked block in th
 **Roles:** <role>, <role> · test data starts with `<prefix>` · standard <name> | none
 **Bugs:** assigned to @<GitLab username> | nobody fixed · QA files in `<folder>/`
 **Release note:** project <name>; build links: <name> <location>; …
+**Labels:** story `<label>` · open questions `<label>` · known issue `<label>` · test cases `<label>` · bug `<label>` · failed `<label>` · passed `<label>` · not a bug `<label>`
 <!-- ba-qa-kit:profile:end -->
 ```
 
@@ -28,8 +29,17 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Roles | write-test-cases, verify |
 | Bugs | log-bugs; the folder also verify and write-test-cases |
 | Release note | release-note |
+| Labels | write-stories, track-status, release-note, write-test-cases, verify, log-bugs |
 
 Never in the profile: passwords, tokens, personal emails or names (a GitLab username is fine), production URLs. The kit keeps no test accounts: QA signs in to the test app in Chrome.
+
+## Labels
+
+GitLab label names are case-sensitive: `bug` and `Bug` are two labels, and a filter on `bug` finds none of the `Bug` tickets. Board columns are labels too.
+
+- The skills name labels by their role, with the kit's default name: story `user story`, open questions `pending-questions`, known issue `Known issue`, test cases `test case`, bug `Bug`, failed `failed`, passed `passed`, not a bug `not-a-bug`. The Labels line maps each role to the board's real label, spelled exactly as on the board. Always add and filter with that name.
+- A role missing from the Labels line: find the board label by name without regard to case and use the board's spelling; none found: do the work without that label and say which one is missing.
+- Only `/ba-qa-kit:setup` creates labels, after go. It never creates a label whose name differs only in case from one the board already has.
 
 ## A line is missing
 

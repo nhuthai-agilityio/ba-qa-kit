@@ -11,7 +11,7 @@ Get a project ready, or change one setting, without anyone opening a file. The s
 
 - **Needs** (from the user): nothing for a first run; or what to change, in plain words ("change the dev URL to …", "bugs now go to @lan").
 - **Reads**: `CLAUDE.md` and the GitLab board (read-only).
-- **Writes**: the profile block in `CLAUDE.md`, after go. Nothing else.
+- **Writes**: the profile block in `CLAUDE.md`, and the missing board labels the user approved, after go. Nothing else.
 - **Next**: BA: `/ba-qa-kit:find-gaps`; QA: `/ba-qa-kit:write-test-cases`.
 
 ## Steps
@@ -30,17 +30,17 @@ Get a project ready, or change one setting, without anyone opening a file. The s
    - **Sprints**: open milestones, grouped by the text before ` - SPR`; ask which products the team tracks. A milestone with no end date, or ended and still open: say so.
    - **Backlog**: the board list named Backlog, if it is a label list: its label.
    - **Ready labels**: labels such as `DEPLOYED TO DEV` / `DEPLOYED TO STAG`.
-   - **Labels the kit uses** (`user story`, `pending-questions`, `test case`, `Bug`, `failed`, `passed`, `not-a-bug`, matched without regard to case): list the missing ones. Setup never creates labels.
+   - **Labels**: for each role in "Labels" of the reference (story, open questions, known issue, test cases, bug, failed, passed, not a bug), propose a board label. Use an existing one when its name or meaning fits, matched without regard to case (open questions → `Pending`, failed → `Failed`); give the board's exact spelling. None fits: propose creating the kit's default name with a color, unless a label differing only in case exists (then use that one). Show it as a table (role · board label · use existing / create) for the user to change or approve.
 5. **Ask only what step 4 could not find**, in one short list, each with a suggestion: dev and stag URLs (never production), the app's user roles, who checks bugs (a GitLab username, or nobody fixed), the Drive folder, a standard such as WCAG 2.2 AA (optional), the test data prefix (default `E2E `), the QA folder (default `qa-output`), the release note project name and build links (optional). Ask BA-only or QA-only lines only when the user does that job; leave the others as they are, or `?:`.
-6. **Show the block** exactly as it will be written (Markdown, never JSON), each changed line marked `new` or `was: <old>`. Then the progress line. Stop until go.
-7. **On go, write**: replace the text between `<!-- ba-qa-kit:profile:start -->` and `<!-- ba-qa-kit:profile:end -->`, or append the block; create `CLAUDE.md` if missing. Never touch anything outside the markers.
+6. **Show the block** exactly as it will be written (Markdown, never JSON), each changed line marked `new` or `was: <old>`, and the labels to create. Then the progress line. Stop until go.
+7. **On go, write**: replace the text between `<!-- ba-qa-kit:profile:start -->` and `<!-- ba-qa-kit:profile:end -->`, or append the block; create `CLAUDE.md` if missing. Never touch anything outside the markers. Then create the approved labels with glab (`glab api --hostname <host> -X POST "projects/<url-encoded path>/labels" -f name=<name> -f color=<color>`). glab can't write: list them for the user to create by hand. A label that now exists, in any case: skip it and use that name.
 8. **Show the checklist**: read `assets/template.md` from this skill's folder, then use it.
 
 ## Rules
 
 - Test URLs are dev and stag only. A URL the user calls live or production is not saved.
 - Never write passwords, tokens, emails, personal names or production URLs into the profile. The kit keeps no test accounts: QA signs in to the test app in Chrome.
-- Read-only on GitLab and Drive. Setup creates no tickets, labels, comments or files there.
+- Read-only on GitLab and Drive, except the labels the user approved. Setup creates no tickets, comments or files there, and never deletes or renames a label.
 - Never write before go. Re-running with no change writes nothing.
 - Chat in the user's language; the profile in English.
 

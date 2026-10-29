@@ -23,7 +23,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 3. **Sort by status:**
    - **DONE** — closed or in the Done list.
    - **IN-PROGRESS** — started, not Done.
-   - **KNOWN ISSUE** — open bugs, tickets with the label `Known issue`, and Done stories that still carry the label `pending-questions` or `Pending` (any case) or a `Conflict –` line in their description (a team convention for open questions and conflicts); if tickets carry neither marker, only open bugs count.
+   - **KNOWN ISSUE** — open bugs, tickets with the profile's known-issue label (default `Known issue`), and Done stories that still carry the open-questions label (default `pending-questions`) or a `Conflict –` line in their description (a team convention for open questions and conflicts); if tickets carry neither marker, only open bugs count.
 4. **Write each line** as `<ticket #> <short title>`. Make an unclear title clear in the reader's words; skip purely internal work unless the reader needs it.
 5. **NEXT PLAN**: "Continue working on in-progress tasks", then the planned work per product from the next sprint's tickets, if any.
 6. **Fill NOTES** from the links and versions the user gave; leave `link` where one is missing.

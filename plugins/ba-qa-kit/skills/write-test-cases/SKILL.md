@@ -44,7 +44,7 @@ Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `writ
 11. **Write the file**: `<outputDir>/<ticket>-test-cases.md` for v1, `<outputDir>/<ticket>-test-cases-v<k>.md` for v2 and later. In chat, show only the summary (see Output).
 12. **Post**: create a new sub-issue under the main ticket (GitLab: child task, Jira: sub-task, GitHub: sub-issue).
    - Title: `QA test cases – #<n>` for v1, `QA test cases – #<n> – v<k>` for v2 and later. Description: the file content.
-   - Add the label `test case` so readers can tell it is a test case. It is only a tag; nothing else uses it. Match the label name without regard to upper or lower case and use the board's spelling. The label does not exist on the board? Create the sub-issue without it and tell the user. Do not create labels.
+   - Add the label `test case` so readers can tell it is a test case. `/ba-qa-kit:verify` also finds the sub-issue by it. Label names: the profile's Labels line gives the board's exact name for each role (see "Labels" in `project-profile.md`); the names below are the kit's defaults. The label does not exist on the board? Create the sub-issue without it and tell the user. Do not create labels.
    - Write with glab (see "Writing to the board" in `project-profile.md`). glab can't write: give the title, label, parent and description as text to paste, and keep the file.
    - Never edit or delete an older sub-issue. Never create a second sub-issue with the same title.
    - Cannot create it? Tell the user and keep the file. One ticket: stop. Many tickets: go on with the next one.
