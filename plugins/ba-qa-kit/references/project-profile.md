@@ -31,7 +31,7 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Release note | release-note |
 | Labels | write-stories, track-status, release-note, write-test-cases, verify, log-bugs |
 
-Never in the profile: passwords, tokens, personal emails or names (a GitLab username is fine), production URLs. The kit keeps no test accounts: QA signs in to the test app in Chrome.
+Never in the profile: passwords, tokens, personal emails or names (a board username is fine), production URLs. The kit keeps no test accounts: QA signs in to the test app in Chrome.
 
 ## Labels
 
