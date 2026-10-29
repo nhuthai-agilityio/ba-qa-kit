@@ -8,7 +8,7 @@ Used by `setup`. Replace this file to use a different checklist.
 Setup · <BA / QA / both>
 
 Access
-- <✔ / ✖ / ○> glab: <logged in, can write / logged in, read only / not logged in: <fix> / not installed / host not reachable: VPN?>
+- <✔ / ✖ / ○> <glab / gh / connector>: <logged in, can write / logged in, read only / not logged in: <fix> / not installed / host not reachable: VPN?>
 - <✔ / ✖ / ○> Chrome: <answers / not started with --chrome>
 - <✔ / ✖ / ○> Board: <readable / not readable: <why>>
 
@@ -29,7 +29,7 @@ Warnings: <milestones with no end date or ended and still open, or "none">
 Setup · both
 
 Access
-- ✔ glab: logged in, can write
+- ✔ glab: logged in, can write (GitLab)
 - ✖ Chrome: not started with --chrome (needed for /ba-qa-kit:verify)
 - ✔ Board: readable
 

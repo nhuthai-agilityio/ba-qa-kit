@@ -1,26 +1,26 @@
 ---
 name: write-stories
-description: Writes a user story doc that dev and QA can build and test from — stories with acceptance criteria, validation and error handling, and edge cases — from the GitLab issue, Drive docs, Gap Report and the answered Questions List; after the user's review and one go, creates or updates one GitLab issue per story in the Backlog column, with no duplicates. Use when the Questions List has answers, when asked for user stories, acceptance criteria or A/C, or when asked to put reviewed stories on the board as tickets or issues.
+description: Writes a user story doc that dev and QA can build and test from — stories with acceptance criteria, validation and error handling, and edge cases — from the ticket, Drive docs, Gap Report and the answered Questions List; after the user's review and one go, creates or updates one ticket per story in the Backlog column, with no duplicates. Use when the Questions List has answers, when asked for user stories, acceptance criteria or A/C, or when asked to put reviewed stories on the board as tickets or issues.
 ---
 
 # Write Stories
 
-Turn the requirements and client answers into short, testable user stories, then put them on the GitLab board after one go. Never invent facts.
+Turn the requirements and client answers into short, testable user stories, then put them on the board after one go. Never invent facts.
 
 Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-files.md` (files, sources, Google Doc, progress line) and `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md` (the **Board** and **Sprints** lines, reading and writing the board).
 
 ## Input and output
 
 - **Needs** (from the user): the ticket (the parent issue); a design link (optional).
-- **Reads**: the GitLab issue, the Drive docs, the ticket's Questions List, the latest `gap-report-<name>-r<n>.md`, the design and the latest story version; for the board: the profile's Board and Sprints lines, the board's lists, the project's labels and the parent's child or linked issues (read-only).
-- **Writes**: `ba-output/user-stories-<name>-v<n>.md` (a new version each time); after go, GitLab issues (created or updated) and `Ticket: #<n>` in each story's Notes.
+- **Reads**: the ticket, the Drive docs, the ticket's Questions List, the latest `gap-report-<name>-r<n>.md`, the design and the latest story version; for the board: the profile's Board and Sprints lines, the board's lists, the project's labels and the parent's child or linked issues (read-only).
+- **Writes**: `ba-output/user-stories-<name>-v<n>.md` (a new version each time); after go, tickets (created or updated) and `Ticket: #<n>` in each story's Notes.
 - **Next**: `/ba-qa-kit:track-status` to follow progress; new questions: `/ba-qa-kit:find-gaps` (loop).
 
 ## Inputs
 
 Read all before writing:
 
-- **GitLab issue** and **Google Drive docs** — the sources.
+- **The ticket** and **Google Drive docs** — the sources.
 - **Questions List** with answers (`question-list-<name>.md` or the Google Doc the user gives) — answers are confirmed facts; `→ Pending` questions are open.
 - **Gap Report** (the latest `gap-report-<name>-r<n>.md`) — open gaps become pending items.
 - **Design** (optional) — field names, labels, messages, states. If missing, say so in the header.
@@ -40,7 +40,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 5. **Save the draft** (see File below). Don't paste the stories in chat; the user reviews the file.
 6. **Plan the board** (read-only, nothing is written yet):
    - **Project and parent**: the profile's Board line and the parent ticket. No parent ticket? Ask for it, or for the issues to check.
-   - **Backlog column**: the label in the profile's Sprints line; else read the board's lists once — a label list named Backlog gives its label; else none. A list based on assignee or milestone can't be set by a label: use none. None → new issues show in the Open list. Found on the board? Offer to save it in the profile.
+   - **Backlog column**: the one in the profile's Sprints line; else read the board once. GitLab: a label list named Backlog gives its label (a list based on assignee or milestone can't be set by a label: use none). GitHub: the Backlog value of the repository's Project status field, if the repository has a Project. Jira: the Backlog status. Trello: the Backlog list. None, or it can't be set: new tickets stay in the default state; say so. Found on the board? Offer to save it in the profile.
    - **Duplicates**: US numbers restart for each requirement, so never search the whole project for `[US-nn]`. Look only at the parent's child or linked issues, matched by the `[US-nn]` title prefix. **Create**: no issue yet. **Update #n**: the issue exists and the story changed. **Skip**: no change. Two issues match one story, or the match is closed? Show it as **Check #n**; it is left out of go until the user says what to do.
    - **Labels** (see Board rules).
 7. **Show the review summary**, then **stop and show the progress line**:
@@ -56,9 +56,9 @@ If the Questions List or sources are missing, ask for them, or suggest running `
    Missing labels: none · New issues go to Backlog
    ```
 
-   The user may ask to see one ticket ("show US-01 ticket"): show only that issue text. The board can't be read: show the table without the Board column. glab can't write (see "Writing to the board" in `project-profile.md`): say go will give ready-to-paste text.
+   The user may ask to see one ticket ("show US-01 ticket"): show only that issue text. The board can't be read: show the table without the Board column. The board can't be written (see "Writing to the board" in `project-profile.md`): say go will give ready-to-paste text.
 8. **On go**, for each row:
-   - **Create** the issue with `assets/ticket-template.md`, linked to the parent ticket (relates to; GitLab can't make an issue the child of an issue), with its labels and `<backlog label>`.
+   - **Create** the issue with `assets/ticket-template.md`, linked to the parent ticket (a child item where the tracker allows it, as on GitHub and Jira; on GitLab a relates-to link, since an issue can't be the child of an issue), with its labels and `<backlog label>`.
    - **Update** the description and add a comment with "What changed". When an A/C changed, end the comment with `QA: A/C changed. Run /ba-qa-kit:write-test-cases <n> for a new version.` (`<n>` is this story issue's number) Keep a ticked A/C checkbox ticked only when its text is unchanged. Never add or remove a list label; the issue stays in its column.
    - Write `Ticket: #<n>` into that story's **Notes** in the story doc. The go covers this.
    - **Report** each issue with its link, then show the progress line. A row that fails (for example the issue was created but a label failed): report it and go on; never retry a create. A re-run finds issues already created by their `[US-nn]` prefix, so nothing is duplicated.
@@ -82,7 +82,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
   - Labels that don't exist are listed under "Missing labels"; the issue is created without them.
 - Never close, delete or reopen issues, and never change status, column, assignee or milestone of an existing issue unless the user asks. New issues get no milestone or assignee unless the user asks.
 - No passwords, tokens or personal data in issues.
-- glab can't write, or a write fails: on go, give each issue as ready-to-paste text (title, labels, description, parent). Never create issues through the GitLab page in Chrome.
+- The board can't be written (see "Writing to the board" in `project-profile.md`), or a write fails: on go, give each issue as ready-to-paste text (title, labels, description, parent). Never create tickets through the tracker's page in Chrome.
 
 ## Edge cases
 

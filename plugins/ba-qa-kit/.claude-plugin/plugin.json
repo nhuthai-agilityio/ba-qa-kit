@@ -1,7 +1,7 @@
 {
   "name": "ba-qa-kit",
-  "description": "BA/QA kit: set up the kit, find requirement gaps, write and collect client questions, write user stories and put them on the GitLab board, track the sprint, draft release notes, write test cases, verify tickets in Chrome and log bugs.",
-  "version": "1.0.1",
+  "description": "BA/QA kit: set up the kit, find requirement gaps, write and collect client questions, write user stories and put them on the board (GitLab, GitHub, Jira or Trello), track the sprint, draft release notes, write test cases, verify tickets in Chrome and log bugs.",
+  "version": "1.1.0",
   "author": {
     "name": "Nhu Thai"
   }

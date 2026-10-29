@@ -30,7 +30,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
    - Open bug (without label `passed`), case now Pass: remove label `failed` if it has it, add label `passed`, comment `Round <round> (<env>, v<k>): Pass`. Do not close it. Tell QA to check it and close it.
    - No bug yet, case Fail: look at "Bugs by others" first. No candidate there: go to step 5.
 5. **Draft** each new bug with the template below. One bug per file: `<outputDir>/<ticket>-bug-<NN>.md`.
-6. **Create** the bug as a child item of the ticket (GitLab: child item, Jira: sub-task, GitHub: sub-issue). Title: the `[Bug] …` line. Label: `Bug`. Assignee: `<qaAssignee>`, if any. Description: the file content. Do not ask. Write with glab (see "Writing to the board" in `project-profile.md`). glab can't write: give the bug as text to paste (title, label, assignee, parent, description) and keep the file.
+6. **Create** the bug as a child item of the ticket (the tracker's child item; see "Boards" in `project-profile.md`). Title: the `[Bug] …` line. Label: `Bug`. Assignee: `<qaAssignee>`, if any. Description: the file content. Do not ask. Write with the tracker's CLI or connector (see "Writing to the board" in `project-profile.md`). It can't write: give the bug as text to paste (title, label, assignee, parent, description) and keep the file.
 7. **Summary**: fill the Bug column in `<outputDir>/verify-summary.md` (Fail and Blocked table) for these cases.
 8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `bug #<n> already passed, waiting for QA to close` / `commented on bug #<n> (<TC ID>)` / `skipped: bug #<n> was not a bug`.
 
@@ -67,7 +67,7 @@ Bugs that others logged (for example the team's own bug list) are never changed,
 - Expected must name its source (AC, rule ID, design, or the profile's standard). No source? It is a PO question. Only exception: a clear defect (step 3): write `assumed, not in AC`.
 - Only facts you saw or the user gave. Do not guess the cause.
 - Never write passwords, tokens or personal data. Blur them in screenshots.
-- Label names: the profile's Labels line gives the board's exact name for each role (see "Labels" in `project-profile.md`); the names below are the kit's defaults. GitLab labels are case-sensitive: add and filter with exactly that name.
+- Label names: the profile's Labels line gives the board's exact name for each role (see "Labels" in `project-profile.md`); the names below are the kit's defaults. Labels are case-sensitive on GitLab and GitHub: add and filter with exactly that name.
 - A label does not exist on the board (`Bug`, `failed`, `passed`, `not-a-bug`)? Do the work without it and tell the user which label to create. Never create labels.
 - Never change the ticket or issues you did not log. On a bug you logged you may only: comment, add or remove the labels `failed` and `passed`, add label `not-a-bug`, reopen it, and close it after yes. On a bug someone else logged you may only add a comment, after the user confirmed. Write files only in `outputDir`.
 

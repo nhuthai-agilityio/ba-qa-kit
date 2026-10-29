@@ -5,8 +5,8 @@ Used by `find-gaps`. Replace this file to use a different template.
 ## Format
 
 ```
-GAP REPORT — <App Name> · #<GitLab issue>
-Sources: S1 = GitLab #<issue> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, YYYY>), ...
+GAP REPORT — <App Name> · #<ticket>
+Sources: S1 = ticket #<issue> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, YYYY>), ...
 
 <SCREEN / FEATURE>
 | ID | Type | Finding | Source & location | Impact |
@@ -16,7 +16,7 @@ Sources: S1 = GitLab #<issue> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, 
 ## Rules
 
 - Dates in Sources: the last-updated date of the issue or doc.
-- **App Name**: the repo or GitLab project name.
+- **App Name**: the project name from the profile's Board line.
 - No gaps: keep the header and Sources line, then write "No gaps found".
 - **Type**: Missing, Unclear, Conflicting, Assumption
 - **Impact**: High (blocks dev/test), Medium, Low
@@ -28,7 +28,7 @@ Sources: S1 = GitLab #<issue> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, 
 
 ```
 GAP REPORT — ABC Application · #412
-Sources: S1 = GitLab #412 (Aug 02, 2026), S2 = ABC PRD on Drive (Aug 01, 2026)
+Sources: S1 = ticket #412 (Aug 02, 2026), S2 = ABC PRD on Drive (Aug 01, 2026)
 
 AUTHENTICATION
 | ID | Type | Finding | Source & location | Impact |

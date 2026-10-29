@@ -1,6 +1,6 @@
 ---
 name: release-note
-description: Drafts the sprint release note email (Done, In-progress, Known issues, notes, next plan) from the sprint's GitLab tickets, for a person to review. Use when a sprint or release ends, or when asked for a release note.
+description: Drafts the sprint release note email (Done, In-progress, Known issues, notes, next plan) from the sprint's tickets, for a person to review. Use when a sprint or release ends, or when asked for a release note.
 ---
 
 # Release Note
@@ -19,7 +19,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 ## Steps
 
 1. **Get the release.** Propose the products from the profile's Sprints line with each one's current sprint (its newest open `<prefix> - SPR <n>` milestone, as in `/ba-qa-kit:track-status`), and ask the user to confirm them and give the release date. No prefixes? Ask: "Which products and sprints are released, and on what date?" Several products released the same day go into **one note** (see Rules). The project name and build links come from the profile's Release note line. Missing or `?:`? Ask for the project name and where the build links are (store links, version and build, Storybook, repository), and offer to save them in that line — no tokens, no personal data (not the sender name), and links are copied as text, never opened. Ask for the sender name on every run.
-2. **Read each product's sprint tickets**: number, title, status, labels, comments. If GitLab can't be read, ask the user to paste the ticket list.
+2. **Read each product's sprint tickets**: number, title, status, labels, comments. If the board can't be read (see "Reading the board" in `project-profile.md`), ask the user to paste the ticket list.
 3. **Sort by status:**
    - **DONE** — closed or in the Done list.
    - **IN-PROGRESS** — started, not Done.

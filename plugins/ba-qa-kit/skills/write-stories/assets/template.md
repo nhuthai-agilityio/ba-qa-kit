@@ -8,7 +8,7 @@ Used by `write-stories`. Replace this file to use a different template.
 # <App Name> – <requirement> – User Stories
 
 Version: <n> · Date: <Mon DD, YYYY> · Status: Draft
-Based on: GitLab #<issue> · <Drive docs> · Questions List (Round <n>) · Design: <link, or "None">
+Based on: ticket #<issue> · <Drive docs> · Questions List (Round <n>) · Design: <link, or "None">
 How to read: **Pending Q<n>** = question n (or sub-question `Q<n><letter>`) of the Questions List is still open, do not build yet.
 
 ---
