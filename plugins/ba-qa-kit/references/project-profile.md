@@ -58,7 +58,7 @@ The Board line names the tracker and the project or board: `GitLab <host>/<group
 |---|---|---|---|---|
 | ticket | issue | issue | issue | card |
 | sprint | milestone or iteration | milestone | sprint | list or label the team uses for a sprint |
-| child item | task under the issue | sub-issue | sub-task | new card, linked from a checklist item on the parent card |
+| child item | task under the issue | sub-issue | sub-task | new card, linked from a checklist item on the parent card; a connector that can't add the checklist item: give the link as text to paste |
 | column | board list (a label) | Project status field | status | list |
 | label | label | label | label | label |
 | CLI | `glab` | `gh` | none | none |
