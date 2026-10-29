@@ -1,47 +1,34 @@
 ---
 name: find-gaps
-description: Reviews a feature's requirements from the team's sources (GitLab issue and the Google Docs on Drive) as a BA/QA and lists missing, unclear and conflicting points in a Gap Report. Use when asked to analyze requirements, find gaps, review a spec or check what is missing for a ticket.
+description: Reviews a feature's requirements (the GitLab issue, Drive docs and any doc the user names) as a BA/QA and lists missing, unclear and conflicting points in a Gap Report. Use when asked to analyze requirements, find gaps, review a spec or check what is missing for a ticket.
 ---
 
 # Find Gaps
 
 Find what is missing, unclear or conflicting in the requirements. Never invent answers.
 
+Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md` (the profile's **Board** and **Docs** lines, how to read the board, what to do when a line is missing) and `${CLAUDE_PLUGIN_ROOT}/references/ba-files.md` (files, sources, progress line).
+
 ## Input and output
 
-- **Needs** (from the user): the GitLab issue (link or #number); Drive docs (optional).
-- **Reads**: the issue with its comments, the Drive docs it links or the user gives and those in `ba.driveFolder`, the ticket's Questions List and earlier gap reports.
+- **Needs** (from the user): the GitLab issue (link or #number), or the requirement text; other docs (optional).
+- **Reads**: the issue with its comments and linked issues, the Drive docs it links or that are in the Docs folder, any doc the user names, the ticket's Questions List and earlier gap reports.
 - **Writes**: `ba-output/gap-report-<name>-r<n>.md`, also shown in chat.
 - **Next**: `/ba-qa-kit:write-questions`; no gaps: `/ba-qa-kit:write-stories`.
 
-## Sources
-
-The full context is always in:
-
-- **GitLab issue** — the ticket: description, comments, linked issues, attachments.
-- **Google Drive** — the docs for the feature (PRD, specs, previous Questions List with answers).
-
-## Config and files
-
-- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba-qa-kit:setup`.
-- **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
-- **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
-- **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
-
 ## Steps
 
-1. **Get the ticket.** If not given, ask: "Please provide the GitLab issue (link or #number) and the Google Drive doc(s) for this feature." Also look for the feature's docs in the BA Drive folder (`ba.driveFolder`). No Drive doc at all? Continue with the GitLab issue only and say so in the Sources line.
-2. **Read the GitLab issue fully** (incl. comments) and every Drive doc it links or the user gives. Use the GitLab and Google Drive connectors; if one can't be opened (no access, private or unreachable host), ask the user to share access or paste the content. If they can give neither, stop and say no sources were available. Never copy tokens or personal data from sources into the report. List sources as S1, S2… with name and last-updated date (issue last update, doc last modified).
-3. **Review each feature/screen** with the checklist. Also check:
+1. **Get the requirement.** Not given? Ask for the GitLab issue (link or #number) and any docs for the feature. Look for the feature's docs in the Docs folder too. No doc at all: go on with the issue only and say so in the Sources line.
+2. **Read every source** (see "Sources" in `ba-files.md`): the issue fully (description, comments, linked issues), the docs. List them as S1, S2… with name and last-updated date. Never copy tokens or personal data from a source into the report. No source could be read: stop and say so.
+3. **Review each feature or screen** with the checklist. Also check:
    - Can it be written as "When `<trigger>`, the system shall `<response>`"? If not → gap.
    - Can QA test it pass/fail? Vague words (fast, easy, some, TBD) → gap.
-   - Do sources disagree? → Conflict (don't pick a winner; name the newer source in the Finding column).
-   - Already answered in a previous Questions List? → skip.
-   - Used by **Assumption**: the sources are silent and the team must assume something to go on. Write the assumption as the finding, so the client can confirm it.
-   - **Loop round**: it is one when `ba-output/` already has a `gap-report-<name>-r*.md` or the user gives an answer doc.
-     - Also review the client answers (a Drive doc or pasted text) themselves. New rules, new cases or vague answers are new gaps.
-     - Gap IDs continue (G-12, G-13…); report only new and still-open gaps.
-4. **Output the Gap Report** (see Output), then **stop and show the progress line** (see Progress). Do not start the next step until the user replies.
+   - Do sources disagree? → Conflicting. Don't pick a winner; name the newer source in the Finding.
+   - Already answered in the Questions List? → skip.
+   - The sources are silent and the team must assume something to go on → **Assumption**: write the assumption as the finding, so the client can confirm it.
+   - **Loop round** (`ba-output/` already has a `gap-report-<name>-r*.md`, or the user gives answers): also review the client's answers. New rules, new cases or vague answers are new gaps. Gap IDs continue (G-12, G-13…); report only new and still-open gaps.
+4. **Write the Gap Report** with `assets/template.md` (a template the user gives replaces it). `<App Name>` is the project from the profile's Board line. Show it in chat and save it; a re-run of the same round after a change overwrites the file. No gaps: still save the header, the Sources line and "No gaps found".
+5. **Stop and show the progress line.** Do not start the next step until the user replies.
 
 ## Checklist
 
@@ -53,25 +40,16 @@ The full context is always in:
 - **UI**: every step has a screen; loading, empty, error states
 - **Non-functional**: performance, devices, language
 
-## Output
-
-Write the Gap Report using `assets/template.md`. A template the user provides replaces it completely.
-
-Show the report in chat and save it to `ba-output/gap-report-<name>-r<n>.md`. `<App Name>` in the template is the repo or GitLab project name. With no gaps, still save the report: the header, the Sources line and "No gaps found". If the file already exists (same round re-run after a change request), overwrite it. Dates use `Mon DD, YYYY` (for example Aug 02, 2026).
-
 ## Progress
 
-The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step the user's go runs next (this step, if it waits for go before writing), and ○ for the others (not run, or not installed).
-
-End with this progress line, then wait for the user:
+The line and its marks are in `ba-files.md`. This step's:
 
 ```
 #<ticket> · <requirement> · Round <n>   ✔ find-gaps · ▶ write-questions · ○ collect-answers · ○ write-stories
 Next: /ba-qa-kit:write-questions — turn the gaps into the client Questions List. Reply go, tell me what to change, or stop.
 ```
 
-- `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name. `Round <n>` (also `r<n>` in the file name): 1 for the first run; otherwise the highest existing `gap-report-<name>-r*.md` in `ba-output/` plus 1.
-- **go** → run `/ba-qa-kit:write-questions`. If that skill is not installed, say so, keep the Gap Report as the result, and stop.
+- **go** → run `/ba-qa-kit:write-questions`.
 - **Change request** → update the Gap Report, then show the progress line again.
 - **stop** → end here.
-- No gaps → say so, mark ▶ on write-stories instead, and use "Next: /ba-qa-kit:write-stories". **go** → run `/ba-qa-kit:write-stories`; if that skill is not installed, say so and stop with the Gap Report as the result.
+- No gaps → say so, put ▶ on write-stories, and use "Next: /ba-qa-kit:write-stories". **go** → run it.

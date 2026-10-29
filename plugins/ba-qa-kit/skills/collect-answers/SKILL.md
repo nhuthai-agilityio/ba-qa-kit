@@ -7,23 +7,18 @@ description: Collects the client's or PO's answers to a Questions List (pasted t
 
 Write the client's answers directly into the Questions List. Never invent or guess an answer.
 
+Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-files.md` (files, sources, Google Doc, progress line) and `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md` (reading the board).
+
 ## Input and output
 
 - **Needs** (from the user): the client's reply (pasted text or a Slack, email, GitLab or Drive link).
 - **Reads**: the reply, the ticket's Questions List, and the GitLab issue and Drive docs (to find conflicts).
-- **Writes**: the answers into the same Questions List (file or Google Doc), after go; never a new file.
+- **Writes**: the answers into `ba-output/question-list-<name>.md`, after go; never a new file. The team keeps the list in a Google Doc? Also the answer lines as text to paste there.
 - **Next**: `/ba-qa-kit:find-gaps` for a new round (loop), or `/ba-qa-kit:write-stories`.
-
-## Config and files
-
-- **Config**: read the `ba` section of `qa.config.json` in the current folder. A field missing there? Read it from `ba-output/track-status.json` or `ba-output/release-note.json` (older setups: `track-ticket-status.json`, `draft-release-note.json`). Still missing? Ask for it and suggest `/ba-qa-kit:setup`.
-- **Output**: every file goes to `ba-output/` in the current folder (create it if missing). Ask before saving anywhere else. A Google Doc is written only when the user gives its link.
-- **`<name>`** in file names: the GitLab issue number without `#` (for example `412`). No ticket: a lowercase slug of the requirement (for example `login-flow`), and the progress line shows `#-`.
-- **Files per ticket**: `gap-report-<name>-r<n>.md`, `question-list-<name>.md` (one Questions List per ticket), `user-stories-<name>-v<n>.md`. The latest is the one with the highest `r<n>` or `v<n>`.
 
 ## Steps
 
-1. **Get the reply and the list.** If not given, ask: "Please paste the client's reply (or share the link)." The Questions List is the Google Doc the user gives, else `ba-output/question-list-<name>.md`; if neither exists, ask for it. Read links with the connected app (Slack, Gmail, GitLab, Google Drive); if one can't be opened, ask the user to paste it.
+1. **Get the reply and the list.** If not given, ask: "Please paste the client's reply (or share the link)." The Questions List is `ba-output/question-list-<name>.md`, else the Google Doc the user links (read it); neither: ask for it. A GitLab link: read it the board's way (`project-profile.md`). A Slack, Gmail or Drive link: with that connector if this session has it. Anything that can't be opened: ask the user to paste it.
 2. **Match** each part of the reply to a question number (`Q<n>`, or `Q<n><letter>` for a sub-question). If the client didn't use numbers, match by content. If a part fits no question or more than one, mark it **Unmatched**.
 3. **Classify** each question:
    - **Answered** — clear and complete.
@@ -31,23 +26,23 @@ Write the client's answers directly into the Questions List. Never invent or gue
    - **Not answered** — nothing in the reply → Pending.
    - **Conflict** — disagrees with the GitLab issue, a Drive doc or an earlier answer.
 4. **Show a short summary in chat** (one line per question: number, status, note), plus any Unmatched parts, and name the file or doc that will be updated. Then **stop and show the progress line**. Do not change the file until the user replies; their **go** covers writing to that file or doc.
-5. **On go, update the Questions List** following the Answers section of `assets/template.md` in the `/ba-qa-kit:write-questions` skill. If that skill or file is not installed, say so and use this shape: under each question or sub-question, `→ Answer (<role>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. If the file or doc can't be edited (e.g. no access), give the user the updated text to paste.
+5. **On go, update the Questions List** following the Answers section of `${CLAUDE_PLUGIN_ROOT}/skills/write-questions/assets/template.md`: under each question or sub-question, `→ Answer (<role>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. The list lives in a Google Doc: update the local copy (create it from the doc if missing) and give the answer lines, each under its question number, as text to paste into the doc.
+6. **Check the file** after writing: read it again and confirm every answer line and every follow-up named in the summary is there, under the right number. Something missing: add it, and say what was fixed. Report only what the file holds.
 
 ## Rules
 
-- Keep the client's words; add the answerer's role (for example PO, never a personal name) and the date as `Mon DD, YYYY` (e.g. `Oct 26, 2026`).
+- Keep the client's words; add the answerer's role (for example PO, never a personal name; not stated: `Client`) and the date.
 - Skip passwords, tokens and personal data (names, emails, phone numbers) from the reply; write "[removed]" instead.
 - Never renumber or delete questions.
 - A vague answer is never treated as Answered.
 - Never pick a side in a Conflict; ask the user, and write it only after they decide.
 - Unmatched parts stay in chat; they are not written to the file.
 - A new answer to an already answered question is added as a new Answer line, not replacing the old one.
-- **Google Doc**: only when the user gives its link. Write with the Google Drive connector: show the doc name and ask once before writing, keep its existing content and styles, and add only the new content. If the connector is missing or the doc can't be edited, say so and give the text to paste.
 - Chat in the user's language; the Questions List in English.
 
 ## Progress
 
-The progress line only suggests the next step. The user can run any skill at any time. Mark steps ✔ if they ran in this chat, ▶ for the step the user's go runs next (this step, if it waits for go before writing), and ○ for the others (not run, or not installed).
+The line and its marks are in `ba-files.md`.
 
 After the summary:
 
@@ -64,7 +59,6 @@ Next: <n> pending, <n> follow-ups, <n> conflicts. Reply loop to find new gaps (R
 ```
 
 - **loop** → run `/ba-qa-kit:find-gaps` again with the updated Questions List as a source (next round). Suggest loop when there are follow-ups, conflicts or answers that add new rules; suggest go when all High questions are answered.
-- `#<ticket>`: GitLab issue number, or `#-` if there is none. `<requirement>`: short feature name.
-- **go** → do the next step (after the update: `/ba-qa-kit:write-stories`). If that skill (or `/ba-qa-kit:find-gaps` for loop) is not installed, tell the user it isn't installed and stop.
+- **go** → do the next step (after the update: `/ba-qa-kit:write-stories`).
 - **Change request** → fix it, then show the progress line again.
 - **stop** → end here.

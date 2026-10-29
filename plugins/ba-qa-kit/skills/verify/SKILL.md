@@ -7,21 +7,8 @@ description: "Runs the test cases of tickets in Chrome on Dev or Stag. Pick tick
 
 Run the test cases of one ticket, or of every ticket that matches a label or milestone, in the user's Chrome on one env. Report what you see. Do not fix anything.
 
-## Config
-`qa.config.json` in the repo root:
-
-```json
-{
-  "env": { "dev": "https://dev.example.com", "stag": "https://stag.example.com" },
-  "readyLabel": { "dev": "DEPLOYED TO DEV" },
-  "testDataPrefix": "E2E ",
-  "board": "jira",
-  "boardUrl": "https://company.atlassian.net",
-  "roles": ["Owner", "Member"],
-  "outputDir": "qa-output"
-}
-```
-Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` lists the user roles; cases are run one role at a time. No `roles`? Run all cases as the signed-in user. Test accounts are not in this file. They are in `qa.accounts.local.json` in the repo root (git-ignored, never committed): `{ "Owner": { "email": "<email>", "password": "<password>" }, "Member": { … } }`, one shared test account for each role, for dev and stag only. Optional. Without the file, the user signs in.
+## Setup
+Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md`. From the profile use the **Board** line (project), **Test envs** (dev and stag URLs, their ready labels), **Roles** (user roles, test data prefix) and **Bugs** (the QA folder, written `<outputDir>` below; default `qa-output`). A line missing or `?:`: ask for it only and offer to save it. No ready label for the env: skip that check. No roles: run every case as the signed-in user; with roles, cases run one role at a time. The kit keeps no test accounts: QA signs in to the test app in Chrome.
 
 ## Workflow
 1. Input: `--env` (default `dev`), related features (optional), and the tickets, in one of these ways:
@@ -31,43 +18,43 @@ Missing? Ask once and offer to create it. `readyLabel` is optional. `roles` list
    - `--label … --milestone …`: tickets that match both.
    - Optional: `--bugs #6,#9`: bugs by others to check against these tickets.
    Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. No tickets, label or milestone given? Ask which tickets.
-2. Find the tickets: `board` tool → else `boardUrl` in a new tab (user signs in if needed) → else ask. For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). A label or milestone not found? Tell the user, list the names that exist, and stop.
-3. Check each ticket: it has the `readyLabel` for the env (if `readyLabel` is set), and it has a `QA test cases` sub-issue. A ticket can have several versions (`QA test cases – #<n> – v2`, `– v3`…). Find the latest: among the child items of the ticket, take those with the label `test case` or a title that starts with `QA test cases – #<n>`. The version is the number after `– v` in the title (no suffix = v1). Take the highest. Two with the same version, or a version that cannot be read? Ask the user which one to use. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/ba-qa-kit:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
+2. Find the tickets, reading the board the profile's way (glab, else Chrome, else pasted). For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). A label or milestone not found? Tell the user, list the names that exist, and stop.
+3. Check each ticket: it has the env's ready label (when the profile has one), and it has a `QA test cases` sub-issue. A ticket can have several versions (`QA test cases – #<n> – v2`, `– v3`…). Find the latest: among the child items of the ticket, take those with the label `test case` or a title that starts with `QA test cases – #<n>`. The version is the number after `– v` in the title (no suffix = v1). Take the highest. Two with the same version, or a version that cannot be read? Ask the user which one to use. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/ba-qa-kit:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
 4. Confirm: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table. It has no `QA test cases` sub-issue? Stop and suggest `/ba-qa-kit:write-test-cases`. It is missing the ready label? Tell the user and stop unless they say go.
    ```
    | Ticket | Link | Labels | Milestone | QA test cases | Ready | Run |
    |---|---|---|---|---|---|---|
    | #12 <title> | <link> | <labels> | <milestone> | Yes (<sub-issue link>) | Yes | Will run |
    | #18 <title> | <link> | <labels> | <milestone> | No | n/a | Skipped: run /ba-qa-kit:write-test-cases first |
-   | #20 <title> | <link> | <labels> | <milestone> | Yes (<sub-issue link>) | No | Skipped: missing label <readyLabel> |
+   | #20 <title> | <link> | <labels> | <milestone> | Yes (<sub-issue link>) | No | Skipped: missing label <ready label> |
    ```
-   Ready is `Yes` or `No`. It is `n/a` when `readyLabel` has no entry for the env, or when the ticket has no sub-issue.
+   Ready is `Yes` or `No`. It is `n/a` when the env has no ready label, or when the ticket has no sub-issue.
    Then ask: `Run these <n> tickets on <env>? yes / remove #<n> / include #<n> / no`. Run only after yes.
 5. Related features: given in the input? Use them. One ticket and none given: suggest 3–5 with a reason and wait for confirm. More than one ticket: ask once together with step 4; no answer = none.
 6. Check Chrome tools (`--chrome`) and that the user is signed in to the env (a login page: see Rules). Read `<outputDir>/qa-lessons.md` if it exists and follow the lessons for `verify` or `both`.
 7. Run the tickets one by one, in ticket-number order. Do steps 8–14 for each ticket.
 8. Test cases: the description of the latest `QA test cases` sub-issue under the ticket (highest version; no suffix = v1) (the "Test cases" table: one row per case; steps and expected results are numbered the same).
 9. Round: 1 more than the highest Round for this Env and Ticket in `<outputDir>/verify-summary.md` or in the comments `QA verify – #<n> – <env> – Round <round>` on any version of the ticket's `QA test cases` sub-issue. None yet = Round 1. The comments found here (all versions) also give the links for `Earlier rounds` in the report. A round that exists only in `verify-summary.md` has no link: write `Round <r> (v<k>) no link`.
-10. Run rows with Run = `Auto`, grouped by Role (same order as `roles`): finish one role, then switch user (sign out, then sign in as the next role, see Rules) and run the next. Then run related features. Other rows = "Not run" + reason.
+10. Run rows with Run = `Auto`, grouped by Role (the profile's order): finish one role, then stop and ask the user to sign in as the next role in Chrome; go on after they reply. Then run the next role. Then run related features. Other rows = "Not run" + reason.
 11. Ticket has a result from another env? Compare case by case.
 12. Write the report to `<outputDir>/<ticket>-verify-<env>-round-<round>.md`.
 13. Update the summary `<outputDir>/verify-summary.md` (create it if missing): add this round to Totals; replace this Env and Ticket's rows in Results and in Fail and Blocked. Keep other tickets and older rounds in Totals.
-14. Post the report as a new comment on the latest `QA test cases` sub-issue. Do not ask. First line: `QA verify – #<n> – <env> – Round <round> – <YYYY-MM-DD>`. The comment holds the report, including the line `Earlier rounds`. Always add a new comment; never edit or delete an older one. Cannot comment? Tell the user and keep the files.
+14. Post the report as a new comment on the latest `QA test cases` sub-issue. Do not ask. First line: `QA verify – #<n> – <env> – Round <round> – <YYYY-MM-DD>`. The comment holds the report, including the line `Earlier rounds`. Always add a new comment; never edit or delete an older one. Write with glab; glab can't write: give the comment as text to paste, and keep the files.
 15. After the last ticket, show the chat report (see Report).
 16. Run the search of the `log-bugs` skill for bugs by others (its section "Bugs by others"). Any Fail in any ticket, or any bug by others found? Ask once in chat: the line `Fail: <ticket and case list>. Log bugs now? yes/no` (when there are Fails) and the table of bugs by others (`Comment on these? yes / no / only <n>`). Yes: run the `log-bugs` skill for the failed cases, with the ticket, env, round and related test cases already filled. It creates the bugs without asking.
 17. Any case that now Pass and has an open bug (with or without label `failed`)? Run the `log-bugs` skill for those cases without asking. It sets the label `passed` and adds a comment. Bugs by others that are already linked to a case are commented in the same way, without asking (see `log-bugs`).
 
 ## Rules
-- New tab. Open only the env URL and `boardUrl`. Never production.
+- New tab. Open only the env URL and the board. Never production.
 - Look for bugs only as the `log-bugs` skill says. Never list or search the whole board.
 - Start each case from fresh Start data and setup. Follow steps exactly.
 - Check each step against the Expected result with the same number.
-- Test data names start with `testDataPrefix`.
+- Test data names start with the profile's test data prefix.
 - Start console and network tracking before each case.
-- Each Fail: screenshot, console errors, failed requests. Save screenshots in `outputDir` as `<ticket>-round-<round>-<case>-step<n>.jpg`.
-- Login page shows? First check the env URL: it must be the `dev` or `stag` URL of `qa.config.json`. Any other URL: do not sign in, stop and ask the user. Then find the account of the role you are running in `qa.accounts.local.json`. Found: sign in with it. Not found, or its value still starts with `<`: stop at the login page, do not type a password, and ask the user to sign in. Sign-in fails? Stop and ask; do not try again. A step cannot be done: with one ticket, stop and ask; with many tickets, mark the case Blocked and continue with the next case. The whole ticket cannot go on? Mark its remaining cases Blocked and go to the next ticket.
-- Never type or write passwords, tokens or personal data. Only exception: sign in with the test account of the current role from `qa.accounts.local.json`, on the env URL (dev or stag, never production). Never write that password anywhere else: not in files, comments, reports, chat or screenshots. Do not take a screenshot of the sign-in form.
-- Never change data you did not create. Never change the ticket (status, fields, AC) or an older comment; only add the verify comment. Write files only in `outputDir`.
+- Each Fail: screenshot, console errors, failed requests. Save screenshots in `<outputDir>` as `<ticket>-round-<round>-<case>-step<n>.jpg`.
+- Login page shows? Check the URL is the profile's dev or stag URL; any other URL: stop and ask. Never type a password: stop at the login page and ask the user to sign in as the role you are running, then go on after they reply. A step cannot be done: with one ticket, stop and ask; with many tickets, mark the case Blocked and continue with the next case. The whole ticket cannot go on? Mark its remaining cases Blocked and go to the next ticket.
+- Never type or write passwords, tokens or personal data. Do not take a screenshot of a sign-in form.
+- Never change data you did not create. Never change the ticket (status, fields, AC) or an older comment; only add the verify comment. Write files only in `<outputDir>`.
 - Never send, pay or delete unless it is a test step.
 
 ## Report

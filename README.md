@@ -2,7 +2,7 @@
 
 One Claude Code plugin, `ba-qa-kit` (`plugins/ba-qa-kit`), in the marketplace `ba-qa-kit`. It holds the BA and the QA skills; everyone installs the same plugin.
 
-- `/ba-qa-kit:setup` checks the connectors and writes `qa.config.json` and the BA saved answers, so nobody edits config by hand. Run it first, as BA, QA or both.
+- `/ba-qa-kit:setup` checks access to GitLab (glab, else Chrome), finds what it can on the board, asks only for the rest, and writes a short project profile into `CLAUDE.md` in the folder where you start `claude`. Every skill reads that profile; nobody opens a config file. To change a setting, say it: `/ba-qa-kit:setup change the dev URL to …`.
 - BA: from a ticket to user stories with acceptance criteria on the GitLab board, plus sprint status and release notes. In workflow order:
   - `/ba-qa-kit:find-gaps` reviews a ticket's GitLab issue and Drive docs and writes a Gap Report of missing, unclear and conflicting points.
   - `/ba-qa-kit:write-questions` turns a Gap Report into a clarification Questions List for the client or PO.
@@ -10,13 +10,13 @@ One Claude Code plugin, `ba-qa-kit` (`plugins/ba-qa-kit`), in the marketplace `b
   - `/ba-qa-kit:write-stories` writes stories with acceptance criteria, error handling and edge cases from the sources and the answered Questions List. After you review the file and reply go, it creates or updates one GitLab issue per story in the Backlog column, labeled `user story` and the feature name, without duplicating existing issues.
   - `/ba-qa-kit:track-status` writes a daily status report for the current GitLab sprint, with how much of each sprint is done (read-only).
   - `/ba-qa-kit:release-note` drafts the sprint release note email from the sprint's GitLab tickets, for a person to review and send.
-- QA: `/ba-qa-kit:write-test-cases` writes test cases, `/ba-qa-kit:verify` checks a ticket in Chrome, `/ba-qa-kit:log-bugs` logs bugs and records verify mistakes. Settings come from `qa.config.json` in the folder where you start `claude`.
+- QA: `/ba-qa-kit:write-test-cases` writes test cases, `/ba-qa-kit:verify` checks a ticket in Chrome, `/ba-qa-kit:log-bugs` logs bugs and records verify mistakes. Settings come from the project profile in `CLAUDE.md`.
 
 ## BA workflow
 
 | When | Run | You get |
 |---|---|---|
-| Once, or when a teammate joins | `/ba-qa-kit:setup` | `qa.config.json` in the current folder, and the saved answers in `ba-output/` |
+| Once per project (commit `CLAUDE.md` so the team shares it) | `/ba-qa-kit:setup` | the project profile in `CLAUDE.md` |
 | A new ticket arrives | `/ba-qa-kit:find-gaps` | `ba-output/gap-report-<name>-r<n>.md` |
 | Gaps are found | `/ba-qa-kit:write-questions` | `ba-output/question-list-<name>.md` to send to the client |
 | The client replies | `/ba-qa-kit:collect-answers` | the answers in the same Questions List; reply `loop` for a new round of gaps, or `go` to write stories |
@@ -47,11 +47,19 @@ Inside Claude Code:
    ```
    Then restart Claude Code; until then the old commands can still show.
 
+## Project profile
+
+The profile is a short block in `CLAUDE.md` (Board, Sprints, Docs, Test envs, Roles, Bugs, Release note). Claude Code reads `CLAUDE.md` in every session, so skills need no config file. A line nobody knows yet stays `?:`; the first skill that needs it asks and offers to save the answer. Commit `CLAUDE.md` when the folder is a git repo, so teammates get the same profile with `git pull`. An older `qa.config.json` is moved into the profile the first time you run `/ba-qa-kit:setup`. Format: `plugins/ba-qa-kit/references/project-profile.md`.
+
+GitLab: the skills read and write the board with `glab` (`glab auth login --hostname <host>`; a token with `api` scope to write; VPN if the host needs it). Without glab they read tickets in your Chrome (`claude --chrome`) or ask you to paste them, and give board changes as text to paste. Google Docs can be read, not written: the skills give the text to paste.
+
 ## QA setup
 
-- Create these labels once on the board: `test case`, `Bug`, `failed`, `passed`, `not-a-bug`. If one is missing, the QA skills still do their work and tell you which label to create. They never create labels.
-- The QA skills write their files in `outputDir` from `qa.config.json`. Reports, summaries, bug drafts and screenshots stay on the machine of the person who ran the skill; everything the team needs (test cases, verify reports, bugs) is also on the board. The lessons file `qa-lessons.md` and the `incidents/` folder are shared through this repo, so every QA gets them with `git pull`. Sharing is optional and done by hand (for example in GitHub Desktop): to share a new lesson, check the new files hold no personal data, then commit them on a branch and open a pull request. The skills never commit or push.
-- Test accounts: copy `qa.accounts.example.json` to `qa.accounts.local.json` and fill in the shared test account of each role, so `/ba-qa-kit:verify` can sign in by itself on dev or stag. The file is git-ignored, so passwords are never committed. Use only shared test accounts, never a personal or production account. No file, or no account for a role: `/ba-qa-kit:verify` stops at the login page and asks you to sign in.
+- Labels the kit uses. Create the ones your board does not have yet; upper or lower case does not matter (`Failed` counts as `failed`). If one is missing, the skills still do their work and tell you which label to create. They never create labels.
+  - BA: `user story`, `pending-questions`, the Backlog list label, and one label per feature.
+  - QA: `test case`, `Bug`, `failed`, `passed`, `not-a-bug`.
+- The QA skills write their files in the QA folder named in the profile's Bugs line (default `qa-output/`). Reports, summaries, bug drafts and screenshots stay on the machine of the person who ran the skill; everything the team needs (test cases, verify reports, bugs) is also on the board. The lessons file `qa-lessons.md` and the `incidents/` folder are shared through this repo, so every QA gets them with `git pull`. Sharing is optional and done by hand (for example in GitHub Desktop): to share a new lesson, check the new files hold no personal data, then commit them on a branch and open a pull request. The skills never commit or push.
+- Test accounts: sign in to the dev or stag app in your Chrome yourself, with a shared test account (never a personal or production one). Chrome keeps you signed in. `/ba-qa-kit:verify` never types a password: at a login page, or when a case needs another role, it stops and asks you to sign in, then goes on.
 - To let `/ba-qa-kit:verify` and `/ba-qa-kit:log-bugs` follow a bug, make it a child item of the feature ticket, link it to the ticket (Linked items), or name it with `--bugs #<n>`. The skills never search the whole board. Bugs that others logged only get comments, after you confirm.
 
 ## Update
@@ -63,7 +71,9 @@ claude plugin marketplace update ba-qa-kit
 claude plugin update ba-qa-kit@ba-qa-kit
 ```
 
-From `ba-qa-kit` 1.0.0 the `ba` and `qa` plugins are one plugin: every `/ba:<skill>` and `/qa:<skill>` is now `/ba-qa-kit:<skill>`, with the same skill name. The old `/ba:stories-to-board` is part of `/ba-qa-kit:write-stories`: reply go after reviewing the stories, or ask it to put an existing story doc on the board.
+**Upgrading to 2.0.0:** settings live in the project profile in `CLAUDE.md`, not in `qa.config.json` or `ba-output/*.json`. Run `/ba-qa-kit:setup` once to move them. The kit keeps no test accounts; you can delete `qa.accounts.local.json`.
+
+From `ba-qa-kit` 1.0.0 the `ba` and `qa` plugins are one plugin: every `/ba:<skill>` and `/qa:<skill>` is now `/ba-qa-kit:<skill>`, with the same skill name. The old `/ba:stories-to-board` (folded in with `ba` 0.6.0) is part of `/ba-qa-kit:write-stories`: reply go after reviewing the stories, or ask it to put an existing story doc on the board.
 
 ## Maintaining
 

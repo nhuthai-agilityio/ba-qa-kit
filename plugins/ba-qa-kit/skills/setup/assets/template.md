@@ -5,50 +5,36 @@ Used by `setup`. Replace this file to use a different checklist.
 ## Format
 
 ```markdown
-Setup · <BA / QA / Both>
+Setup · <BA / QA / both>
 
-Connectors
-- <✔ / ✖ / ○> GitLab: <Connected / Not connected: <how to connect> / Not checked>
-- <✔ / ✖ / ○> Google Drive: <...>
-- <✔ / ✖ / ○> Claude in Chrome: <...> (QA only)
+Access
+- <✔ / ✖ / ○> glab: <logged in, can write / logged in, read only / not logged in: <fix> / not installed / host not reachable: VPN?>
+- <✔ / ✖ / ○> Chrome: <answers / not started with --chrome>
+- <✔ / ✖ / ○> Board: <readable / not readable: <why>>
 
-Sources
-- <✔ / ✖ / ○> GitLab board: <readable / not readable / not checked>
-- <✔ / ✖ / ○> Drive folder: <readable / not readable / not checked>
-
-Files
-- <✔ / ✖> qa.config.json: <written / unchanged / missing: <fields>>
-- <✔ / ✖> ba-output copies (BA): <written / unchanged / missing: <fields>>
-
+Profile in CLAUDE.md: <written / unchanged / not written>
+Still to answer: <the ?: lines in plain words, or "nothing">
+Labels missing on the board: <list, or "none">
 Warnings: <milestones with no end date or ended and still open, or "none">
-Missing: <short list, or "nothing">
 ```
 
 ## Rules
 
-- ✔ ready, ✖ missing, ○ not needed for this role or not checked.
-- Show only the lines the role needs.
-- Keep it under 20 lines. No secrets, no personal data, no production URLs.
+- ✔ ready, ✖ missing, ○ not needed for this job.
+- Keep it under 15 lines. No secrets, no personal data, no production URLs.
 
 ## Example
 
 ```markdown
-Setup · Both
+Setup · both
 
-Connectors
-- ✔ GitLab: Connected
-- ✖ Google Drive: Not connected: add it in Settings → Connectors, then restart
-- ✔ Claude in Chrome: Connected
+Access
+- ✔ glab: logged in, can write
+- ✖ Chrome: not started with --chrome (needed for /ba-qa-kit:verify)
+- ✔ Board: readable
 
-Sources
-- ✔ GitLab board: readable
-- ✔ Drive folder: readable
-
-Files
-- ✔ qa.config.json: written
-- ✔ ba-output/track-status.json: unchanged
-- ✖ ba-output/release-note.json: missing: links
-
-Warnings: MS1 has no end date; KD and F sprints ended and are still open
-Missing: Google Drive connector, release note build links
+Profile in CLAUDE.md: written
+Still to answer: stag URL, release note build links
+Labels missing on the board: test case, passed, not-a-bug
+Warnings: INV - SPR 2 has no end date
 ```
