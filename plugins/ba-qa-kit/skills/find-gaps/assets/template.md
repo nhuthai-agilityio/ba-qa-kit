@@ -6,7 +6,7 @@ Used by `find-gaps`. Replace this file to use a different template.
 
 ```
 GAP REPORT — <App Name> · #<ticket>
-Sources: S1 = ticket #<issue> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, YYYY>), ...
+Sources: S1 = ticket #<n> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, YYYY>), ...
 
 <SCREEN / FEATURE>
 | ID | Type | Finding | Source & location | Impact |
@@ -15,7 +15,7 @@ Sources: S1 = ticket #<issue> (<Mon DD, YYYY>), S2 = <Drive doc name> (<Mon DD, 
 
 ## Rules
 
-- Dates in Sources: the last-updated date of the issue or doc.
+- Dates in Sources: the last-updated date of the ticket or doc.
 - **App Name**: the project name from the profile's Board line.
 - No gaps: keep the header and Sources line, then write "No gaps found".
 - **Type**: Missing, Unclear, Conflicting, Assumption

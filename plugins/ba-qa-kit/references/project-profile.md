@@ -63,7 +63,7 @@ The Board line names the tracker and the project or board: `GitLab <host>/<group
 | CLI | `glab` | `gh` | none | none |
 | Connector | optional | optional | Atlassian (Jira) | Trello |
 
-Child items: test cases (`QA test cases`) and bugs are child items wherever the tracker has them. Story tickets are child items on GitHub and Jira; on GitLab an issue can't be the child of an issue, so a story is linked to its parent with a relates-to link. Jira and Trello need their connector (an MCP server) to be read or written directly; without it they work through Chrome and pasted text. GitHub Project columns need the `read:project` scope to read and `project` to change (`gh auth refresh -s project`). Labels are case-sensitive on GitLab and GitHub; match without regard to case only to find a label, then use its exact name (see "Labels").
+Child items: test cases (`QA test cases`) and bugs are child items wherever the tracker has them. Story tickets are child items on GitHub and Jira; on GitLab an issue can't be the child of an issue, so a story is linked to its parent with a relates-to link. Another tracker: ask the user what it uses for a sprint and a child item, and offer to save it in the profile. Jira and Trello need their connector (an MCP server) to be read or written directly; without it they work through Chrome and pasted text. GitHub Project columns need the `read:project` scope to read and `project` to change (`gh auth refresh -s project`). Labels are case-sensitive on GitLab and GitHub; match without regard to case only to find a label, then use its exact name (see "Labels").
 
 ## Reading the board
 

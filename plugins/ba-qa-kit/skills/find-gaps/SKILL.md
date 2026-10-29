@@ -12,14 +12,14 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 ## Input and output
 
 - **Needs** (from the user): the ticket (link or #number), or the requirement text; other docs (optional).
-- **Reads**: the issue with its comments and linked issues, the Drive docs it links or that are in the Docs folder, any doc the user names, the ticket's Questions List and earlier gap reports.
+- **Reads**: the ticket with its comments and linked tickets, the Drive docs it links or that are in the Docs folder, any doc the user names, the ticket's Questions List and earlier gap reports.
 - **Writes**: `ba-output/gap-report-<name>-r<n>.md`, also shown in chat.
 - **Next**: `/ba-qa-kit:write-questions`; no gaps: `/ba-qa-kit:write-stories`.
 
 ## Steps
 
-1. **Get the requirement.** Not given? Ask for the ticket (link or #number) and any docs for the feature. Look for the feature's docs in the Docs folder too. No doc at all: go on with the issue only and say so in the Sources line.
-2. **Read every source** (see "Sources" in `ba-files.md`): the issue fully (description, comments, linked issues), the docs. List them as S1, S2… with name and last-updated date. Never copy tokens or personal data from a source into the report. No source could be read: stop and say so.
+1. **Get the requirement.** Not given? Ask for the ticket (link or #number) and any docs for the feature. Look for the feature's docs in the Docs folder too. No doc at all: go on with the ticket only and say so in the Sources line.
+2. **Read every source** (see "Sources" in `ba-files.md`): the ticket fully (description, comments, linked tickets), the docs. List them as S1, S2… with name and last-updated date. Never copy tokens or personal data from a source into the report. No source could be read: stop and say so.
 3. **Review each feature or screen** with the checklist. Also check:
    - Can it be written as "When `<trigger>`, the system shall `<response>`"? If not → gap.
    - Can QA test it pass/fail? Vague words (fast, easy, some, TBD) → gap.

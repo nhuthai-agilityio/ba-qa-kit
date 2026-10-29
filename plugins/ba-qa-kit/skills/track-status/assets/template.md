@@ -31,7 +31,7 @@ Open bugs: <n> (<#n>, <#n>) or none
 ## Rules
 
 - Summary: status counts (Done, In progress, To do) add up to the tickets total; Blocked, Stale, Sent back and Late start are flags and can overlap.
-- **Progress**: one line per sprint. `<done>` is every ticket Done now, the same as the Summary's Done count, not the Done section (done in the period). Percentages are whole numbers. No start or no end date: `Progress: 3/8 done (38%) · time used not measurable (no end date)`, naming the date that is missing. Work tickets only: bugs, bug collectors and `QA test cases` sub-issues go on the Open bugs line or nowhere. No tickets: `Progress: No tickets`. With several products, start each line with the sprint name (`ABC - SPR 31: 6/10 done (60%) · …`). Behind = the rounded Done % is more than 20 points under the rounded time used.
+- **Progress**: one line per sprint. `<done>` is every ticket Done now, the same as the Summary's Done count, not the Done section (done in the period). Percentages are whole numbers. No start or no end date: `Progress: 3/8 done (38%) · time used not measurable (no end date)`, naming the date that is missing. Work tickets only: bugs, bug collectors and `QA test cases` child items go on the Open bugs line or nowhere. No tickets: `Progress: No tickets`. With several products, start each line with the sprint name (`ABC - SPR 31: 6/10 done (60%) · …`). Behind = the rounded Done % is more than 20 points under the rounded time used.
 - **Needs action** order: Blocked, Sent back, Stale, Late start.
 - **Questions** status: Pending, or Answered (ticket not updated).
 - Type: Story (`[US-nn]`), Task or Bug.
