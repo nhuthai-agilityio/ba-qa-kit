@@ -35,7 +35,7 @@ Never in the profile: passwords, tokens, personal emails or names (a GitLab user
 
 ## Labels
 
-GitLab label names are case-sensitive: `bug` and `Bug` are two labels, and a filter on `bug` finds none of the `Bug` tickets. Board columns are labels too.
+GitLab label names are case-sensitive: `bug` and `Bug` are two labels, and a filter on `bug` finds none of the `Bug` tickets. On GitLab, board columns are labels too.
 
 - The skills name labels by their role, with the kit's default name: story `user story`, open questions `pending-questions`, known issue `Known issue`, test cases `test case`, bug `Bug`, failed `failed`, passed `passed`, not a bug `not-a-bug`. The Labels line maps each role to the board's real label, spelled exactly as on the board. Always add and filter with that name.
 - A role missing from the Labels line: find the board label by name without regard to case and use the board's spelling; none found: do the work without that label and say which one is missing.

@@ -22,11 +22,11 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 3. Check each ticket: it has the env's ready label (when the profile has one), and it has a `QA test cases` sub-issue. A ticket can have several versions (`QA test cases – #<n> – v2`, `– v3`…). Find the latest: among the child items of the ticket, take those with the test-cases label (`test case`; the board's name is in the profile's Labels line) or a title that starts with `QA test cases – #<n>`. The version is the number after `– v` in the title (no suffix = v1). Take the highest. Two with the same version, or a version that cannot be read? Ask the user which one to use. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/ba-qa-kit:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
 4. Confirm: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table. It has no `QA test cases` sub-issue? Stop and suggest `/ba-qa-kit:write-test-cases`. It is missing the ready label? Tell the user and stop unless they say go.
    ```
-   | Ticket | Link | Labels | Milestone | QA test cases | Ready | Run |
+   | Ticket | Link | Labels | Sprint | QA test cases | Ready | Run |
    |---|---|---|---|---|---|---|
-   | #12 <title> | <link> | <labels> | <milestone> | Yes (<sub-issue link>) | Yes | Will run |
-   | #18 <title> | <link> | <labels> | <milestone> | No | n/a | Skipped: run /ba-qa-kit:write-test-cases first |
-   | #20 <title> | <link> | <labels> | <milestone> | Yes (<sub-issue link>) | No | Skipped: missing label <ready label> |
+   | #12 <title> | <link> | <labels> | <sprint> | Yes (<child item link>) | Yes | Will run |
+   | #18 <title> | <link> | <labels> | <sprint> | No | n/a | Skipped: run /ba-qa-kit:write-test-cases first |
+   | #20 <title> | <link> | <labels> | <sprint> | Yes (<child item link>) | No | Skipped: missing label <ready label> |
    ```
    Ready is `Yes` or `No`. It is `n/a` when the env has no ready label, or when the ticket has no sub-issue.
    Then ask: `Run these <n> tickets on <env>? yes / remove #<n> / include #<n> / no`. Run only after yes.

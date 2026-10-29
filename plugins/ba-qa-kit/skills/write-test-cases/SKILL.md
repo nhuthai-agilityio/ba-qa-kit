@@ -22,10 +22,10 @@ Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `writ
 3. **Existing test cases**: find the latest `QA test cases` sub-issue of each ticket: among the child items of the ticket, take those with the label `test case` or a title that starts with `QA test cases – #<n>`. The version is the number after `– v` in the title (no suffix = v1). Take the highest. Two with the same version, or a version that cannot be read? Ask the user which one to use. None: the ticket is new (v1). Some: the new version is v<k+1>.
 4. **Confirm**: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table.
    ```
-   | Ticket | Link | Labels | Milestone | QA test cases | Run |
+   | Ticket | Link | Labels | Sprint | QA test cases | Run |
    |---|---|---|---|---|---|
-   | #12 (<title>) | <link> | <labels> | <milestone> | None | Will write v1 |
-   | #15 (<title>) | <link> | <labels> | <milestone> | v2 (<sub-issue link>) | Will write v3 |
+   | #12 (<title>) | <link> | <labels> | <sprint> | None | Will write v1 |
+   | #15 (<title>) | <link> | <labels> | <sprint> | v2 (<child item link>) | Will write v3 |
    ```
    Then ask: `Write test cases for these <n> tickets? yes / only #<n>,#<n> / remove #<n> / no`. Run only after yes. A ticket that already has test cases is written again as a new version.
 5. **Built screens**: list the screens the ACs of all chosen tickets need, and ask once which are not built yet. Cases that need them are "Blocked", but their steps and Expected result are still written (see Rules).
@@ -79,13 +79,13 @@ Ticket gaps: <n> · PO questions: <n>
 QA edits kept: <TC IDs or "none" or "cannot compare">
 Full output: <outputDir>/<file>
 Summary: <outputDir>/test-cases-summary.md
-Posted: <sub-issue link>. Check it on the ticket, then tell me what to change.
+Posted: <child item link>. Check it on the ticket, then tell me what to change.
 ```
 More than one ticket: one table, then the summary path.
 ```
 | Ticket | Version | Test cases | Gaps | PO questions | Posted |
 |---|---|---|---|---|---|
-| #12 (<title>) | v1 | <x> (<a> Auto, <m> Manual only, <b> Blocked) | <n> | <n> | <sub-issue link> |
+| #12 (<title>) | v1 | <x> (<a> Auto, <m> Manual only, <b> Blocked) | <n> | <n> | <child item link> |
 | #18 (<title>) | – | Skipped: no AC | – | – | – |
 Summary: <outputDir>/test-cases-summary.md
 ```
@@ -94,7 +94,7 @@ In the file:
 
 ```
 # QA test cases – Ticket #<n>: <ticket title> (v<k>)
-Date: <YYYY-MM-DD> | Sources: <ticket link>, <doc links> | Based on: <v<k-1> sub-issue link, or "new">
+Date: <YYYY-MM-DD> | Sources: <ticket link>, <doc links> | Based on: <v<k-1> child item link, or "new">
 Screens not built yet: <list or "none">
 
 ## 1. Ticket gaps
