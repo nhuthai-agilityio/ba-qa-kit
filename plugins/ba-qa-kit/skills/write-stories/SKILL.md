@@ -35,7 +35,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 2. **Collect** for each story its rules, flow steps, screens and related questions.
 3. **Write** each story with `assets/template.md`, keeping its section order. If the user gives another template, follow that template's sections and keep the A/C, error handling and edge-case content.
 4. **Check** each story before saving, and fix what fails:
-   - **Format**: the A/C starts with `The <user or role> can <capability>.`; each bullet is one full sentence with one behavior; bullets follow the flow in order; screens are named in **bold**.
+   - **Format**: the story starts with `<User or role> can <capability>. (US-nn)`; the A/C are grouped under bold screen or flow-step bullets in flow order; each nested bullet is one full sentence with one behavior; screens and buttons are named in **bold**; Notes give the requirement, the source and the design.
    - **Content**: every answered question and rule for this feature appears in an A/C or error line; every screen state (empty, loading, error, success) is covered or raised as a question; no A/C is written from a pending question.
 5. **Save the draft** (see File below). Don't paste the stories in chat; the user reviews the file.
 6. **Plan the board** (read-only, nothing is written yet):
@@ -59,13 +59,13 @@ If the Questions List or sources are missing, ask for them, or suggest running `
    The user may ask to see one ticket ("show US-01 ticket"): show only that issue text. The board can't be read: show the table without the Board column. glab can't write (see "Writing to the board" in `project-profile.md`): say go will give ready-to-paste text.
 8. **On go**, for each row:
    - **Create** the issue with `assets/ticket-template.md`, linked to the parent ticket (relates to; GitLab can't make an issue the child of an issue), with its labels and `<backlog label>`.
-   - **Update** the description and add a comment with "What changed". When an A/C changed, end the comment with `QA: A/C changed. Run /ba-qa-kit:write-test-cases <n> for a new version.` (`<n>` is this story issue's number) Keep a ticked A/C checkbox ticked only when its text is unchanged. Never add or remove a list label; the issue stays in its column.
+   - **Update** the description and add a comment with "What changed". When an A/C changed, end the comment with `QA: A/C changed. Run /ba-qa-kit:write-test-cases <n> for a new version.` (`<n>` is this story issue's number) Never add or remove a list label; the issue stays in its column.
    - Write `Ticket: #<n>` into that story's **Notes** in the story doc. The go covers this.
    - **Report** each issue with its link, then show the progress line. A row that fails (for example the issue was created but a label failed): report it and go on; never retry a create. A re-run finds issues already created by their `[US-nn]` prefix, so nothing is duplicated.
 
 ## Rules
 
-- **Clear A/C**: a teammate reading only the A/C knows the flow and the screens. One observable behavior per bullet, with real values ("an approved company email domain", "max 50 characters"), never "valid", "quickly", "properly".
+- **Clear A/C**: a teammate reading only the A/C knows the flow and the screens. One observable behavior per bullet, with real values and an example when a rule is easy to misread, never "valid", "quickly", "properly".
 - **Open items stay pending**: write `Pending Q<n> – <short title>` (`Q<n>` is question n of the Questions List; a sub-question is `Q<n><letter>`, for example `Q2a`) in error handling, edge cases or notes — never inside A/C.
 - **Conflict** between design and sources: follow the sources in the A/C, and write the conflict in that story's **Notes** (`Conflict – design shows X, <source> says Y. Following <source> until confirmed.`). Also list it in chat as a new question for the next loop.
 - **Questions live only in the Questions List.** The story doc has no question or pending sections. New questions found while writing are listed in chat; on **loop** they go into the Questions List (`ba-output/question-list-<name>.md`, kept by `/ba-qa-kit:write-questions`).
