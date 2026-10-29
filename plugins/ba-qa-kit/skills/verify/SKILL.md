@@ -14,7 +14,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 1. Input: `--env` (default `dev`), related features (optional), and the tickets, in one of these ways:
    - `--tickets 12,15`, or just `12`: these tickets.
    - `--label "ready to test","bug fix"`: tickets with at least one of these labels.
-   - `--milestone "Sprint 1","Sprint 2"`: tickets in one of these milestones (the tracker's sprint; Jira: sprint or fix version).
+   - `--milestone "Sprint 1","Sprint 2"`: tickets in one of these milestones (the tracker's sprint; Jira: sprint or fix version; Trello: the list or label named in the profile's Sprints line).
    - `--label … --milestone …`: tickets that match both.
    - Optional: `--bugs #6,#9`: bugs by others to check against these tickets.
    Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. No tickets, label or milestone given? Ask which tickets.

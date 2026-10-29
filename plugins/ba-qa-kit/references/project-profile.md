@@ -12,7 +12,7 @@ Every project that uses this kit carries a short profile as a marked block in th
 **Docs:** Drive folder <link> | none
 **Test envs:** dev <URL> (ready label `<label>`); stag <URL> (ready label `<label>`). Never production.
 **Roles:** <role>, <role> · test data starts with `<prefix>` · standard <name> | none
-**Bugs:** assigned to @<GitLab username> | nobody fixed · QA files in `<folder>/`
+**Bugs:** assigned to @<board username> | nobody fixed · QA files in `<folder>/`
 **Release note:** project <name>; build links: <name> <location>; …
 **Labels:** story `<label>` · open questions `<label>` · known issue `<label>` · test cases `<label>` · bug `<label>` · failed `<label>` · passed `<label>` · not a bug `<label>`
 <!-- ba-qa-kit:profile:end -->

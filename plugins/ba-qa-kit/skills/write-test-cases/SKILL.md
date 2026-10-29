@@ -15,7 +15,7 @@ Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `writ
 1. **Input**: the tickets, in one of these ways:
    - `--tickets 12,15`, or just `12`: these tickets.
    - `--label "ready to test","bug fix"`: tickets with at least one of these labels.
-   - `--milestone "Sprint 1","Sprint 2"`: tickets in one of these milestones (the tracker's sprint; Jira: sprint or fix version).
+   - `--milestone "Sprint 1","Sprint 2"`: tickets in one of these milestones (the tracker's sprint; Jira: sprint or fix version; Trello: the list or label named in the profile's Sprints line).
    - `--label … --milestone …`: tickets that match both.
    Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. Nothing given? Ask which tickets. The ACs are read from the ticket, so new ACs need no mention. The user may also say what to change in one named ticket (for example "fix TC-12-05"). A change request with more than one ticket and no ticket named? Ask which ticket it applies to.
 2. **Find the tickets**, reading the board the profile's way (the tracker's CLI or connector, else Chrome, else pasted). For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). To read the child items and the linked issues of a ticket, use the ticket's own children and links (open the ticket page if the CLI or connector cannot). Do not list or search other issues. A label or milestone not found? Tell the user, list the names that exist, and stop.

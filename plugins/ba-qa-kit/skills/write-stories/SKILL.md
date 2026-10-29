@@ -80,7 +80,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
   - The feature name: the project label that matches the story's `## <FEATURE / SCREEN>` heading or the requirement name, ignoring case. No match? None.
   - The open-questions label (`pending-questions`) when the story has a `Pending Q<n>` line or a `Conflict` note.
   - Labels that don't exist are listed under "Missing labels"; the issue is created without them.
-- Never close, delete or reopen issues, and never change status, column, assignee or milestone of an existing issue unless the user asks. New issues get no milestone or assignee unless the user asks.
+- Never close, delete or reopen tickets, and never change status, column, assignee or sprint of an existing ticket unless the user asks. New tickets get no sprint or assignee unless the user asks.
 - No passwords, tokens or personal data in issues.
 - The board can't be written (see "Writing to the board" in `project-profile.md`), or a write fails: on go, give each issue as ready-to-paste text (title, labels, description, parent). Never create tickets through the tracker's page in Chrome.
 

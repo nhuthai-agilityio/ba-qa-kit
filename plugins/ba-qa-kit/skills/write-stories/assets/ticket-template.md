@@ -6,7 +6,7 @@ Used by `write-stories` for the board issues. Replace this file to use a differe
 
 ```markdown
 Title: [US-<nn>] <User can capability>
-Labels: <backlog label, on GitLab>, user story, <feature label>, pending-questions (only those that exist and apply)
+Labels: <backlog label, only where the Backlog column is a label (GitLab)>, user story, <feature label>, pending-questions (only those that exist and apply)
 
 **Story:** <link to user story doc, US-nn> · **Parent:** #<parent issue>
 
