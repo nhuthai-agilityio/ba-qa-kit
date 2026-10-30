@@ -12,6 +12,7 @@ Every project that uses this kit carries a short profile as a marked block in th
 **Docs:** Drive folder <link> | none
 **Test envs:** dev <URL> (ready label `<label>`); stag <URL> (ready label `<label>`). Never production.
 **Roles:** <role>, <role> · test data starts with `<prefix>` · standard <name> | none
+**Browsers:** Chrome only | Chrome, <browser>, <browser> · widths <px>, <px>
 **Bugs:** assigned to @<GitLab username> | nobody fixed · QA files in `<folder>/`
 **Release note:** project <name>; build links: <name> <location>; …
 **Labels:** story `<label>` · open questions `<label>` · known issue `<label>` · test cases `<label>` · bug `<label>` · failed `<label>` · passed `<label>` · not a bug `<label>`
@@ -27,6 +28,7 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Docs | find-gaps, write-stories |
 | Test envs | verify, log-bugs |
 | Roles | write-test-cases, verify |
+| Browsers | write-test-cases, verify |
 | Bugs | log-bugs; the folder also verify and write-test-cases |
 | Release note | release-note |
 | Labels | write-stories, track-status, release-note, write-test-cases, verify, log-bugs |
