@@ -8,54 +8,52 @@ Used by `write-stories` for the board issues. Replace this file to use a differe
 Title: [US-<nn>] <User can capability>
 Labels: <backlog label>, user story, <feature label>, pending-questions (only those that exist and apply)
 
-**Story:** <link to user story doc, US-nn> · **Parent:** #<parent issue>
+**Story:** <story file or doc>, US-<nn> · **Parent:** #<parent issue>, or none
 
-### Acceptance criteria
-The user can <capability>.
-- [ ] <One behavior, as a full sentence, naming the **Screen**.>
-
-### Validation & error handling
-- <When this condition happens, what the user sees on **Screen**.>
-
-### Edge cases
-- <Case, and what happens.>
-
-### Notes
-- Design: <link>
-- Pending Q<n> – <short title>.
-- Conflict – <short text>.
+<the story body, copied from the summary line to the end of Notes>
 ```
 
 ## Rules
 
-- Copy A/C, errors and edge cases from the story as they are; do not rewrite them.
-- Copy the A/C summary line from the story as it is (never write a new one); A/C bullets become checkboxes (`- [ ]`) in the same order, so dev and QA can tick them. `/ba-qa-kit:write-test-cases` refers to a bullet by its position (`AC-1` = the first bullet); never write `AC-<n>` labels in the issue.
+- The description is the story's body copied as it is, from the summary line (`<User or role> can <capability>. (US-nn)`) through **Acceptance Criteria**, **Validation & error handling**, **Edge cases** and **Notes**. Never rewrite it; keep the `####` headings, the bold group bullets and the nested bullets.
+- No checkboxes and no `AC-<n>` labels. `/ba-qa-kit:write-test-cases` refers to an A/C by position: `AC-1` is the first nested bullet, counted in order across the groups (group bullets are not counted).
 - Drop a section only if the story has nothing for it.
-- Notes collect the story's Design link, every `Pending Q<n>` line (wherever it is in the story) and `Conflict` notes.
 - `Title:` and `Labels:` are set as the issue's title and labels, not written in the description. Labels: see Board rules in the skill.
+- After go, the story doc's Notes gets `Ticket: #<n>`. The copy into the issue leaves that line out.
 
 ## Example
 
 ```markdown
-Title: [US-01] User can sign in with Google
+Title: [US-01] User can log in with their username or email
 Labels: Backlog, user story, login, pending-questions
 
-**Story:** Agility – Login – User Stories v2, US-01 · **Parent:** #412
+**Story:** ba-output/user-stories-sign-in-v2.md, US-01 · **Parent:** none
 
-### Acceptance criteria
-The user can sign in using Google OAuth.
-- [ ] On **Sign in**, the user selects **Sign in with Google** and chooses their Google account.
-- [ ] Only users with an approved company email domain are allowed to access the application.
-- [ ] After successful authentication, the user is redirected to the **Agility Dashboard**.
-- [ ] The user remains signed in across browser refreshes until the session expires or the user logs out.
+User can log in with their username or email and their password. (US-01)
 
-### Validation & error handling
-- A user whose email is not on an approved company domain sees "Your account is not allowed to access this app." and stays on **Sign in**.
+#### Acceptance Criteria
 
-### Edge cases
-- The user closes the Google window before finishing; they stay on **Sign in** and are not signed in.
+- **Log in screen**
+  - A person who is not logged in sees **Log in** first.
+  - **Log in** has links to **Forgot password** and **Sign up**.
+- **Log in**
+  - The user types their username or their email in one field, then their password.
+  - While the app is working, the **Log in** button shows "Processing...".
+- **After log in**
+  - The app opens the space the user used last.
 
-### Notes
-- Design: Figma "Sign in"
-- Pending Q2 – Which email domains are approved?
+#### Validation & error handling
+
+- When the username, the email or the password is wrong, the user sees "Please provide a valid username/email or password" on **Log in**, and the message does not say which one is wrong.
+- Pending Q19 – Lock after many wrong passwords (suggestion: 5 wrong tries, then wait 15 minutes).
+
+#### Edge cases
+
+- A person who was locked and set a new password can log in again right away.
+
+#### Notes
+
+- Requirement: US-06, BR-26 (`docs/requirement.md`).
+- Source: client brief; Q1, Q2, Q3a of the Questions List.
+- Design: No design yet for **Log in**.
 ```
