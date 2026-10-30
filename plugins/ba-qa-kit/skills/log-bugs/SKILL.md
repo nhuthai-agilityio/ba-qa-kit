@@ -5,18 +5,18 @@ description: "Logs bugs from failed /ba-qa-kit:verify cases as child items of th
 
 # QA Log Bugs – Log bugs and learn from verify mistakes
 
-You are a QA tester. Turn failed cases into bug issues so QA can check them by hand. When QA finds that a "bug" was a mistake in the test case or in the verify run, find the cause and record it so it does not happen again. Do not fix the app.
+You are a QA tester. Turn failed cases into bug tickets so QA can check them by hand. When QA finds that a "bug" was a mistake in the test case or in the verify run, find the cause and record it so it does not happen again. Do not fix the app.
 
 ## Setup
 Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md`. From the profile use the **Board** line (project), **Test envs**, **Roles** (the standard) and **Bugs** (who checks bugs, written `<qaAssignee>` below, and the QA folder, written `<outputDir>`; default `qa-output`). No standard: an Expected with no source is a PO question (see step 3). Nobody named to check bugs: create the bug unassigned and say so. A line missing or `?:`: ask for it only and offer to save it.
 
 ## Modes
 - **Log** (default): called by `/ba-qa-kit:verify` after the user said yes, or by the user with failed cases or a description.
-- **Review**: `/ba-qa-kit:log-bugs review #<bug issue>`. QA says the bug is not real.
+- **Review**: `/ba-qa-kit:log-bugs review #<bug>`. QA says the bug is not real.
 - **Link**: `/ba-qa-kit:log-bugs link TC-1-09=#6`. The user names a bug by others for a case. Do the steps of "Bugs by others" for it, without the table.
 
 ## Log workflow
-1. **Input**: failed cases from `/ba-qa-kit:verify` in this chat (ticket, env, round, cases) and any cases that now Pass; or the user's description. The user may also give `--bugs #6,#9` (bugs by others, see "Bugs by others"). Missing ticket number, env or steps? Ask. The version `v<k>` of the test cases is in the verify report (`Test cases: v<k>`). No verify report? Use the latest `QA test cases` sub-issue (highest version; ask if it is unclear).
+1. **Input**: failed cases from `/ba-qa-kit:verify` in this chat (ticket, env, round, cases) and any cases that now Pass; or the user's description. The user may also give `--bugs #6,#9` (bugs by others, see "Bugs by others"). Missing ticket number, env or steps? Ask. The version `v<k>` of the test cases is in the verify report (`Test cases: v<k>`). No verify report? Use the latest `QA test cases` child item (highest version; ask if it is unclear).
 2. **Lessons**: read `<outputDir>/qa-lessons.md` if it exists. A lesson matches a failed case? Say so in the bug's "For QA" note.
 3. **Bug or PO question?** Take the Type from the Findings of the verify report.
    - Type `PO question`: do not log a bug and do not make up PO numbers. The verify report already lists it. Tell the user `skipped: <TC ID> is a PO question (see the verify report)`.
@@ -30,12 +30,12 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
    - Open bug (without label `passed`), case now Pass: remove label `failed` if it has it, add label `passed`, comment `Round <round> (<env>, v<k>): Pass`. Do not close it. Tell QA to check it and close it.
    - No bug yet, case Fail: look at "Bugs by others" first. No candidate there: go to step 5.
 5. **Draft** each new bug with the template below. One bug per file: `<outputDir>/<ticket>-bug-<NN>.md`.
-6. **Create** the bug as a child item of the ticket (GitLab: child item, Jira: sub-task, GitHub: sub-issue). Title: the `[Bug] …` line. Label: `Bug`. Assignee: `<qaAssignee>`, if any. Description: the file content. Do not ask. Write with glab (see "Writing to the board" in `project-profile.md`). glab can't write: give the bug as text to paste (title, label, assignee, parent, description) and keep the file.
+6. **Create** the bug as a child item of the ticket (the tracker's child item; see "Boards" in `project-profile.md`). Title: the `[Bug] …` line. Label: `Bug`. Assignee: `<qaAssignee>`, if any. Description: the file content. Do not ask. Write with the tracker's CLI or connector (see "Writing to the board" in `project-profile.md`). It can't write: give the bug as text to paste (title, label, assignee, parent, description) and keep the file.
 7. **Summary**: fill the Bug column in `<outputDir>/verify-summary.md` (Fail and Blocked table) for these cases.
 8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `bug #<n> already passed, waiting for QA to close` / `commented on bug #<n> (<TC ID>)` / `skipped: bug #<n> was not a bug`.
 
 ## Review workflow
-1. Read the bug issue, the case in the `QA test cases` sub-issue of the version in that round's verify report (`Test cases: v<k>`), the verify report of that round in `<outputDir>`, and `qa-lessons.md`.
+1. Read the bug, the case in the `QA test cases` child item of the version in that round's verify report (`Test cases: v<k>`), the verify report of that round in `<outputDir>`, and `qa-lessons.md`.
 2. Ask QA what they saw when they ran the steps by hand. One question at a time.
 3. Talk with QA to find the cause. Causes: test case wrong (missing step, wrong Expected, wrong test data), verify run wrong (checked too early, wrong element, wrong role, not signed in), environment (dirty data, env down), tool limit (the browser tool cannot do it), PO rule not confirmed. Show the evidence from the report. QA confirms the cause. Do not guess.
 4. Write the incident record `<outputDir>/incidents/<ticket>-incident-<NN>.md` (template below).
@@ -47,7 +47,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 Bugs that others logged (for example the team's own bug list) are never changed, only commented, and only after the user confirms.
 - **Where to look**: only these, for the tickets of this run. Never list or search the whole board. Only open bugs: ignore a closed bug by others.
   - child items of the ticket with label `Bug` or a title that starts with `[Bug]`, that this skill did not log;
-  - issues linked to the ticket (related, blocks…) with the same label or title;
+  - tickets linked to it (related, blocks…) with the same label or title;
   - bugs the user named (`--bugs`, `link`), the `Related bug: #<n>` note of a case, and the Bug column of `verify-summary.md`.
 - **Match**: Strong when the bug mentions the TC ID (description or a comment), the user named it, or two or more of these are the same as in the case: the Expected message, the input value in the steps, the field names. Weak when only one is (for example a similar title).
 - **Ask once** (together with `Log bugs now?` when `/ba-qa-kit:verify` calls this skill). Strong first.
@@ -67,9 +67,9 @@ Bugs that others logged (for example the team's own bug list) are never changed,
 - Expected must name its source (AC, rule ID, design, or the profile's standard). No source? It is a PO question. Only exception: a clear defect (step 3): write `assumed, not in AC`.
 - Only facts you saw or the user gave. Do not guess the cause.
 - Never write passwords, tokens or personal data. Blur them in screenshots.
-- Label names: the profile's Labels line gives the board's exact name for each role (see "Labels" in `project-profile.md`); the names below are the kit's defaults. GitLab labels are case-sensitive: add and filter with exactly that name.
+- Label names: the profile's Labels line gives the board's exact name for each role (see "Labels" in `project-profile.md`); the names below are the kit's defaults. Labels are case-sensitive on GitLab and Jira: add and filter with exactly that name.
 - A label does not exist on the board (`Bug`, `failed`, `passed`, `not-a-bug`)? Do the work without it and tell the user which label to create. Never create labels.
-- Never change the ticket or issues you did not log. On a bug you logged you may only: comment, add or remove the labels `failed` and `passed`, add label `not-a-bug`, reopen it, and close it after yes. On a bug someone else logged you may only add a comment, after the user confirmed. Write files only in `outputDir`.
+- Never change the ticket or other tickets you did not log. On a bug you logged you may only: comment, add or remove the labels `failed` and `passed`, add label `not-a-bug`, reopen it, and close it after yes. On a bug someone else logged you may only add a comment, after the user confirmed. Write files only in `outputDir`.
 
 ## Severity
 - **Critical**: blocks a main flow, data loss or security issue, no workaround.
@@ -96,15 +96,15 @@ Steps
 
 **Evidence:** <screenshot>, <console errors>, <failed requests>
 
-**Related test case:** <TC ID> (<test case>) in <link to the QA test cases sub-issue of the version that was run>
+**Related test case:** <TC ID> (<test case>) in <link to the QA test cases child item of the version that was run>
 
 **Found by:** /ba-qa-kit:verify, Round <round>
 
 ---
 For QA (<qaAssignee>)
 1. Run the steps by hand.
-2. Real bug: assign this issue to a developer.
-3. Not a bug (the verify run or the test case was wrong): tell Claude with `/ba-qa-kit:log-bugs review #<this issue>`.
+2. Real bug: assign this bug to a developer.
+3. Not a bug (the verify run or the test case was wrong): tell Claude with `/ba-qa-kit:log-bugs review #<this bug>`.
 4. Source is "assumed, not in AC"? Confirm the Expected with the PO. Write this step only for such a bug.
 ```
 
@@ -112,7 +112,7 @@ For QA (<qaAssignee>)
 ```
 # Incident record <ticket>-<NN>: <short title>
 Date: <YYYY-MM-DD> | Ticket: #<n> | Env: <env> | Round: <round>
-Bug issue: #<n> | Test case: <TC ID> | Cause: <test case / verify run / environment / tool limit / PO rule>
+Bug: #<n> | Test case: <TC ID> | Cause: <test case / verify run / environment / tool limit / PO rule>
 
 ## What happened
 <what verify or the test case did, and what it reported>

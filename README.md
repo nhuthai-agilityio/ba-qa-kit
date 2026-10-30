@@ -2,14 +2,14 @@
 
 One Claude Code plugin, `ba-qa-kit` (`plugins/ba-qa-kit`), in the marketplace `ba-qa-kit`. It holds the BA and the QA skills; everyone installs the same plugin.
 
-- `/ba-qa-kit:setup` checks access to GitLab (glab, else Chrome), finds what it can on the board, asks only for the rest, and writes a short project profile into `CLAUDE.md` in the folder where you start `claude`. Every skill reads that profile; nobody opens a config file. To change a setting, say it: `/ba-qa-kit:setup change the dev URL to …`.
-- BA: from a ticket to user stories with acceptance criteria on the GitLab board, plus sprint status and release notes. In workflow order:
-  - `/ba-qa-kit:find-gaps` reviews a ticket's GitLab issue and Drive docs and writes a Gap Report of missing, unclear and conflicting points.
+- `/ba-qa-kit:setup` checks access to the team's board (GitLab, GitHub, Jira, Trello…; its CLI or connector, else Chrome), finds what it can on the board, asks only for the rest, and writes a short project profile into `CLAUDE.md` in the folder where you start `claude`. Every skill reads that profile; nobody opens a config file. To change a setting, say it: `/ba-qa-kit:setup change the dev URL to …`.
+- BA: from a ticket to user stories with acceptance criteria on the board, plus sprint status and release notes. In workflow order:
+  - `/ba-qa-kit:find-gaps` reviews a ticket and its Drive docs and writes a Gap Report of missing, unclear and conflicting points.
   - `/ba-qa-kit:write-questions` turns a Gap Report into a clarification Questions List for the client or PO.
   - `/ba-qa-kit:collect-answers` matches the client's replies to a Questions List and writes the answers into it.
-  - `/ba-qa-kit:write-stories` writes stories with acceptance criteria, error handling and edge cases from the sources and the answered Questions List. After you review the file and reply go, it creates or updates one GitLab issue per story in the Backlog column, labeled `user story` and the feature name, without duplicating existing issues.
-  - `/ba-qa-kit:track-status` writes a daily status report for the current GitLab sprint, with how much of each sprint is done (read-only).
-  - `/ba-qa-kit:release-note` drafts the sprint release note email from the sprint's GitLab tickets, for a person to review and send.
+  - `/ba-qa-kit:write-stories` writes stories with acceptance criteria, error handling and edge cases from the sources and the answered Questions List. After you review the file and reply go, it creates or updates one ticket per story in the Backlog column, labeled `user story` and the feature name, without duplicating existing issues.
+  - `/ba-qa-kit:track-status` writes a daily status report for the current sprint, with how much of each sprint is done (read-only).
+  - `/ba-qa-kit:release-note` drafts the sprint release note email from the sprint's tickets, for a person to review and send.
 - QA: `/ba-qa-kit:write-test-cases` writes test cases, `/ba-qa-kit:verify` checks a ticket in Chrome, `/ba-qa-kit:log-bugs` logs bugs and records verify mistakes. Settings come from the project profile in `CLAUDE.md`.
 
 ## BA workflow
@@ -20,11 +20,11 @@ One Claude Code plugin, `ba-qa-kit` (`plugins/ba-qa-kit`), in the marketplace `b
 | A new ticket arrives | `/ba-qa-kit:find-gaps` | `ba-output/gap-report-<name>-r<n>.md` |
 | Gaps are found | `/ba-qa-kit:write-questions` | `ba-output/question-list-<name>.md` to send to the client |
 | The client replies | `/ba-qa-kit:collect-answers` | the answers in the same Questions List; reply `loop` for a new round of gaps, or `go` to write stories |
-| The questions are answered | `/ba-qa-kit:write-stories` | `ba-output/user-stories-<name>-v<n>.md` to review; reply `go` for one GitLab issue per story, new ones in the Backlog column |
+| The questions are answered | `/ba-qa-kit:write-stories` | `ba-output/user-stories-<name>-v<n>.md` to review; reply `go` for one ticket per story, new ones in the Backlog column |
 | Every day of the sprint | `/ba-qa-kit:track-status` | `ba-output/status-<YYYY-MM-DD>.md` with the percent done |
 | The sprint ends | `/ba-qa-kit:release-note` | `ba-output/release-note-<YYYY-MM-DD>.md`, a draft email |
 
-Each skill ends with a progress line: ✔ ran, ▶ what `go` runs next, ○ not run. Reply `go`, a change, or `stop`. `<name>` is the GitLab issue number, or a short name of the requirement (for example `login-flow`) when there is no ticket.
+Each skill ends with a progress line: ✔ ran, ▶ what `go` runs next, ○ not run. Reply `go`, a change, or `stop`. `<name>` is the ticket number, or a short name of the requirement (for example `login-flow`) when there is no ticket.
 
 ## Install
 
@@ -45,11 +45,11 @@ Inside Claude Code:
 
 The profile is a short block in `CLAUDE.md` (Board, Sprints, Docs, Test envs, Roles, Bugs, Release note). Claude Code reads `CLAUDE.md` in every session, so skills need no config file. A line nobody knows yet stays `?:`; the first skill that needs it asks and offers to save the answer. Commit `CLAUDE.md` when the folder is a git repo, so teammates get the same profile with `git pull`. Format: `plugins/ba-qa-kit/references/project-profile.md`.
 
-GitLab: the skills read and write the board with `glab` (`glab auth login --hostname <host>`; a token with `api` scope to write; VPN if the host needs it). Without glab they read tickets in your Chrome (`claude --chrome`) or ask you to paste them, and give board changes as text to paste. Google Docs can be read, not written: the skills give the text to paste.
+Boards: GitLab (with `glab`), GitHub (with `gh`), Jira, Trello or another tracker (with its connector, if Claude has one). Log in once (`glab auth login --hostname <host>` with a token with `api` scope, or `gh auth login`; VPN if the host needs it). Without a CLI or connector the skills read tickets in your Chrome (`claude --chrome`) or ask you to paste them, and give board changes as text to paste. Google Docs can be read, not written: the skills give the text to paste.
 
 ## QA setup
 
-- Labels: `/ba-qa-kit:setup` matches each label the kit needs (story, open questions, known issue, test cases, bug, failed, passed, not a bug) to a label your board already has, for example `Pending` for open questions, and proposes creating the ones it lacks. You approve the table; it creates only those, after go, and saves the board's exact names in the profile's Labels line. GitLab labels are case-sensitive, so the skills always use those exact names. No other skill creates labels.
+- Labels: `/ba-qa-kit:setup` matches each label the kit needs (story, open questions, known issue, test cases, bug, failed, passed, not a bug) to a label your board already has, for example `Pending` for open questions, and proposes creating the ones it lacks. You approve the table; it creates only those, after go, and saves the board's exact names in the profile's Labels line. Labels are case-sensitive on GitLab and Jira (and Jira labels have no spaces), so the skills always use those exact names. No other skill creates labels.
 - The QA skills write their files in the QA folder named in the profile's Bugs line (default `qa-output/`). Reports, summaries, bug drafts and screenshots stay on the machine of the person who ran the skill; everything the team needs (test cases, verify reports, bugs) is also on the board. The lessons file `qa-lessons.md` and the `incidents/` folder are shared through this repo, so every QA gets them with `git pull`. Sharing is optional and done by hand (for example in GitHub Desktop): to share a new lesson, check the new files hold no personal data, then commit them on a branch and open a pull request. The skills never commit or push.
 - Test accounts: sign in to the dev or stag app in your Chrome yourself, with a shared test account (never a personal or production one). Chrome keeps you signed in. `/ba-qa-kit:verify` never types a password: at a login page, or when a case needs another role, it stops and asks you to sign in, then goes on.
 - To let `/ba-qa-kit:verify` and `/ba-qa-kit:log-bugs` follow a bug, make it a child item of the feature ticket, link it to the ticket (Linked items), or name it with `--bugs #<n>`. The skills never search the whole board. Bugs that others logged only get comments, after you confirm.

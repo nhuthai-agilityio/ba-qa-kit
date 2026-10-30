@@ -1,6 +1,6 @@
 ---
 name: collect-answers
-description: Collects the client's or PO's answers to a Questions List (pasted text, email, Slack thread, GitLab comment or Drive doc), matches each answer to its question, flags unclear or conflicting answers, and writes the answers directly into the Questions List. Use when the user shares a client reply or asks to collect, record or update answers.
+description: Collects the client's or PO's answers to a Questions List (pasted text, email, Slack thread, ticket comment or Drive doc), matches each answer to its question, flags unclear or conflicting answers, and writes the answers directly into the Questions List. Use when the user shares a client reply or asks to collect, record or update answers.
 ---
 
 # Collect Answers
@@ -11,20 +11,20 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-file
 
 ## Input and output
 
-- **Needs** (from the user): the client's reply (pasted text or a Slack, email, GitLab or Drive link).
-- **Reads**: the reply, the ticket's Questions List, and the GitLab issue and Drive docs (to find conflicts).
+- **Needs** (from the user): the client's reply (pasted text or a Slack, email, ticket or Drive link).
+- **Reads**: the reply, the ticket's Questions List, and the ticket and Drive docs (to find conflicts).
 - **Writes**: the answers into `ba-output/question-list-<name>.md`, after go; never a new file. The team keeps the list in a Google Doc? Also the answer lines as text to paste there.
 - **Next**: `/ba-qa-kit:find-gaps` for a new round (loop), or `/ba-qa-kit:write-stories`.
 
 ## Steps
 
-1. **Get the reply and the list.** If not given, ask: "Please paste the client's reply (or share the link)." The Questions List is `ba-output/question-list-<name>.md`, else the Google Doc the user links (read it); neither: ask for it. A GitLab link: read it the board's way (`project-profile.md`). A Slack, Gmail or Drive link: with that connector if this session has it. Anything that can't be opened: ask the user to paste it.
+1. **Get the reply and the list.** If not given, ask: "Please paste the client's reply (or share the link)." The Questions List is `ba-output/question-list-<name>.md`, else the Google Doc the user links (read it); neither: ask for it. A ticket link: read it the board's way (`project-profile.md`). A Slack, Gmail or Drive link: with that connector if this session has it. Anything that can't be opened: ask the user to paste it.
 2. **Match** each part of the reply to a question number (`Q<n>`, or `Q<n><letter>` for a sub-question). If the client didn't use numbers, match by content. If a part fits no question or more than one, mark it **Unmatched**.
 3. **Classify** each question:
    - **Answered** — clear and complete.
    - **Partly answered** — vague ("as usual", "ok", "maybe") or covers only part → add a follow-up.
    - **Not answered** — nothing in the reply → Pending.
-   - **Conflict** — disagrees with the GitLab issue, a Drive doc or an earlier answer.
+   - **Conflict** — disagrees with the ticket, a Drive doc or an earlier answer.
 4. **Show a short summary in chat** (one line per question: number, status, note), plus any Unmatched parts, and name the file or doc that will be updated. Then **stop and show the progress line**. Do not change the file until the user replies; their **go** covers writing to that file or doc.
 5. **On go, update the Questions List** following the Answers section of `${CLAUDE_PLUGIN_ROOT}/skills/write-questions/assets/template.md`: under each question or sub-question, `→ Answer (<role>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. The list lives in a Google Doc: update the local copy (create it from the doc if missing) and give the answer lines, each under its question number, as text to paste into the doc.
 6. **Check the file** after writing: read it again and confirm every answer line and every follow-up named in the summary is there, under the right number. Something missing: add it, and say what was fixed. Report only what the file holds.

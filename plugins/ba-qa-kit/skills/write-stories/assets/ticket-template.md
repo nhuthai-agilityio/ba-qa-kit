@@ -1,14 +1,14 @@
 # Ticket Template
 
-Used by `write-stories` for the board issues. Replace this file to use a different template.
+Used by `write-stories` for the board tickets. Replace this file to use a different template.
 
 ## Format
 
 ```markdown
 Title: [US-<nn>] <User can capability>
-Labels: <backlog label>, user story, <feature label>, pending-questions (only those that exist and apply)
+Labels: <backlog label, only where the Backlog column is a label (GitLab)>, user story, <feature label>, pending-questions (only those that exist and apply). Use the names in the profile's Labels line (story, open questions); the names here are defaults.
 
-**Story:** <link to user story doc, US-nn> · **Parent:** #<parent issue>
+**Story:** <link to user story doc, US-nn> · **Parent:** #<parent ticket>
 
 ### Acceptance criteria
 The user can <capability>.
@@ -29,10 +29,10 @@ The user can <capability>.
 ## Rules
 
 - Copy A/C, errors and edge cases from the story as they are; do not rewrite them.
-- Copy the A/C summary line from the story as it is (never write a new one); A/C bullets become checkboxes (`- [ ]`) in the same order, so dev and QA can tick them. `/ba-qa-kit:write-test-cases` refers to a bullet by its position (`AC-1` = the first bullet); never write `AC-<n>` labels in the issue.
+- Copy the A/C summary line from the story as it is (never write a new one); A/C bullets become checkboxes (`- [ ]`) in the same order, so dev and QA can tick them. `/ba-qa-kit:write-test-cases` refers to a bullet by its position (`AC-1` = the first bullet); never write `AC-<n>` labels in the ticket.
 - Drop a section only if the story has nothing for it.
 - Notes collect the story's Design link, every `Pending Q<n>` line (wherever it is in the story) and `Conflict` notes.
-- `Title:` and `Labels:` are set as the issue's title and labels, not written in the description. Labels: see Board rules in the skill.
+- `Title:` and `Labels:` are set as the ticket's title and labels, not written in the description. Labels: see Board rules in the skill.
 
 ## Example
 

@@ -12,7 +12,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-file
 ## Input and output
 
 - **Needs** (from the user): the ticket, or the gaps pasted; a Google Doc link (optional).
-- **Reads**: the latest `gap-report-<name>-r<n>.md`, the GitLab issue, the Drive docs, the design (if any) and the ticket's Questions List.
+- **Reads**: the latest `gap-report-<name>-r<n>.md`, the ticket, the Drive docs, the design (if any) and the ticket's Questions List.
 - **Writes**: `ba-output/question-list-<name>.md`; a loop round adds a new part to the same list. The team keeps the list in a Google Doc? Also the new part as text to paste there (see `ba-files.md`).
 - **Next**: send the list to the client, then `/ba-qa-kit:collect-answers` with their reply.
 
@@ -22,7 +22,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-file
 2. **Load the template** from `assets/template.md` (a template the user provides replaces it completely).
 3. **Group** questions by part and screen, in user-flow order (login → home → features → settings).
 4. **One question per gap**; High-impact first. Every High gap must have a question, in the list or under "Ask the team first". A team point the team can't answer becomes a client question in the next round.
-5. **Skip** anything the GitLab issue, the docs (see "Sources" in `ba-files.md`), the design or an earlier Questions List already answers. A point the team can answer (tech, small UI details) is not a client question: decide it as an assumption, or list it in chat under "Ask the team first" (see Progress).
+5. **Skip** anything the ticket, the docs (see "Sources" in `ba-files.md`), the design or an earlier Questions List already answers. A point the team can answer (tech, small UI details) is not a client question: decide it as an assumption, or list it in chat under "Ask the team first" (see Progress).
 6. **Loop round:** add the new questions to the same Questions List file, never a new one. Find it in `ba-output/question-list-<name>.md`, else read the Google Doc the user links; neither: ask for the link or file. Put them under a new part `ROUND <n> — <Mon DD, YYYY>` at the end, with numbering continuing from the last question.
 7. **Check before sending** each question, and reword it until all four pass: Do I know the requirement? Is the name the same as in the requirement? Is it yes/no or A-or-B (open only when no answer can be assumed)? Can the client answer in 10 seconds? A "no" to the first check can't be fixed by rewording: move the point to "Ask the team first". Say in chat how many questions were reworded.
 8. **Deliver**: save `ba-output/question-list-<name>.md`. A Google Doc was given: also give the new part as text to paste after its current content. Then show the progress line.
