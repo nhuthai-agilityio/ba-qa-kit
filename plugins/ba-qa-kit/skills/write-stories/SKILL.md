@@ -35,7 +35,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 2. **Collect** for each story its rules, flow steps, screens and related questions.
 3. **Write** each story with `assets/template.md`, keeping its section order. If the user gives another template, follow that template's sections and keep the A/C, error handling and edge-case content.
 4. **Check** each story before saving, and fix what fails:
-   - **Format**: the story starts with `<User or role> can <capability>. (US-nn)`; the A/C are grouped under bold screen or flow-step bullets in flow order; each nested bullet is one full sentence with one behavior; screens and buttons are named in **bold**; Notes give the requirement, the source and the design.
+   - **Format**: the story starts with `<User or role> can <capability>. (US-nn)`, the same capability as its heading; the A/C are grouped under bold screen or flow-step bullets in flow order; each nested bullet is one full sentence with one behavior; screens and buttons are named in **bold**; Notes give the requirement, the source and the design.
    - **Content**: every answered question and rule for this feature appears in an A/C or error line; every screen state (empty, loading, error, success) is covered or raised as a question; no A/C is written from a pending question.
 5. **Save the draft** (see File below). Don't paste the stories in chat; the user reviews the file.
 6. **Plan the board** (read-only, nothing is written yet):
@@ -50,7 +50,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 
    | US | Title | Board | Labels |
    |---|---|---|---|
-   | US-01 | User can sign in with Google | Create | user story, login, pending-questions |
+   | US-01 | User can log in with their username or email | Create | user story, login, pending-questions |
    | US-02 | User can log out | Update #135 | user story, login |
    | US-03 | User stays signed in | Skip (no change) | — |
    Missing labels: none · New issues go to Backlog
@@ -59,7 +59,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
    The user may ask to see one ticket ("show US-01 ticket"): show only that issue text. The board can't be read: show the table without the Board column. glab can't write (see "Writing to the board" in `project-profile.md`): say go will give ready-to-paste text.
 8. **On go**, for each row:
    - **Create** the issue with `assets/ticket-template.md`, linked to the parent ticket (relates to; GitLab can't make an issue the child of an issue), with its labels and `<backlog label>`.
-   - **Update** the description and add a comment with "What changed". When an A/C changed, end the comment with `QA: A/C changed. Run /ba-qa-kit:write-test-cases <n> for a new version.` (`<n>` is this story issue's number) Never add or remove a list label; the issue stays in its column.
+   - **Update** the whole description in the current template shape and add a comment with "What changed". When an A/C changed, or the old description had another shape (for example A/C checkboxes, so the AC positions move), end the comment with `QA: A/C changed. Run /ba-qa-kit:write-test-cases <n> for a new version.` (`<n>` is this story issue's number) Never add or remove a list label; the issue stays in its column.
    - Write `Ticket: #<n>` into that story's **Notes** in the story doc. The go covers this.
    - **Report** each issue with its link, then show the progress line. A row that fails (for example the issue was created but a label failed): report it and go on; never retry a create. A re-run finds issues already created by their `[US-nn]` prefix, so nothing is duplicated.
 
@@ -78,7 +78,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
 - **Labels**, only if the label exists on the board; never create labels. Label names: the profile's Labels line gives the board's exact name for each role (see "Labels" in `project-profile.md`); the names below are the kit's defaults.
   - The story label (`user story`) on every story issue.
   - The feature name: the project label that matches the story's `## <FEATURE / SCREEN>` heading or the requirement name, ignoring case. No match? None.
-  - The open-questions label (`pending-questions`) when the story has a `Pending Q<n>` line or a `Conflict` note.
+  - The open-questions label (`pending-questions`) when the story has a `Pending Q<n>` line or a `Conflict` note anywhere in it.
   - Labels that don't exist are listed under "Missing labels"; the issue is created without them.
 - Never close, delete or reopen issues, and never change status, column, assignee or milestone of an existing issue unless the user asks. New issues get no milestone or assignee unless the user asks.
 - No passwords, tokens or personal data in issues.

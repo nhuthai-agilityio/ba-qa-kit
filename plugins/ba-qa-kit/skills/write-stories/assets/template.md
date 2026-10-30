@@ -47,7 +47,7 @@ How to read: **Pending Q<n>** = question n (or sub-question `Q<n><letter>`) of t
 
 ## Rules
 
-- **Summary line**: one sentence under the story heading, `<User or role> can <capability>. (US-nn)`.
+- **Summary line**: one sentence under the story heading, `<User or role> can <capability>. (US-nn)`, with the same capability as the heading.
 - **A/C groups**: bold group bullets in flow order, each a screen or a flow step (for example **Log in screen**, **Log in**, **After log in**). Under each, nested bullets. No numbers, no `AC-1` labels, no arrows, no checkboxes.
 - **Each nested bullet** is one full sentence in the present tense with one behavior.
 - **Screens and buttons** in **bold** with their exact UI label (for example the **Log in** button shows "Processing...").

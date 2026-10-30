@@ -25,7 +25,7 @@ Labels: <backlog label>, user story, <feature label>, pending-questions (only th
 
 ```markdown
 Title: [US-01] User can log in with their username or email
-Labels: BACKLOG, user story, pending-questions
+Labels: Backlog, user story, login, pending-questions
 
 **Story:** ba-output/user-stories-sign-in-v2.md, US-01 · **Parent:** none
 
