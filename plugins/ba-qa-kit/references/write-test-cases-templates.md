@@ -47,7 +47,7 @@ Every test case starts with **Start data**, then **S1**.
 
 | TC ID | Test case | Covers | Type | Role | Pre-condition | Test steps | Expected result | Test data | Priority | Note | Run |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| TC-<n>-01 | <what this case checks, in plain words> | AC-<n> / Not in AC (<source>) | positive / negative / edge / boundary / permission / state / integration / accessibility | <role from roles> | <state before> | 1. …<br>2. … | 1. …<br>2. … | <values> | High / Medium / Low | <Suggested: … / Assumed: … / Assumed (PO-<n>) / Assumed (Pending Q<n>) / Assumed UI: … / Related bug: #<n> / AC changed / empty> | Auto / Manual only / Blocked: <reason> |
+| TC-<n>-01 | <what this case checks, in plain words> | AC-<n> / Not in AC (<source>) | positive / negative / edge / boundary / permission / state / integration / accessibility / compatibility / responsive | <role from roles> | <state before> | 1. …<br>2. … | 1. …<br>2. … | <values> | High / Medium / Low | <Suggested: … / Assumed: … / Assumed (PO-<n>) / Assumed (Pending Q<n>) / Assumed UI: … / Related bug: #<n> / AC changed / empty> | Auto / Manual only / Blocked: <reason> |
 
 ## 4. Questions for PO
 **Ticket:** #<n> – <title>
