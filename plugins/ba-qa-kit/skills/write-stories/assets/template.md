@@ -54,7 +54,7 @@ How to read: **Pending Q<n>** = question n (or sub-question `Q<n><letter>`) of t
 - **Observable**: write what the user sees or does, not how the system does it (no "a session is created", "a token is stored").
 - **Real values and examples**: who, which data, which limit; add an example when a rule is easy to misread ("NHU@gmail.com" and "nhu@gmail.com" are the same account). Never "valid", "quickly", "properly".
 - Validation, error handling and edge cases are flat bullets in the same full-sentence style. A `Pending Q<n>` line may end with `(suggestion: …)` when the Questions List has one.
-- **Notes**: `Requirement` (IDs and doc), `Source` (client words, docs and the question IDs used), `Design` (link, or "No design yet for **<Screen>**"), then any `Conflict` lines. Leave out a line with nothing to say.
+- **Notes**: `Requirement` (IDs and doc), `Source` (client words, docs and the question IDs used), `Design` (link, or "No design yet for **<Screen>**"), then any `Conflict` lines, and `Ticket: #<n>` once the story is on the board. Leave out a line with nothing to say.
 - No **New questions** or **Pending items** sections — questions live in the Questions List; only inline `Pending Q<n>` lines.
 - Each story has the four parts; drop a part only if it has nothing to say (no placeholders).
 - Edge cases: only those that apply — empty data, first use, min/max, duplicates, long text, double tap, going back, session timeout, concurrent changes.
