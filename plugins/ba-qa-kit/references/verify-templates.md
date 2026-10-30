@@ -24,7 +24,7 @@ Summary: <outputDir>/verify-summary.md
 # QA verify – Ticket #<n>: <ticket title>
 Env: <env> | Round: <round> | Test cases: v<k> | Date: <YYYY-MM-DD>
 Earlier rounds: Round <r> (v<k>) <comment link> · … (or "none")
-Browsers: Chrome run; not run, check by hand: <browser>, <browser> (or "Chrome only")
+Browsers: Chrome run, widths <px>, <px> (or "default width"); not run, check by hand: <browser>, <browser> (or "Chrome only")
 
 **Result: <p> Pass, <f> Fail, <b> Blocked, <r> Not run**
 
