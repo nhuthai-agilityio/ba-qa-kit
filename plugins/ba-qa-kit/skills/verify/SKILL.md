@@ -1,6 +1,6 @@
 ---
 name: verify
-description: "Runs the test cases of tickets in Chrome on Dev or Stag. Pick tickets by number, by label, by milestone, or by label and milestone together. Writes a report and a summary file, and comments the result on each ticket's QA test cases sub-issue. Use when the user asks to verify, test or re-check tickets, to compare results between environments, or to check that related features are not broken (Claude in Chrome)."
+description: "Runs the test cases of tickets in Chrome on Dev or Stag. Pick tickets by number, by label, by milestone, or by label and milestone together. Checks results against the test cases, the AC and past incidents, writes a report and a summary file, and comments the result on each ticket's QA test cases sub-issue. Use when the user asks to verify, test or re-check tickets, to compare results between environments, or to check that related features are not broken (Claude in Chrome)."
 ---
 
 # QA Verify – Claude in Chrome
@@ -31,9 +31,9 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
    Ready is `Yes` or `No`. It is `n/a` when the env has no ready label, or when the ticket has no sub-issue.
    Then ask: `Run these <n> tickets on <env>? yes / remove #<n> / include #<n> / no`. Run only after yes.
 5. Related features: given in the input? Use them. One ticket and none given: suggest 3–5 with a reason and wait for confirm. More than one ticket: ask once together with step 4; no answer = none.
-6. Check Chrome tools (`--chrome`) and that the user is signed in to the env (a login page: see Rules). Read `<outputDir>/qa-lessons.md` if it exists and follow the lessons for `verify` or `both`.
+6. Check Chrome tools (`--chrome`) and that the user is signed in to the env (a login page: see Rules). Read `<outputDir>/qa-lessons.md` if it exists and follow the lessons for `verify` or `both`, and their incident records.
 7. Run the tickets one by one, in ticket-number order. Do steps 8–14 for each ticket.
-8. Test cases: the description of the latest `QA test cases` sub-issue under the ticket (highest version; no suffix = v1) (the "Test cases" table: one row per case; steps and expected results are numbered the same).
+8. Test cases: the description of the latest `QA test cases` sub-issue under the ticket (highest version; no suffix = v1) (the "Test cases" table: one row per case; steps and expected results are numbered the same). Also read the ticket's AC. A Fail on a case that differs from its AC is Type Spec mismatch.
 9. Round: 1 more than the highest Round for this Env and Ticket in `<outputDir>/verify-summary.md` or in the comments `QA verify – #<n> – <env> – Round <round>` on any version of the ticket's `QA test cases` sub-issue. None yet = Round 1. The comments found here (all versions) also give the links for `Earlier rounds` in the report. A round that exists only in `verify-summary.md` has no link: write `Round <r> (v<k>) no link`.
 10. Run rows with Run = `Auto`, grouped by Role (the profile's order): finish one role, then stop and ask the user to sign in as the next role in Chrome; go on after they reply. Then run the next role. Then run related features. Other rows = "Not run" + reason.
 11. Ticket has a result from another env? Compare case by case.
@@ -43,12 +43,13 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 15. After the last ticket, show the chat report (see Report).
 16. Run the search of the `log-bugs` skill for bugs by others (its section "Bugs by others"). Any Fail in any ticket, or any bug by others found? Ask once in chat: the line `Fail: <ticket and case list>. Log bugs now? yes/no` (when there are Fails) and the table of bugs by others (`Comment on these? yes / no / only <n>`). Yes: run the `log-bugs` skill for the failed cases, with the ticket, env, round and related test cases already filled. It creates the bugs without asking.
 17. Any case that now Pass and has an open bug (with or without label `failed`)? Run the `log-bugs` skill for those cases without asking. It sets the label `passed` and adds a comment. Bugs by others that are already linked to a case are commented in the same way, without asking (see `log-bugs`).
+18. Fail or Blocked left? Ask: `Re-run <n> cases as Round <r+1>? yes / later`. Yes: run only those and repeat steps 12–17.
 
 ## Rules
 - New tab. Open only the env URL and the board. Never production.
 - Look for bugs only as the `log-bugs` skill says. Never list or search the whole board.
 - Start each case from fresh Start data and setup. Follow steps exactly.
-- Check each step against the Expected result with the same number.
+- Check each step against the Expected result with the same number, the AC and the incident rules.
 - Test data names start with the profile's test data prefix.
 - Start console and network tracking before each case.
 - Each Fail: screenshot, console errors, failed requests. Save screenshots in `<outputDir>` as `<ticket>-round-<round>-<case>-step<n>.jpg`.
@@ -99,8 +100,8 @@ Only when the ticket has a result from another env.
 One row for each Fail, Blocked or Not run case. For Blocked and Not run, write the reason in Actual.
 | Test case | Type | Severity | Expected | Actual | Evidence |
 |---|---|---|---|---|---|
-Sort the rows by Type in this order: Bug, PO question, Test limit, Env issue. Inside a Type, sort by TC ID.
-Type: Bug / PO question / Test limit / Env issue. A Fail on a case whose Note says "Assumed" (any form, with or without PO-<n>) is Type PO question, not Bug: the Expected may differ from what the PO wants. Exceptions, these stay Type Bug: a clear defect (the user cannot finish the action, a field is hidden, the page hangs, or the app shows an error), and a case whose Expected has a real source (an AC, or Covers = "Not in AC (<standard>)"). Say which step failed (e.g. "Step 4: …"). Evidence: screenshot, console errors, failed requests.
+Sort the rows by Type in this order: Bug, Spec mismatch, PO question, Test limit, Env issue. Inside a Type, sort by TC ID.
+Type: Bug / Spec mismatch / PO question / Test limit / Env issue. Spec mismatch: case and AC disagree (fix with `/ba-qa-kit:write-test-cases`). A Fail on a case whose Note says "Assumed" (any form, with or without PO-<n>) is Type PO question, not Bug: the Expected may differ from what the PO wants. Exceptions, these stay Type Bug: a clear defect (the user cannot finish the action, a field is hidden, the page hangs, or the app shows an error), and a case whose Expected has a real source (an AC, or Covers = "Not in AC (<standard>)"). Say which step failed (e.g. "Step 4: …"). Evidence: screenshot, console errors, failed requests.
 Under the table write `PO questions: <TC ID>, <TC ID>` (or `PO questions: none`). `/ba-qa-kit:write-test-cases` reads this line for the next version.
 
 ## 5. Next steps
@@ -126,7 +127,7 @@ Latest round only.
 | <env> | #<n> (<title>) | <round> | <TC ID> (<test case>) | Pass / Fail / Blocked / Not run |
 
 ## 3. Fail and Blocked
-Latest round only. Sort the rows by Type (Bug, PO question, Test limit, Env issue), then by TC ID.
+Latest round only. Sort the rows by Type (Bug, Spec mismatch, PO question, Test limit, Env issue), then by TC ID.
 | Env | Ticket | Test case | Status | Type | Severity | What happened | Bug | Full report |
 |---|---|---|---|---|---|---|---|---|
 ```
