@@ -6,8 +6,7 @@
 # after `cd dir &&`, inside `bash -c "..."`), a push with no branch while on main or master (the current branch, or one
 # an earlier `git checkout`/`git switch` in the same command moves to), --force / -f / --force-with-lease / +ref,
 # --all and --mirror.
-# Not seen: a branch name built from a variable, a script that pushes, a push a person types in a terminal.
-# The server's protected branch covers those. A `;`, `&&` or `|` inside quoted text splits the command too, so a
+# Not seen: a branch name built from a variable, a script that pushes, a push a person types in a terminal. A `;`, `&&` or `|` inside quoted text splits the command too, so a
 # commit message such as "a; git push origin main" is blocked by mistake: safe, and rare.
 
 input=$(tr '\r\n' '  ') || exit 0
@@ -90,5 +89,5 @@ done
 IFS=$old_ifs
 
 [ -n "$blocked" ] || exit 0
-echo "ba-qa-kit blocked this push: from Claude Code, nothing is pushed to main or master and nothing is force pushed. Create a branch (git switch -c <name>), push that branch, and ask the user to open a merge request. Do not suggest merging into main or master and pushing another way: the team merges through merge requests." >&2
+echo "ba-qa-kit blocked this push: from Claude Code, nothing is pushed to main or master and nothing is force pushed. Push a branch instead (git switch -c <name>) and tell the user; they decide how the change reaches main." >&2
 exit 2
