@@ -50,7 +50,7 @@
         ]
       },
       {
-        "matcher": "mcp__claude-in-chrome__navigate",
+        "matcher": "mcp__.*",
         "hooks": [
           {
             "type": "command",

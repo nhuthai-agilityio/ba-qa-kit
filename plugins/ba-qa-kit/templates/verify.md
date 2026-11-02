@@ -22,11 +22,10 @@ Summary: <outputDir>/verify-summary.md
 Under the table, the same `Browsers:` line once for all tickets. The `Browsers:` line repeats the rows of the report's Browsers table, with the same reasons (see "Browser readiness"); when they differ, the table wins.
 
 ## Browser readiness
-Said once before the first run (step 6), only the lines that apply, in the user's language. The words below are the meaning; translate them.
-- Windows or Linux, only Chrome, the profile lists Firefox and Safari: "Your machine runs <OS> and only has Chrome. I will verify on Chrome first. After that, install Firefox (https://firefox-source-docs.mozilla.org/ai-agent-tools/firefox-devtools-mcp.html) and start its MCP with `--tool-preset developer`, and I will verify on Firefox. Safari does not run on this machine: please verify on a macOS machine."
-- Firefox installed, its MCP not connected: "Firefox is installed but its MCP is not connected. Connect it (<link>) and I will verify on Firefox."
-- macOS, Safari listed: "For Safari, use Safari 27 or later, turn on Safari > Settings > Developer > Allow remote automation and external agents, and connect its MCP: `claude mcp add safari-mcp -- "/usr/bin/safaridriver" --mcp`. The kit has not been tested on a Mac yet."
-Reasons for `Not run`, always these words: `Firefox not installed` · `Firefox MCP not connected` · `Safari needs macOS` · `Safari 27+ or its MCP is missing` · `remote automation is off in Safari` · `cannot sign in to <browser>`.
+Said once before the first run (step 6), in the user's language: which listed browsers this session can drive and which it cannot, and what each missing one needs. Chrome needs `claude --chrome`. Any other browser needs an MCP that opens a page, resizes the window and reads the page. Known setups, as examples:
+- Firefox: the Firefox DevTools MCP (https://firefox-source-docs.mozilla.org/ai-agent-tools/firefox-devtools-mcp.html), started with `--tool-preset developer` (the default preset has no console or network tools); a path with spaces goes in quotes.
+- Safari: macOS only. Safari 27 or later with Safari > Settings > Developer > Allow remote automation and external agents, and Apple's MCP (https://developer.apple.com/documentation/safari-developer-tools/connecting-an-ai-agent-to-safari). Not tried with the kit yet: follow Apple's page, not a remembered command.
+Reasons for `Not run`, always these words: `no <browser> tools in this session` · `<browser> needs <OS>` · `cannot sign in to <browser>`.
 
 ## Report file
 ```
@@ -61,7 +60,7 @@ Only when the ticket has a result from another env.
 One row for each Fail, Blocked or Not run case. For Blocked and Not run, write the reason in Actual. A case that did not run because the browser is missing: Type Test limit, Severity Low, Actual `Not run: <reason>`, Evidence `–`.
 | Test case | Browser | Type | Severity | Expected | Actual | Evidence |
 |---|---|---|---|---|---|---|
-Browser: where it failed (Chrome, Firefox, Safari, or the width for a responsive case). Sort the rows by Type in this order: Bug, Spec mismatch, PO question, Test limit, Env issue. Inside a Type, sort by TC ID.
+Browser: where it failed (the browser, or the width for a responsive case). Sort the rows by Type in this order: Bug, Spec mismatch, PO question, Test limit, Env issue. Inside a Type, sort by TC ID.
 Type: Bug / Spec mismatch / PO question / Test limit / Env issue. Spec mismatch: case and AC disagree (fix with `/ba-qa-kit:write-test-cases`). A Fail on a case whose Note says "Assumed" (any form, with or without PO-<n>) is Type PO question, not Bug: the Expected may differ from what the PO wants. Exceptions, these stay Type Bug: a clear defect (the user cannot finish the action, a field is hidden, the page hangs, or the app shows an error), and a case whose Expected has a real source (an AC, or Covers = "Not in AC (<standard>)"). Say which step failed (e.g. "Step 4: …"). Evidence: screenshot, console errors, failed requests.
 Under the table write `PO questions: <TC ID>, <TC ID>` (or `PO questions: none`). `/ba-qa-kit:write-test-cases` reads this line for the next version.
 
