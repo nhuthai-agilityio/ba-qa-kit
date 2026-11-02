@@ -29,7 +29,7 @@ Earlier rounds: Round <r> (v<k>) <comment link> · … (or "none")
 | Browser | Scope | Run by | Result |
 |---|---|---|---|
 | Chrome | main run, widths <px>, <px> (or "default width") | Claude | <p> Pass, <f> Fail, <b> Blocked, <r> Not run |
-| <browser> | compatibility case | Claude (MCP) / QA by hand / not run | Pass / Fail / Not run |
+| <browser> | compatibility case | exactly one of: `Claude (MCP)`, `QA by hand`, `Not run` | exactly one of: `Pass`, `Fail`, `Not run` |
 Only Chrome in the profile: write one Chrome row.
 
 **Result: <p> Pass, <f> Fail, <b> Blocked, <r> Not run**
