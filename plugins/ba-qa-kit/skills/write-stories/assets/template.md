@@ -1,6 +1,6 @@
 # User Stories Template
 
-Used by `write-stories`. Replace this file to use a different template.
+Used by `write-stories`. Replace this file to use a different template. The board issue copies each story's body as it is (see `ticket-template.md`).
 
 ## Format
 
@@ -17,32 +17,44 @@ How to read: **Pending Q<n>** = question n (or sub-question `Q<n><letter>`) of t
 
 ### US-01 – User can <capability>
 
-**Acceptance criteria**
-The user can <capability>.
-- <One behavior, as a full sentence, naming the **Screen**.>
-- <The next behavior in the flow.>
+<User or role> can <capability>. (US-01)
 
-**Validation & error handling**
-- <When this condition happens, what the user sees on **Screen**.>
-- Pending Q<n> – <short title>.
+#### Acceptance Criteria
 
-**Edge cases**
+- **<Screen or flow step>**
+  - <One behavior, as a full sentence.>
+  - <The next behavior.>
+- **<Next screen or flow step>**
+  - <One behavior, as a full sentence.>
+
+#### Validation & error handling
+
+- When <condition>, the user sees "<message>" on **<Screen>**.
+- Pending Q<n> – <short title> (suggestion: <what we propose>).
+
+#### Edge cases
+
 - <Case, and what happens.>
 
-**Notes**
-- Design: <link to screen> (leave this line out when there is no design)
+#### Notes
+
+- Requirement: <story and rule IDs> (`<doc>`).
+- Source: <client words or doc>; Q<n>, Q<n><letter> of the Questions List.
+- Design: <link to screen>, or: No design yet for **<Screen>**.
 - Conflict – design shows <X>, <source> says <Y>. Following <source> until confirmed.
 
 ```
 
 ## Rules
 
-- **A/C** starts with one summary line, `The <user or role> can <capability>.` (for example "The employee can …"), then bullets. No numbers, no `AC-1` labels, no arrows.
-- **Each bullet** is one full sentence in the present tense with one behavior. Bullets follow the user's flow in order (start → action → result → what happens next).
-- **Screens**: name the screen in **bold** whenever the user moves to it or something shows on it (for example "the user is redirected to the **Agility Dashboard**").
+- **Summary line**: one sentence under the story heading, `<User or role> can <capability>. (US-nn)`, with the same capability as the heading.
+- **A/C groups**: bold group bullets in flow order, each a screen or a flow step (for example **Log in screen**, **Log in**, **After log in**). Under each, nested bullets. No numbers, no `AC-1` labels, no arrows, no checkboxes.
+- **Each nested bullet** is one full sentence in the present tense with one behavior.
+- **Screens and buttons** in **bold** with their exact UI label (for example the **Log in** button shows "Processing...").
 - **Observable**: write what the user sees or does, not how the system does it (no "a session is created", "a token is stored").
-- **Real values**: who, which data, which limit ("an approved company email domain", "max 50 characters"), never "valid", "quickly", "properly".
-- Validation, error handling and edge cases use the same full-sentence style.
+- **Real values and examples**: who, which data, which limit; add an example when a rule is easy to misread ("NHU@gmail.com" and "nhu@gmail.com" are the same account). Never "valid", "quickly", "properly".
+- Validation, error handling and edge cases are flat bullets in the same full-sentence style. A `Pending Q<n>` line may end with `(suggestion: …)` when the Questions List has one.
+- **Notes**: `Requirement` (IDs and doc), `Source` (client words, docs and the question IDs used), `Design` (link, or "No design yet for **<Screen>**"), then any `Conflict` lines, and `Ticket: #<n>` once the story is on the board. Leave out a line with nothing to say.
 - No **New questions** or **Pending items** sections — questions live in the Questions List; only inline `Pending Q<n>` lines.
 - Each story has the four parts; drop a part only if it has nothing to say (no placeholders).
 - Edge cases: only those that apply — empty data, first use, min/max, duplicates, long text, double tap, going back, session timeout, concurrent changes.
@@ -50,24 +62,34 @@ The user can <capability>.
 ## Example
 
 ```markdown
-### US-01 – User can sign in with Google
+### US-01 – User can log in with their username or email
 
-**Acceptance criteria**
-The user can sign in using Google OAuth.
-- On **Sign in**, the user selects **Sign in with Google** and chooses their Google account.
-- Only users with an approved company email domain are allowed to access the application.
-- After successful authentication, the user is redirected to the **Agility Dashboard**.
-- The user remains signed in across browser refreshes until the session expires or the user logs out.
+User can log in with their username or email and their password. (US-01)
 
-**Validation & error handling**
-- A user whose email is not on an approved company domain sees "Your account is not allowed to access this app." and stays on **Sign in**.
-- Pending Q2 – Which email domains are approved?
+#### Acceptance Criteria
 
-**Edge cases**
-- The user closes the Google window before finishing; they stay on **Sign in** and are not signed in.
-- The session expires while the user is on the **Agility Dashboard**; the next action takes them to **Sign in**.
+- **Log in screen**
+  - A person who is not logged in sees **Log in** first.
+  - **Log in** has links to **Forgot password** and **Sign up**.
+- **Log in**
+  - The user types their username or their email in one field, then their password.
+  - Capital letters in the username or email do not matter. Example: "NHU@gmail.com" and "nhu@gmail.com" are the same account.
+  - While the app is working, the **Log in** button shows "Processing...".
+- **After log in**
+  - The app opens the space the user used last.
 
-**Notes**
-- Design: Figma "Sign in"
-- Conflict – design shows a Microsoft sign-in button, the ticket says Google only. Following the ticket until confirmed.
+#### Validation & error handling
+
+- When the username, the email or the password is wrong, the user sees "Please provide a valid username/email or password" on **Log in**, and the message does not say which one is wrong.
+- Pending Q19 – Lock after many wrong passwords (suggestion: 5 wrong tries, then wait 15 minutes).
+
+#### Edge cases
+
+- A person who was locked and set a new password can log in again right away.
+
+#### Notes
+
+- Requirement: US-06, BR-26 (`docs/requirement.md`).
+- Source: client brief ("my wife always types her email instead of her username"); Q1, Q2, Q3a of the Questions List.
+- Design: No design yet for **Log in**.
 ```

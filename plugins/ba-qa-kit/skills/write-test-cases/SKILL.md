@@ -30,7 +30,7 @@ Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `writ
    Then ask: `Write test cases for these <n> tickets? yes / only #<n>,#<n> / remove #<n> / no`. Run only after yes.
 5. **Built screens**: list the screens the ACs of all chosen tickets need, and ask once which are not built yet. Their cases are "Blocked" (see Rules).
 6. Run the tickets one by one, in ticket-number order. Do steps 7–13 for each.
-7. **Read the ticket** (US + AC). Not found, or no AC? One ticket: ask for what is missing. Many tickets: mark it "Skipped" with the reason and go on.
+7. **Read the ticket** (US + AC). Not found, or no AC? One ticket: ask for what is missing. Many tickets: mark it "Skipped" with the reason and go on. **Number the ACs** as `AC-1`, `AC-2`… in order. When the A/C are grouped under bold screen or flow-step bullets, count only the nested bullets, in order across the groups; a group bullet is an AC only when it has no nested bullets. Flat A/C (checkboxes or plain bullets): each is one AC.
 8. **Base** (only when the ticket has test cases): the base is the description of the latest sub-issue, with the QA's hand edits.
    - Compare it with that version's file in `<outputDir>` (`<ticket>-test-cases.md` for v1, `<ticket>-test-cases-v<k>.md` for v2+) and list the cases QA changed. Keep every QA change. File missing? Say "cannot compare" and use the sub-issue as it is.
    - Keep every case with the same TC ID. Never renumber. New cases get the next numbers.
