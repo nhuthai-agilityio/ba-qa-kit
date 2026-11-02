@@ -18,20 +18,31 @@ run() {
   done
 }
 
+# asks <hook> <JSON>: exit 0 and a permission "ask" on stdout
+asks() {
+  for shell in $shells; do
+    out=$(printf '%s' "$2" | "$shell" "$here/$1" 2>/dev/null); got=$?
+    case "$got:$out" in 0:*'"permissionDecision":"ask"'*) ;; *) echo "FAIL ($shell, $1): expected ask, got $got: $2" | cut -c1-240; fails=$((fails + 1)) ;; esac
+  done
+}
 # --- url-guard: a project with a profile, one without
 P=$tmp/proj; mkdir -p "$P" "$tmp/none"
 printf '%s\n' '<!-- ba-qa-kit:profile:start -->' \
+  '**Board:** GitLab `gitlab.abc.example/abc/abc-app`; tickets read with glab, else Chrome, else pasted' \
   '**Test envs:** dev https://dev.abc.example (ready label `Ready for QA`); stag https://stag.abc.example/app. Never production.' \
   '<!-- ba-qa-kit:profile:end -->' > "$P/CLAUDE.md"
 nav() { printf '{"cwd":"%s","tool_name":"mcp__claude-in-chrome__navigate","tool_input":{"url":"%s","tabId":1}}' "$1" "$2"; }
-run 2 url-guard.sh "$(nav "$P" https://abc.example)"
-run 2 url-guard.sh "$(nav "$P" https://www.abc.example/login)"
-run 2 url-guard.sh "$(nav "$P" https://app.abc.example/orders?id=1)"
-run 2 url-guard.sh "$(nav "$P" HTTPS://APP.ABC.EXAMPLE)"
+asks url-guard.sh "$(nav "$P" https://abc.example)"
+asks url-guard.sh "$(nav "$P" https://www.abc.example/login)"
+asks url-guard.sh "$(nav "$P" https://app.abc.example/orders?id=1)"
+asks url-guard.sh "$(nav "$P" HTTPS://APP.ABC.EXAMPLE)"
 run 0 url-guard.sh "$(nav "$P" https://dev.abc.example/orders)"
 run 0 url-guard.sh "$(nav "$P" https://stag.abc.example)"
 run 0 url-guard.sh "$(nav "$P" https://user@dev.abc.example:8443/x)"
 run 0 url-guard.sh "$(nav "$P" https://www.figma.com/file/1)"
+run 0 url-guard.sh "$(printf '{"cwd":"%s","tool_name":"mcp__gitlab__get_issue","tool_input":{"url":"%s"}}' "$P" https://gitlab.abc.example/abc/abc-app/-/issues/1)"
+asks url-guard.sh "$(printf '{"cwd":"%s","tool_name":"mcp__firefox-devtools__navigate_page","tool_input":{"url":"%s"}}' "$P" https://app.abc.example)"
+run 0 url-guard.sh "$(printf '{"cwd":"%s","tool_name":"mcp__firefox-devtools__take_snapshot","tool_input":{}}' "$P")"
 run 0 url-guard.sh "$(nav "$P" https://gitlab.example.com/abc/abc-app/-/issues/1)"
 run 0 url-guard.sh "$(nav "$P" back)"
 run 0 url-guard.sh "$(nav "$tmp/none" https://abc.example)"
@@ -108,6 +119,7 @@ run_gate 0 "$(bash_ 'git push -u origin docs/x')"
 # typed run commands post without a go; a yes inside the run keeps it
 say '/ba-qa-kit:verify #415 --env dev'
 run_gate 0 "$(bash_ 'glab issue note 9 -m \"QA verify\"')"
+run_gate 0 "$(bash_ 'glab issue note 9 -m \"QA verify – #415 – dev – Round 1 – reported by QA – 2026-11-02\"')"
 say 'yes'
 skill 'ba-qa-kit:log-bugs'
 run_gate 0 "$(bash_ 'glab issue create -t \"[Bug] x\"')"

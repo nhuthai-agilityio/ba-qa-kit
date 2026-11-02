@@ -3,9 +3,10 @@
 Used by `/ba-qa-kit:write-test-cases`: the chat output, the test case file (also the description of the `QA test cases` sub-issue) and the summary file.
 
 ## Chat output
-One ticket (6 lines max):
+One ticket (7 lines max; the `Browsers` line only when the profile has a browser besides Chrome):
 ```
 Ticket #<n> (<title>), v<k>: <x> test cases (<a> Auto, <m> Manual only, <b> Blocked)
+Browsers: Chrome; <browser> as compatibility cases · widths <px>, <px>
 Ticket gaps: <n> · PO questions: <n>
 QA edits kept: <TC IDs or "none" or "cannot compare">
 Full output: <outputDir>/<file>
