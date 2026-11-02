@@ -24,7 +24,13 @@ Summary: <outputDir>/verify-summary.md
 # QA verify – Ticket #<n>: <ticket title>
 Env: <env> | Round: <round> | Test cases: v<k> | Date: <YYYY-MM-DD>
 Earlier rounds: Round <r> (v<k>) <comment link> · … (or "none")
-Browsers: Chrome run, widths <px>, <px> (or "default width"); not run, check by hand: <browser>, <browser> (or "Chrome only")
+
+## Browsers
+| Browser | Scope | Run by | Result |
+|---|---|---|---|
+| Chrome | main run, widths <px>, <px> (or "default width") | Claude | <p> Pass, <f> Fail, <b> Blocked, <r> Not run |
+| <browser> | compatibility case | Claude (MCP) / QA by hand / not run | Pass / Fail / Not run |
+Only Chrome in the profile: write one Chrome row.
 
 **Result: <p> Pass, <f> Fail, <b> Blocked, <r> Not run**
 
@@ -44,9 +50,9 @@ Only when the ticket has a result from another env.
 
 ## 4. Findings
 One row for each Fail, Blocked or Not run case. For Blocked and Not run, write the reason in Actual.
-| Test case | Type | Severity | Expected | Actual | Evidence |
-|---|---|---|---|---|---|
-Sort the rows by Type in this order: Bug, Spec mismatch, PO question, Test limit, Env issue. Inside a Type, sort by TC ID.
+| Test case | Browser | Type | Severity | Expected | Actual | Evidence |
+|---|---|---|---|---|---|---|
+Browser: where it failed (Chrome, Firefox, Safari, or the width for a responsive case). Sort the rows by Type in this order: Bug, Spec mismatch, PO question, Test limit, Env issue. Inside a Type, sort by TC ID.
 Type: Bug / Spec mismatch / PO question / Test limit / Env issue. Spec mismatch: case and AC disagree (fix with `/ba-qa-kit:write-test-cases`). A Fail on a case whose Note says "Assumed" (any form, with or without PO-<n>) is Type PO question, not Bug: the Expected may differ from what the PO wants. Exceptions, these stay Type Bug: a clear defect (the user cannot finish the action, a field is hidden, the page hangs, or the app shows an error), and a case whose Expected has a real source (an AC, or Covers = "Not in AC (<standard>)"). Say which step failed (e.g. "Step 4: …"). Evidence: screenshot, console errors, failed requests.
 Under the table write `PO questions: <TC ID>, <TC ID>` (or `PO questions: none`). `/ba-qa-kit:write-test-cases` reads this line for the next version.
 

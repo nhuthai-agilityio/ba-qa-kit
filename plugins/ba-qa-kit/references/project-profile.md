@@ -12,7 +12,7 @@ Every project that uses this kit carries a short profile as a marked block in th
 **Docs:** Drive folder <link> | none
 **Test envs:** dev <URL> (ready label `<label>`); stag <URL> (ready label `<label>`). Never production.
 **Roles:** <role>, <role> · test data starts with `<prefix>` · standard <name> | none
-**Browsers:** Chrome only | Chrome, <browser>, <browser> · widths <px>, <px>
+**Browsers:** Chrome only | Chrome, Firefox (MCP), Safari (by hand) · widths <px>, <px>
 **Bugs:** assigned to @<GitLab username> | nobody fixed · QA files in `<folder>/`
 **Release note:** project <name>; build links: <name> <location>; …
 **Labels:** story `<label>` · open questions `<label>` · known issue `<label>` · test cases `<label>` · bug `<label>` · failed `<label>` · passed `<label>` · not a bug `<label>`
@@ -32,6 +32,8 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Bugs | log-bugs; the folder also verify and write-test-cases |
 | Release note | release-note |
 | Labels | write-stories, track-status, release-note, write-test-cases, verify, log-bugs |
+
+Browsers: Chrome is driven by Claude in Chrome. `(MCP)` marks a browser driven through its own MCP (only Firefox, with `claude mcp add firefox-devtools npx @mozilla/firefox-devtools-mcp-moz`; needs Node 20.19+); `verify` falls back to `(by hand)` when the tools are not connected. `(by hand)` means QA runs the cases and tells `verify` the result.
 
 Never in the profile: passwords, tokens, personal emails or names (a GitLab username is fine), production URLs. The kit keeps no test accounts: QA signs in to the test app in Chrome.
 
