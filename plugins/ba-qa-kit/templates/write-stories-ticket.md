@@ -18,7 +18,7 @@ Labels: <backlog label>, user story, <feature label>, pending-questions (only th
 - The description is the story's body copied as it is, from the summary line (`<User or role> can <capability>. (US-nn)`) through **Acceptance Criteria**, **Validation & error handling**, **Edge cases** and **Notes**. Never rewrite it; keep the `####` headings, the bold group bullets and the nested bullets.
 - No checkboxes and no `AC-<n>` labels. `/ba-qa-kit:write-test-cases` refers to an A/C by position: `AC-1` is the first nested bullet, counted in order across the groups (group bullets are not counted).
 - Drop a section only if the story has nothing for it.
-- `Title:` and `Labels:` are set as the issue's title and labels, not written in the description. Labels: see Board rules in the skill.
+- `Title:` and `Labels:` are set as the issue's title and labels, not written in the description. Labels: see "Board rules" in `references/write-stories-board.md`.
 - After go, the story doc's Notes gets `Ticket: #<n>`. The copy into the issue leaves that line out.
 
 ## Example
