@@ -86,9 +86,13 @@ One-time setup by the repo owner, after the workflows are on `main`:
 
 For each change:
 
-1. On a branch, edit the kit and raise `version` in `plugins/ba-qa-kit/.claude-plugin/plugin.json` (for example `1.0.0` → `1.0.1`). Installed copies only update when the version changes. If another open pull request raised the version too, the second one to merge raises it again.
+1. On a branch, edit the kit. Leave `version` as it is: releases raise it.
 2. Open a pull request. GitHub Actions runs:
-   - **CI**: `claude plugin validate` on the marketplace and each plugin, `skill-validator --strict` on each skill in `plugins/`, kit rules (description says "Use when …", `SKILL.md` at most 200 lines), and a check that every changed plugin raised its `version`.
+   - **CI**: `claude plugin validate` on the marketplace and each plugin, `skill-validator --strict` on each skill in `plugins/`, kit rules (description says "Use when …", `SKILL.md` at most 200 lines), and the hook tests on Ubuntu and Windows.
    - **Claude Code Review**: Claude reviews the change against `CLAUDE.md` and a skill checklist (references exist, fallbacks for missing tools, fixed output format), and posts one comment with a verdict that it updates on each push. Mention `@claude` in a comment to ask it something.
 3. Merge when CI is green.
-4. Run `/sync-gitlab` in Claude Code from this repo. It pushes `main` to GitLab and stops instead of overwriting if GitLab has commits GitHub does not.
+
+To release, once a batch of changes is merged:
+
+1. Open a pull request `chore: release ba-qa-kit <X.Y.Z>` that only raises `version` in `plugins/ba-qa-kit/.claude-plugin/plugin.json` (for example `1.0.8` → `1.1.0`). Installed copies only update when the version changes.
+2. Merge it, then run `/sync-gitlab` in Claude Code from this repo. It pushes `main` to GitLab and stops instead of overwriting if GitLab has commits GitHub does not. The team then updates with the commands under Update.
