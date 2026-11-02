@@ -18,6 +18,8 @@ jobs:
         run: |
           claude plugin validate . --strict
           for p in plugins/*/; do claude plugin validate "$p" --strict; done
+      - name: The guard rules setup writes are valid settings JSON
+        run: jq -e '.permissions.deny | length > 0' plugins/ba-qa-kit/templates/settings-guard.json
       - uses: actions/setup-go@v5
         with:
           go-version: '1.23'
@@ -38,6 +40,24 @@ jobs:
             fi
           done
           exit $status
+
+  # The kit's hooks run on the team's machines: Ubuntu (dash, mawk) and Windows (Git Bash, gawk).
+  hook-test:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+      - name: url-guard and secret-guard block what they must and let the rest through
+        run: |
+          shells="sh bash"; [ "$RUNNER_OS" = Linux ] && shells="$shells dash"   # Claude Code on Windows runs hooks in Git Bash
+          sh plugins/ba-qa-kit/hooks/hooks.test.sh $shells
 
   # Installed copies only update when plugin.json version changes, so a PR that edits a plugin must raise it.
   version-bump:
