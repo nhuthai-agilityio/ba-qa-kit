@@ -30,7 +30,7 @@ Earlier rounds: Round <r> (v<k>) <comment link> · … (or "none")
 |---|---|---|---|
 | Chrome | main run, widths <px>, <px> (or "default width") | Claude | <p> Pass, <f> Fail, <b> Blocked, <r> Not run |
 | <browser> | compatibility case | exactly one of: `Claude (MCP)`, `QA by hand`, `Not run` | exactly one of: `Pass`, `Fail`, `Not run` |
-Only Chrome in the profile: write one Chrome row.
+Only Chrome in the profile: write one Chrome row. A by-hand case before the user answers: Run by `QA by hand`, Result `Not run`; after the answer, the Result the user gave. The Chrome row's Run by is always `Claude`.
 
 **Result: <p> Pass, <f> Fail, <b> Blocked, <r> Not run**
 

@@ -33,7 +33,7 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Release note | release-note |
 | Labels | write-stories, track-status, release-note, write-test-cases, verify, log-bugs |
 
-Browsers: Chrome is driven by Claude in Chrome. `(MCP)` marks a browser driven through its own MCP (only Firefox, with `claude mcp add firefox-devtools npx @mozilla/firefox-devtools-mcp-moz`; needs Node 20.19+); `verify` falls back to `(by hand)` when the tools are not connected. `(by hand)` means QA runs the cases and tells `verify` the result.
+Browsers: Chrome is driven by Claude in Chrome. `(MCP)` marks a browser driven through its own MCP (only Firefox, with `claude mcp add firefox-devtools npx @mozilla/firefox-devtools-mcp-moz`; needs Node 20.19+; the package exists on npm, but the kit has not run it end to end, and sign-in persistence with `--profile-path` is untested, so check on dev first); `verify` falls back to `(by hand)` when the tools are not connected. `(by hand)` means QA runs the cases and tells `verify` the result.
 
 Never in the profile: passwords, tokens, personal emails or names (a GitLab username is fine), production URLs. The kit keeps no test accounts: QA signs in to the test app in Chrome.
 
