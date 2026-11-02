@@ -16,7 +16,7 @@ One Claude Code plugin, `ba-qa-kit` (`plugins/ba-qa-kit`), in the marketplace `b
 
 | When | Run | You get |
 |---|---|---|
-| Once per project (commit `CLAUDE.md` so the team shares it) | `/ba-qa-kit:setup` | the project profile in `CLAUDE.md` |
+| Once per project (commit `CLAUDE.md` on a branch and open a merge request, so the team shares it) | `/ba-qa-kit:setup` | the project profile in `CLAUDE.md` |
 | A new ticket arrives | `/ba-qa-kit:find-gaps` | `ba-output/gap-report-<name>-r<n>.md` |
 | Gaps are found | `/ba-qa-kit:write-questions` | `ba-output/question-list-<name>.md` to send to the client |
 | The client replies | `/ba-qa-kit:collect-answers` | the answers in the same Questions List; reply `loop` for a new round of gaps, or `go` to write stories |
@@ -53,6 +53,10 @@ GitLab: `glab` is optional. Log in once with `glab auth login --hostname <host>`
 - The QA skills write their files in the QA folder named in the profile's Bugs line (default `qa-output/`). Reports, summaries, bug drafts and screenshots stay on the machine of the person who ran the skill; everything the team needs (test cases, verify reports, bugs) is also on the board. The lessons file `qa-lessons.md` and the `incidents/` folder are shared through this repo, so every QA gets them with `git pull`. Sharing is optional and done by hand (for example in GitHub Desktop): to share a new lesson, check the new files hold no personal data, then commit them on a branch and open a pull request. The skills never commit or push.
 - Test accounts: sign in to the dev or stag app in your Chrome yourself, with a shared test account (never a personal or production one). Chrome keeps you signed in. `/ba-qa-kit:verify` never types a password: at a login page, or when a case needs another role, it stops and asks you to sign in, then goes on.
 - To let `/ba-qa-kit:verify` and `/ba-qa-kit:log-bugs` follow a bug, make it a child item of the feature ticket, link it to the ticket (Linked items), or name it with `--bugs #<n>`. The skills never search the whole board. Bugs that others logged only get comments, after you confirm.
+
+## Push guard
+
+The kit has a hook that stops Claude from pushing to `main` or `master` and from force pushing, in any project where the kit is installed. Claude creates a branch and you open a merge request instead. The hook runs on macOS, Linux and Windows (Git Bash, which Claude Code needs on Windows). It only binds Claude: a push you type in a terminal or GitHub Desktop is not checked, so keep `main` a protected branch on GitLab (Settings → Repository → Protected branches: no one allowed to force push; only Maintainers allowed to push).
 
 ## Update
 

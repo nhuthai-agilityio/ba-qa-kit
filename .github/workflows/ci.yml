@@ -39,6 +39,22 @@ jobs:
           done
           exit $status
 
+  # The push guard hook runs on the team's machines: Ubuntu (dash, mawk) and Windows (Git Bash, gawk).
+  hook-test:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+      - name: block-protected-push blocks pushes to main or master and force pushes
+        run: |
+          shells="sh bash"; command -v dash >/dev/null && shells="$shells dash"
+          sh plugins/ba-qa-kit/hooks/block-protected-push.test.sh $shells
+
   # Installed copies only update when plugin.json version changes, so a PR that edits a plugin must raise it.
   version-bump:
     if: github.event_name == 'pull_request'
