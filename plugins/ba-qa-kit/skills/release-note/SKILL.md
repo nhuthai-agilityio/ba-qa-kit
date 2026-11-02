@@ -28,7 +28,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 5. **NEXT PLAN**: "Continue working on in-progress tasks", then the planned work per product from the next sprint's tickets, if any.
 6. **Fill NOTES** from the links and versions the user gave; leave `link` where one is missing.
 7. **Write the key highlights**: one line per product, from the Done tickets.
-8. **Write the draft.** Read `assets/template.md` from this skill's folder first, then write with it. Dates use the long form `Month DDth, YYYY` with the right ending (1st, 2nd, 3rd, 4th…). Always show the draft in chat and save it to `ba-output/release-note-<YYYY-MM-DD>.md`. The team keeps release notes in a Google Doc: also give the text to paste (see `ba-files.md`), and tell the user to paste it with **Edit > Paste from Markdown** so the ticket links stay clickable. Then **stop and show the progress line**.
+8. **Write the draft.** Read `${CLAUDE_PLUGIN_ROOT}/templates/release-note.md` first, then write with it. Dates use the long form `Month DDth, YYYY` with the right ending (1st, 2nd, 3rd, 4th…). Always show the draft in chat and save it to `ba-output/release-note-<YYYY-MM-DD>.md`. The team keeps release notes in a Google Doc: also give the text to paste (see `ba-files.md`), and tell the user to paste it with **Edit > Paste from Markdown** so the ticket links stay clickable. Then **stop and show the progress line**.
 
 ## Rules
 

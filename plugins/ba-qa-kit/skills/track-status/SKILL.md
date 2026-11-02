@@ -36,7 +36,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 6. **Check questions.** Each requirement has its own Questions List, named after its parent ticket: `ba-output/question-list-<n>.md`, where `<n>` is the ticket's parent issue (story issues from `/ba-qa-kit:write-stories`) or the ticket itself, or the Google Doc linked in the ticket. If it is missing or has no matching Q<n>, skip that ticket and note it in the report. For each `Pending Q<n>` in a ticket's Notes, find question n (or sub-question `Q<n><letter>`, for example `Q2a`) in that ticket's list:
    - `→ Pending` → **Pending**.
    - `→ Answer …` but the ticket still says Pending → **Answered, ticket not updated**.
-7. **Write the report** with `assets/template.md`. Show it in chat and save it to `ba-output/status-<YYYY-MM-DD>.md`, then show the progress line.
+7. **Write the report** with `${CLAUDE_PLUGIN_ROOT}/templates/track-status.md`. Show it in chat and save it to `ba-output/status-<YYYY-MM-DD>.md`, then show the progress line.
 
 ## Rules
 
