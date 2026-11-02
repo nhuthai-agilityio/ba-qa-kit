@@ -63,6 +63,9 @@ run 2 secret-guard.sh "$(sh_ "cd $R && git commit -m x")"
 git -C "$R" -c user.name=t -c user.email=t@t commit -q -m leak
 run 2 secret-guard.sh "$(sh_ 'git push origin main')"
 git -C "$R" reset -q --hard HEAD~1
+git -C "$R" add notes.md && git -C "$R" -c user.name=t -c user.email=t@t commit -q -m tracked && printf 'token %s\n' "$GL" >> "$R/notes.md"
+run 2 secret-guard.sh "$(sh_ 'git commit -am \"docs: notes\"')"
+git -C "$R" reset -q --hard HEAD~1
 git -C "$R" add notes.md && git -C "$R" -c user.name=t -c user.email=t@t commit -q -m notes
 run 0 secret-guard.sh "$(sh_ 'git push -u origin docs/notes')"
 run 0 secret-guard.sh "$(sh_ 'git commit --allow-empty -m \"docs: contract notes\"')"

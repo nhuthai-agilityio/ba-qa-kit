@@ -2,7 +2,7 @@
 # PreToolUse hook: no token or private key goes into a file Claude writes, a commit or a push.
 #   Write | Edit | MultiEdit: the new text is checked (a `.env` file itself is left to the guard rules in settings).
 #   Bash with `git commit` or `git push`: the files it would commit or push are checked: the staged files, the files
-#   a `git add` in the same command adds, and the files in commits not on any remote yet. A `.env` file is refused too
+#   a `git add` in the same command or `git commit -a` adds, and the files in commits not on any remote yet. A `.env` file is refused too
 #   (`.env.example`, `.env.sample` and `.env.template` are fine).
 # Only clear token shapes count (GitLab, GitHub, Anthropic, AWS, Slack, Google keys, private keys, JWTs): a word such as
 # "password" in a test case is test data, not a secret. Exit 2 blocks; any failure of its own exits 0.
@@ -47,6 +47,8 @@ $(git ls-files -mo --exclude-standard 2>/dev/null)" ;;
   *) for p in $add; do case "$p" in -*) ;; *) files="$files
 $p" ;; esac; done ;;
 esac
+case "$cmd" in *commit*" -a"*|*commit*" --all"*) files="$files
+$(git diff --name-only 2>/dev/null)" ;; esac
 case "$cmd" in *push*) files="$files
 $(git log --name-only --format= HEAD --not --remotes 2>/dev/null)" ;; esac
 
