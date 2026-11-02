@@ -68,4 +68,4 @@ Only with glab and a token that can write (`api`). No glab, or the write is refu
 
 ## Git
 
-Skills never commit or push. When the user asks to share a file (the `CLAUDE.md` profile, `qa-lessons.md`, `incidents/`): commit it on a new branch, push that branch and tell the user to open a merge request. Never push to `main` or `master` and never force push; the kit's hook blocks those pushes.
+Skills never commit or push; this holds for every skill, new ones too. When the user asks to share a file (the `CLAUDE.md` profile, `qa-lessons.md`, `incidents/`): commit it on a new branch, push that branch and tell the user to open a merge request. Never push to `main` or `master` and never force push; the kit's hook blocks those pushes.
