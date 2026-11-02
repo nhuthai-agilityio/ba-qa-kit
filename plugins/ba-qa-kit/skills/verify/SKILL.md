@@ -9,18 +9,13 @@ Run the test cases of one ticket, or of every ticket that matches a label or mil
 
 ## Setup
 Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md`, and `${CLAUDE_PLUGIN_ROOT}/templates/verify.md` (the chat report, report file and summary file formats). From the profile use the **Board** line (project), **Test envs** (dev and stag URLs, their ready labels), **Roles** (user roles, test data prefix), **Browsers** (the browsers the project supports, then the screen widths) and **Bugs** (the QA folder, written `<outputDir>` below; default `qa-output`). A line missing or `?:`: ask for it only and offer to save it. No Browsers line: Chrome only, do not ask. Chrome runs through Claude in Chrome. Another listed browser runs only when this session has an MCP that drives it (opens a page, resizes, reads the page); otherwise its cases are `Not run` with a reason from `templates/verify.md`. Browsers other than Chrome run `compatibility` cases only; a step their tools cannot do: `Not run: <reason>`. Chat messages follow the user's language; files and comments are in English. No ready label for the env: skip that check. No roles: run every case as the signed-in user; with roles, cases run one role at a time. The kit keeps no test accounts: QA signs in to the test app in each browser.
+@${CLAUDE_PLUGIN_ROOT}/references/ticket-selection.md
 
 ## Workflow
-1. Input: `--env` (default `dev`), related features (optional), and the tickets, in one of these ways:
-   - `--tickets 12,15`, or just `12`: these tickets.
-   - `--label "ready to test","bug fix"`: tickets with at least one of these labels.
-   - `--milestone "Sprint 1","Sprint 2"`: tickets in one of these milestones (Jira: sprint or fix version).
-   - `--label … --milestone …`: tickets that match both.
-   - Optional: `--bugs #6,#9`: bugs by others to check against these tickets.
-   Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. Nothing given? Ask which tickets.
-2. Find the tickets, reading the board the profile's way. For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). A label or milestone not found? List the names that exist, and stop.
-3. Check each ticket: it has the env's ready label (when the profile has one), and a `QA test cases` sub-issue. The latest is the child item with the test-cases label (profile Labels line) or a title that starts with `QA test cases – #<n>`, with the highest version (the number after `– v`; no suffix = v1). Two with the same version, or a version that cannot be read? Ask which one to use. A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/ba-qa-kit:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
-4. Confirm: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table, but with no `QA test cases` sub-issue stop and suggest `/ba-qa-kit:write-test-cases`, and with no ready label tell the user and stop unless they say go.
+1. Input: `--env` (default `dev`), related features (optional), `--bugs #6,#9` (optional: bugs by others to check against these tickets), and the tickets as in "Input" of the imported ticket rules.
+2. Find the tickets as in "Find the tickets" of the ticket rules.
+3. Check each ticket: it has the env's ready label (when the profile has one), and a `QA test cases` sub-issue (the latest, as in the ticket rules). A ticket that fails a check is "Skipped" with the reason (no sub-issue: suggest `/ba-qa-kit:write-test-cases`). Skipped tickets show only in the chat table, not in `verify-summary.md`.
+4. Confirm as in the ticket rules. One ticket by number: with no `QA test cases` sub-issue stop and suggest `/ba-qa-kit:write-test-cases`, and with no ready label tell the user and stop unless they say go. The table:
    ```
    | Ticket | Link | Labels | Milestone | QA test cases | Ready | Run |
    |---|---|---|---|---|---|---|

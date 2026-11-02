@@ -9,18 +9,14 @@ You are a QA tester. Turn the ACs of one ticket, or of every ticket that matches
 
 ## Setup
 Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md`, and `${CLAUDE_PLUGIN_ROOT}/templates/write-test-cases.md` (the chat output, test case file and summary file formats). From the profile use the **Board** line (project), **Roles** (user roles, test data prefix, standard), **Browsers** (other browsers and screen widths) and **Bugs** (the QA folder, written `<outputDir>` below; default `qa-output`). A line missing or `?:`: ask for it only and offer to save it. No Browsers line: Chrome only, do not ask. Do not check the ready label: the user chooses the tickets.
+@${CLAUDE_PLUGIN_ROOT}/references/ticket-selection.md
 Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `write-test-cases` or `both`.
 
 ## Workflow
-1. **Input**: the tickets, in one of these ways:
-   - `--tickets 12,15`, or just `12`: these tickets.
-   - `--label "ready to test","bug fix"`: tickets with at least one of these labels.
-   - `--milestone "Sprint 1","Sprint 2"`: tickets in one of these milestones (Jira: sprint or fix version).
-   - `--label … --milestone …`: tickets that match both.
-   Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. Nothing given? Ask which tickets. A change request ("fix TC-12-05") for more than one ticket, with no ticket named? Ask which ticket it applies to. The ACs are read from the ticket, so new ACs need no mention.
-2. **Find the tickets**, reading the board the profile's way. For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). Read a ticket's child items and linked issues from the ticket itself. Do not list or search other issues. A label or milestone not found? List the names that exist, and stop.
-3. **Existing test cases**: the latest `QA test cases` sub-issue of a ticket is the child item with the label `test case` (profile Labels) or a title that starts with `QA test cases – #<n>`, with the highest version (the number after `– v`; no suffix = v1). Two with the same version, or a version that cannot be read? Ask which to use. None: the ticket is new (v1). Some: the new version is v<k+1>.
-4. **Confirm**: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table.
+1. **Input**: the tickets as in "Input" of the imported ticket rules. A change request ("fix TC-12-05") for more than one ticket, with no ticket named? Ask which ticket it applies to. The ACs are read from the ticket, so new ACs need no mention.
+2. **Find the tickets** as in "Find the tickets" of the ticket rules. Read a ticket's child items and linked issues from the ticket itself. Do not list or search other issues.
+3. **Existing test cases**: the latest `QA test cases` sub-issue of each ticket, as in the ticket rules. None: the ticket is new (v1). Some: the new version is v<k+1>.
+4. **Confirm** as in the ticket rules. The table:
    ```
    | Ticket | Link | Labels | Milestone | QA test cases | Run |
    |---|---|---|---|---|---|
