@@ -14,6 +14,7 @@ Repo for the BA/QA Claude Code kit: one plugin, `ba-qa-kit` in `plugins/ba-qa-ki
 - A pull request that changes anything under `plugins/ba-qa-kit/` raises `version` in `plugins/ba-qa-kit/.claude-plugin/plugin.json`. Installed copies only update when it changes. If another open pull request raised it too, the second one to merge raises it again.
 - Kit files (`plugins/`, `.claude/`, `.github/`, `README.md`, this file) are in English, and so are the outputs the skills write.
 - `plugins/ba-qa-kit/templates/settings-guard.json` holds the guard rules `/ba-qa-kit:setup` adds to a project's `.claude/settings.json`. A change to it is checked in a real `claude` session against commands that must be refused and commands that must still run (rules match the whole command with `*` as a wildcard).
+- `plugins/ba-qa-kit/hooks/` holds the kit's hooks (`url-guard.sh`, `secret-guard.sh`, and the compaction reminder in `hooks.json`). They are plain `sh`, `sed` and `grep` with no node or jq dependency, so they run on macOS, Ubuntu and Windows (Git Bash). A change to a hook adds a case to `hooks.test.sh`, which CI runs on Ubuntu and Windows.
 - Branches: `feat/<short-desc>`, `fix/<short-desc>`, `docs/<short-desc>`, `chore/<short-desc>`. One topic per pull request.
 - Commits: Conventional Commits, lowercase imperative (`feat: add ...`, `fix: ...`).
 - Skills never write passwords, tokens or personal data, and never act on production URLs. Skills never type a password: QA signs in to the test app in Chrome, and `/ba-qa-kit:verify` stops at a login page.

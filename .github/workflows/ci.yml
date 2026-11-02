@@ -41,6 +41,24 @@ jobs:
           done
           exit $status
 
+  # The kit's hooks run on the team's machines: Ubuntu (dash, mawk) and Windows (Git Bash, gawk).
+  hook-test:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v5
+      - name: url-guard and secret-guard block what they must and let the rest through
+        run: |
+          shells="sh bash"; [ "$RUNNER_OS" = Linux ] && shells="$shells dash"   # Claude Code on Windows runs hooks in Git Bash
+          sh plugins/ba-qa-kit/hooks/hooks.test.sh $shells
+
   # Installed copies only update when plugin.json version changes, so a PR that edits a plugin must raise it.
   version-bump:
     if: github.event_name == 'pull_request'

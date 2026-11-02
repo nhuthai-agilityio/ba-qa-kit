@@ -1,0 +1,38 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'ba-qa-kit: the conversation was just compacted. A kit skill that was waiting for the user to reply go (before writing to the board, the profile or the settings, posting, or closing a bug) is still waiting: show its progress line again and wait. A go in the summary is not a go.'",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash|Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/secret-guard.sh\"",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__claude-in-chrome__navigate",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/url-guard.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

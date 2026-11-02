@@ -58,6 +58,13 @@ GitLab: `glab` is optional. Log in once with `glab auth login --hostname <host>`
 
 `/ba-qa-kit:setup` adds the kit's guard rules to `.claude/settings.json` next to the `CLAUDE.md` that holds the profile (list: `plugins/ba-qa-kit/templates/settings-guard.json`). Claude Code enforces them on Claude, in every permission mode: Claude cannot push to `main` or `master`, force push, delete a remote branch, skip the project's git hooks (`--no-verify`), delete issues, labels or the project on the board, or read `.env`; it asks you before `git reset --hard`, `git clean`, `git restore` or `git stash drop`, which throw away local changes. You still commit and push yourself as usual. Commit `.claude/settings.json` with `CLAUDE.md` so the team gets the same rules. They do not see a branch name built from a shell variable or a script that runs git.
 
+The kit also has three hooks, active as soon as it is installed, in every permission mode:
+- **No production in Chrome**: Claude cannot open another host on the same domain as the profile's dev or stag URL (with dev at `dev.abc.example`: `abc.example`, `app.abc.example`), since that may be production. Other sites open as usual. A production app on another domain, or a link clicked inside a page, is not seen.
+- **No secrets in files or commits**: Claude cannot write a token or private key into a file, or commit or push a file that holds one or a `.env` file. Only clear token shapes count (GitLab, GitHub, Anthropic, AWS, Slack, Google keys, private keys, JWTs), so test data such as a sample password is fine.
+- **Waiting for go after a compaction**: when a long conversation is compacted, Claude is reminded that a step waiting for your go is still waiting.
+
+The hooks are plain `sh` and run on macOS, Linux and Windows (Git Bash, which Claude Code uses on Windows).
+
 ## Update
 
 In a terminal, then restart Claude Code:
