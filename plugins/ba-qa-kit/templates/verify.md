@@ -25,7 +25,7 @@ Under the table, the same `Browsers:` line once for all tickets. The `Browsers:`
 One message before the first run (step 6), in the user's language: which listed browsers this session can drive and which it cannot, and what each missing one needs, ending with the one question `Connect <browser> now, or say later?` (only when a browser could be connected on this machine). Now: wait, then check again. Later: its cases are `Not run: <reason>`. Chrome needs `claude --chrome`. Any other browser needs an MCP that opens a page, resizes the window and reads the page. Known setups, as examples:
 - Firefox: the Firefox DevTools MCP (https://firefox-source-docs.mozilla.org/ai-agent-tools/firefox-devtools-mcp.html), started with `--tool-preset developer` (the default preset has no console or network tools); a path with spaces goes in quotes.
 - Safari: macOS only. Safari 27 or later with Safari > Settings > Developer > Allow remote automation and external agents, and Apple's MCP (https://developer.apple.com/documentation/safari-developer-tools/connecting-an-ai-agent-to-safari). Not tried with the kit yet: follow Apple's page, not a remembered command.
-Reasons for `Not run`, always these words: `no <browser> tools in this session` · `<browser> needs <OS>` · `cannot sign in to <browser>`.
+Reasons for `Not run`, always these words: `no <browser> tools in this session` · `<browser> needs <OS>` · `cannot sign in to <browser>` · `<browser> tools cannot do this step`.
 
 ## Report file
 ```

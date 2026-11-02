@@ -28,6 +28,7 @@ asks() {
 # --- url-guard: a project with a profile, one without
 P=$tmp/proj; mkdir -p "$P" "$tmp/none"
 printf '%s\n' '<!-- ba-qa-kit:profile:start -->' \
+  '**Board:** GitLab `gitlab.abc.example/abc/abc-app`; tickets read with glab, else Chrome, else pasted' \
   '**Test envs:** dev https://dev.abc.example (ready label `Ready for QA`); stag https://stag.abc.example/app. Never production.' \
   '<!-- ba-qa-kit:profile:end -->' > "$P/CLAUDE.md"
 nav() { printf '{"cwd":"%s","tool_name":"mcp__claude-in-chrome__navigate","tool_input":{"url":"%s","tabId":1}}' "$1" "$2"; }
@@ -39,6 +40,7 @@ run 0 url-guard.sh "$(nav "$P" https://dev.abc.example/orders)"
 run 0 url-guard.sh "$(nav "$P" https://stag.abc.example)"
 run 0 url-guard.sh "$(nav "$P" https://user@dev.abc.example:8443/x)"
 run 0 url-guard.sh "$(nav "$P" https://www.figma.com/file/1)"
+run 0 url-guard.sh "$(printf '{"cwd":"%s","tool_name":"mcp__gitlab__get_issue","tool_input":{"url":"%s"}}' "$P" https://gitlab.abc.example/abc/abc-app/-/issues/1)"
 asks url-guard.sh "$(printf '{"cwd":"%s","tool_name":"mcp__firefox-devtools__navigate_page","tool_input":{"url":"%s"}}' "$P" https://app.abc.example)"
 run 0 url-guard.sh "$(printf '{"cwd":"%s","tool_name":"mcp__firefox-devtools__take_snapshot","tool_input":{}}' "$P")"
 run 0 url-guard.sh "$(nav "$P" https://gitlab.example.com/abc/abc-app/-/issues/1)"

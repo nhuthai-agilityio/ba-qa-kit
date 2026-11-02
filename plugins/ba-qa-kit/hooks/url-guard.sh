@@ -21,11 +21,13 @@ host=$(printf '%s\n' "$url" | host_of)
 
 dir=$(field cwd | sed -e 's/\\\\/\\/g'); dir=${dir:-.}
 root=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)
-envs=$(cat "$dir/CLAUDE.md" "$root/CLAUDE.md" 2>/dev/null | grep -m1 '^\*\*Test envs:\*\*')
+profile=$(cat "$dir/CLAUDE.md" "$root/CLAUDE.md" 2>/dev/null)
+envs=$(printf '%s\n' "$profile" | grep -m1 '^\*\*Test envs:\*\*')
+board=$(printf '%s\n' "$profile" | grep -m1 '^\*\*Board:\*\*' | sed -n -E 's#.*`([^/` ]+)/.*#\1#p' | tr 'A-Z' 'a-z')
 hosts=$(printf '%s\n' "$envs" | grep -oE 'https?://[^ );,`]+' | host_of)
 [ -n "$hosts" ] || exit 0
 
-for h in $hosts; do [ "$host" = "$h" ] && exit 0; done
+for h in $hosts $board; do [ "$host" = "$h" ] && exit 0; done   # the test envs and the board's host
 for h in $hosts; do
   case "$h" in *[!0-9.]*.*.*) base=${h#*.} ;; *) continue ;; esac   # IP addresses and two-label hosts: no guess
   case "$host" in "$base"|*".$base")
