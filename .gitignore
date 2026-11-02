@@ -1,7 +1,8 @@
 # QA output (reports, screenshots, summaries): ignored,
-# except the lessons file and incident records, which the team shares
+# except the lessons file and the not-a-bug records, which the team shares
 **/qa-output/*
 !**/qa-output/qa-lessons.md
+!**/qa-output/not-a-bug/
 !**/qa-output/incidents/
 # BA output (gap reports, questions, stories, status, release notes)
 ba-output/

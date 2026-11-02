@@ -1,6 +1,6 @@
 # Bug formats
 
-Used by `/ba-qa-kit:log-bugs`: the bug, the incident record and the lessons file.
+Used by `/ba-qa-kit:log-bugs`: the bug, the not-a-bug record and the lessons file.
 
 ## Bug template
 ```
@@ -33,9 +33,9 @@ For QA (<qaAssignee>)
 4. Source is "assumed, not in AC"? Confirm the Expected with the PO. Write this step only for such a bug.
 ```
 
-## Incident record template
+## Not-a-bug record template
 ```
-# Incident record <ticket>-<NN>: <short title>
+# Not-a-bug record <ticket>-<NN>: <short title>
 Date: <YYYY-MM-DD> | Ticket: #<n> | Env: <env> | Round: <round>
 Bug issue: #<n> | Test case: <TC ID> | Cause: <test case / verify run / environment / tool limit / PO rule>
 
@@ -54,10 +54,10 @@ Added as lesson L-<NNN> in `qa-lessons.md`.
 ```
 
 ## Lessons file
-`<outputDir>/qa-lessons.md`. `/ba-qa-kit:write-test-cases` and `/ba-qa-kit:verify` read it before they start.
+`<outputDir>/qa-lessons.md`. `/ba-qa-kit:write-test-cases` and `/ba-qa-kit:verify` read it before they start. Records written before the rename are in `<outputDir>/incidents/<ticket>-incident-<NN>.md`: keep reading them, write new ones only in `<outputDir>/not-a-bug/`.
 ```
 # QA lessons
-| ID | Applies to | Feature | Lesson | Incident record | Added |
+| ID | Applies to | Feature | Lesson | Record | Added |
 |---|---|---|---|---|---|
-| L-001 | verify | <feature> | <what to do next time> | `incidents/<ticket>-incident-<NN>.md` | <YYYY-MM-DD> |
+| L-001 | verify | <feature> | <what to do next time> | `not-a-bug/<ticket>-not-a-bug-<NN>.md` | <YYYY-MM-DD> |
 ```
