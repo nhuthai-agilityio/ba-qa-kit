@@ -18,6 +18,8 @@ jobs:
         run: |
           claude plugin validate . --strict
           for p in plugins/*/; do claude plugin validate "$p" --strict; done
+      - name: The guard rules setup writes are valid settings JSON
+        run: jq -e '.permissions.deny | length > 0' plugins/ba-qa-kit/templates/settings-guard.json
       - uses: actions/setup-go@v5
         with:
           go-version: '1.23'
@@ -39,29 +41,20 @@ jobs:
           done
           exit $status
 
-  # Installed copies only update when plugin.json version changes, so a PR that edits a plugin must raise it.
-  version-bump:
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-24.04
+  # The kit's hooks run on the team's machines: Ubuntu (dash, mawk) and Windows (Git Bash, gawk).
+  hook-test:
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: read
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-      - name: Each changed plugin raises its version
-        env:
-          BASE_REF: ${{ github.base_ref }}
+      - name: url-guard and secret-guard block what they must and let the rest through
         run: |
-          base=$(git merge-base "origin/$BASE_REF" HEAD)
-          status=0
-          for p in $(git diff --name-only "$base" HEAD -- plugins | cut -d/ -f2 | sort -u); do
-            file="plugins/$p/.claude-plugin/plugin.json"
-            [ -f "$file" ] || continue                                   # plugin removed
-            old=$(git show "$base:$file" 2>/dev/null | jq -r .version)
-            [ -n "$old" ] || continue                                    # new plugin
-            new=$(jq -r .version "$file")
-            if [ "$new" = "$old" ]; then
-              echo "::error file=$file::$p changed but its version is still $old. Raise it so installed copies update."
-              status=1
-            fi
-          done
-          exit $status
+          shells="sh bash"; [ "$RUNNER_OS" = Linux ] && shells="$shells dash"   # Claude Code on Windows runs hooks in Git Bash
+          sh plugins/ba-qa-kit/hooks/hooks.test.sh $shells

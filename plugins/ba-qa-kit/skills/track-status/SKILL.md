@@ -7,7 +7,9 @@ description: Daily read-only status report for the current GitLab sprint, showin
 
 Run daily. Report the current sprint's tickets so the BA knows what needs action today. Never change the board.
 
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md` (the **Board** and **Sprints** lines, reading the board, a missing line) and `${CLAUDE_PLUGIN_ROOT}/references/ba-files.md` (files, sources).
+Imported below: the profile reference (the **Board** and **Sprints** lines, reading the board, a missing line) and the BA files rules (files, sources).
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
+@${CLAUDE_PLUGIN_ROOT}/references/ba-files.md
 
 ## Input and output
 

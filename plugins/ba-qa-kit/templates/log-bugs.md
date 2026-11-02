@@ -5,7 +5,7 @@ Used by `/ba-qa-kit:log-bugs`: the bug, the not-a-bug record and the lessons fil
 ## Bug template
 ```
 ### [Bug] <what is wrong, where>
-Ticket: #<n> | Env: <dev / stag> | Round: <round> | Severity: <level> | Reproduced by hand: Not yet – QA to confirm
+Ticket: #<n> | Env: <dev / stag> | Browser: <browser, or the width for a responsive case> | Round: <round> | Severity: <level> | Reproduced by hand: Not yet – QA to confirm
 
 Preconditions
 - <logged in as ...>

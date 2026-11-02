@@ -1,0 +1,38 @@
+#!/bin/sh
+# PreToolUse(any MCP tool) hook: before Claude opens what may be the production app in a browser, the user confirms.
+# Any MCP tool whose input has a `url` (Claude in Chrome's navigate, a Firefox or Safari MCP's page tools) is checked.
+# The profile keeps only the dev and stag URLs (setup never saves production), so production is guessed: another host
+# on the same domain as dev or stag (dev.abc.example → abc.example, www.abc.example, app.abc.example) makes Claude Code
+# ask the user; dev, stag and every other site open as usual.
+# Limit: the domain is the host minus its first label; a production app on another domain is not seen, and a link
+# clicked inside a page is not a navigate call.
+# No profile, or no URL on its Test envs line: nothing is checked. Any failure of its own lets the call through.
+# Plain sh, sed and grep, so it runs on macOS, Ubuntu (dash) and Windows (Git Bash).
+
+input=$(tr '\r\n' '  ') || exit 0
+field() {
+  printf '%s' "$input" | sed -n -E 's/.*"'"$1"'"[[:space:]]*:[[:space:]]*"(([^"\\]|\\.)*)".*/\1/p'
+}
+host_of() { sed -E 's#^[A-Za-z]+://([^/@]*@)?([^/:?#]+).*#\2#' | tr 'A-Z' 'a-z'; }
+
+url=$(field url)
+case "$(printf '%s' "$url" | tr 'A-Z' 'a-z')" in http://*|https://*) ;; *) exit 0 ;; esac
+host=$(printf '%s\n' "$url" | host_of)
+
+dir=$(field cwd | sed -e 's/\\\\/\\/g'); dir=${dir:-.}
+root=$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)
+profile=$(cat "$dir/CLAUDE.md" "$root/CLAUDE.md" 2>/dev/null)
+envs=$(printf '%s\n' "$profile" | grep -m1 '^\*\*Test envs:\*\*')
+board=$(printf '%s\n' "$profile" | grep -m1 '^\*\*Board:\*\*' | sed -n -E 's#.*`([^/` ]+)/.*#\1#p' | tr 'A-Z' 'a-z')
+hosts=$(printf '%s\n' "$envs" | grep -oE 'https?://[^ );,`]+' | host_of)
+[ -n "$hosts" ] || exit 0
+
+for h in $hosts $board; do [ "$host" = "$h" ] && exit 0; done   # the test envs and the board's host
+for h in $hosts; do
+  case "$h" in *[!0-9.]*.*.*) base=${h#*.} ;; *) continue ;; esac   # IP addresses and two-label hosts: no guess
+  case "$host" in "$base"|*".$base")
+    printf '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"ask","permissionDecisionReason":"ba-qa-kit: %s is on the same domain as the test envs (%s) but is not one of them, so it may be production, where test steps would change real data. Allow only if you mean to open it."}}\n' "$url" "$(echo $hosts)"
+    exit 0 ;;
+  esac
+done
+exit 0
