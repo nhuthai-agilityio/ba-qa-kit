@@ -9,7 +9,7 @@ Repo for the BA/QA Claude Code kit: one plugin, `ba-qa-kit` in `plugins/ba-qa-ki
 - `/sync-gitlab`: after a merge, push `main` to GitLab.
 
 ## Conventions
-- Project settings live in the project profile block in `CLAUDE.md` (`plugins/ba-qa-kit/references/project-profile.md`). The profile is the only settings the skills read; `/ba-qa-kit:setup` alone also adds the guard rules to `.claude/settings.json`. The shared rules for BA files and the progress line are in `references/ba-files.md`. Old wording kept for reference: no other config file, the shared rules for BA files and the progress line are in `references/ba-files.md`.
+- Project settings live in the project profile block in `CLAUDE.md` (`plugins/ba-qa-kit/references/project-profile.md`). The profile is the only settings the skills read; `/ba-qa-kit:setup` alone also adds the guard rules to `.claude/settings.json`. The shared rules for BA files and the progress line are in `references/ba-files.md`.
 - Kit skills live in `plugins/ba-qa-kit/skills/<skill>/SKILL.md`. Each description says what the skill does, then "Use when …". Keep `SKILL.md` at 200 lines or fewer.
 - A pull request that changes anything under `plugins/ba-qa-kit/` raises `version` in `plugins/ba-qa-kit/.claude-plugin/plugin.json`. Installed copies only update when it changes. If another open pull request raised it too, the second one to merge raises it again.
 - Kit files (`plugins/`, `.claude/`, `.github/`, `README.md`, this file) are in English, and so are the outputs the skills write.
