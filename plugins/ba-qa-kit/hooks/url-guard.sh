@@ -3,7 +3,7 @@
 # The profile keeps only the dev and stag URLs (setup never saves production), so production is guessed: another host
 # on the same domain as dev or stag (dev.abc.example → abc.example, www.abc.example, app.abc.example) is blocked; dev,
 # stag and every other site open as usual.
-# ponytail: the domain is the host minus its first label; a production app on another domain is not seen, and a link
+# Limit: the domain is the host minus its first label; a production app on another domain is not seen, and a link
 # clicked inside a page is not a navigate call.
 # No profile, or no URL on its Test envs line: nothing is checked. Exit 2 blocks; any failure of its own exits 0.
 # Plain sh, sed and grep, so it runs on macOS, Ubuntu (dash) and Windows (Git Bash).
