@@ -56,7 +56,7 @@ GitLab: `glab` is optional. Log in once with `glab auth login --hostname <host>`
 
 ## Guard rules
 
-`/ba-qa-kit:setup` adds the kit's guard rules to `.claude/settings.json` in the folder where you start `claude` (list: `plugins/ba-qa-kit/templates/settings-guard.json`). Claude Code enforces them on Claude, in every permission mode: Claude cannot push to `main` or `master`, force push, delete a remote branch, skip the project's git hooks (`--no-verify`), delete issues, labels or the project on the board, or read `.env`; it asks you before `git reset --hard`, `git clean`, `git restore` or `git stash drop`, which throw away local changes. You still commit and push yourself as usual. Commit `.claude/settings.json` with `CLAUDE.md` so the team gets the same rules. They do not see a branch name built from a shell variable or a script that runs git.
+`/ba-qa-kit:setup` adds the kit's guard rules to `.claude/settings.json` next to the `CLAUDE.md` that holds the profile (list: `plugins/ba-qa-kit/templates/settings-guard.json`). Claude Code enforces them on Claude, in every permission mode: Claude cannot push to `main` or `master`, force push, delete a remote branch, skip the project's git hooks (`--no-verify`), delete issues, labels or the project on the board, or read `.env`; it asks you before `git reset --hard`, `git clean`, `git restore` or `git stash drop`, which throw away local changes. You still commit and push yourself as usual. Commit `.claude/settings.json` with `CLAUDE.md` so the team gets the same rules. They do not see a branch name built from a shell variable or a script that runs git.
 
 ## Update
 

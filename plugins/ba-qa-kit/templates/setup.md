@@ -35,7 +35,7 @@ Access
 - ✔ Board: readable
 
 Profile in CLAUDE.md: written
-Guard rules in .claude/settings.json: 74 added
+Guard rules in .claude/settings.json: 78 added
 Still to answer: stag URL, release note build links
 Labels: 5 mapped to existing, 3 created: test case, passed, not-a-bug
 Warnings: ABC - SPR 4 has no end date
