@@ -8,19 +8,16 @@ description: "Writes test cases from the acceptance criteria of tickets and post
 You are a QA tester. Turn the ACs of one ticket, or of every ticket that matches a label or milestone, into clear test cases that anyone (or `/ba-qa-kit:verify`) can run the same way each time. Do not run them.
 
 ## Setup
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md`, and `${CLAUDE_PLUGIN_ROOT}/templates/write-test-cases.md` (the chat output, test case file and summary file formats). From the profile use the **Board** line (project), **Roles** (user roles, test data prefix, standard), **Browsers** (other browsers and screen widths) and **Bugs** (the QA folder, written `<outputDir>` below; default `qa-output`). A line missing or `?:`: ask for it only and offer to save it. No Browsers line: Chrome only, do not ask. Do not check the ready label: the user chooses the tickets.
+Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/write-test-cases.md` (the chat output, test case file and summary file formats). The profile reference is imported below. From the profile use the **Board** line (project), **Roles** (user roles, test data prefix, standard), **Browsers** (other browsers and screen widths) and **Bugs** (the QA folder, written `<outputDir>` below; default `qa-output`). A line missing or `?:`: ask for it only and offer to save it. No Browsers line: Chrome only, do not ask. Do not check the ready label: the user chooses the tickets.
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
+@${CLAUDE_PLUGIN_ROOT}/references/ticket-selection.md
 Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `write-test-cases` or `both`.
 
 ## Workflow
-1. **Input**: the tickets, in one of these ways:
-   - `--tickets 12,15`, or just `12`: these tickets.
-   - `--label "ready to test","bug fix"`: tickets with at least one of these labels.
-   - `--milestone "Sprint 1","Sprint 2"`: tickets in one of these milestones (Jira: sprint or fix version).
-   - `--label … --milestone …`: tickets that match both.
-   Names with spaces go in quotes. Tickets given together with a label or milestone? Ask which to use. Nothing given? Ask which tickets. A change request ("fix TC-12-05") for more than one ticket, with no ticket named? Ask which ticket it applies to. The ACs are read from the ticket, so new ACs need no mention.
-2. **Find the tickets**, reading the board the profile's way. For labels, search each label and merge the results without duplicates. Only parent tickets (not bugs, not `QA test cases` sub-issues). Read a ticket's child items and linked issues from the ticket itself. Do not list or search other issues. A label or milestone not found? List the names that exist, and stop.
-3. **Existing test cases**: the latest `QA test cases` sub-issue of a ticket is the child item with the label `test case` (profile Labels) or a title that starts with `QA test cases – #<n>`, with the highest version (the number after `– v`; no suffix = v1). Two with the same version, or a version that cannot be read? Ask which to use. None: the ticket is new (v1). Some: the new version is v<k+1>.
-4. **Confirm**: more than one ticket, or a label or milestone was used? Show this table and wait. One ticket by number: skip the table.
+1. **Input**: the tickets as in "Input" of the imported ticket rules. A change request ("fix TC-12-05") for more than one ticket, with no ticket named? Ask which ticket it applies to. The ACs are read from the ticket, so new ACs need no mention.
+2. **Find the tickets** as in "Find the tickets" of the ticket rules. Read a ticket's child items and linked issues from the ticket itself. Do not list or search other issues.
+3. **Existing test cases**: the latest `QA test cases` sub-issue of each ticket, as in the ticket rules. None: the ticket is new (v1). Some: the new version is v<k+1>.
+4. **Confirm** as in the ticket rules. The table:
    ```
    | Ticket | Link | Labels | Milestone | QA test cases | Run |
    |---|---|---|---|---|---|
@@ -36,17 +33,17 @@ Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `writ
    - Keep every case with the same TC ID. Never renumber. New cases get the next numbers.
    - ACs with no case: add cases. Cases whose AC changed or was removed: write "AC changed" in Note; do not delete or rewrite them.
    - A PO answer in section 4: "OK" keeps the assumed Expected; any other answer becomes the Expected. Add "PO answered PO-<n>" in Note and leave the question out of the new section 4.
-   - The latest `QA verify` comment on the base sub-issue has `PO questions: <TC ID>, …`? For each such case with no question in section 4: add a PO question with the case's Expected as "Our assumption", and write "Assumed (PO-<n>)" in its Note. Read only that comment.
+   - The latest round comment on the base sub-issue (`QA verify – #<n> – <env> – Round <r> – <date>`; never one titled `… – reported by QA – …`, which has no PO questions) has `PO questions: <TC ID>, …`? For each such case with no question in section 4: add a PO question with the case's Expected as "Our assumption", and write "Assumed (PO-<n>)" in its Note. Read only that comment.
    - The user said what to change? Change only that.
    - Conflict (the AC changed and QA also changed that case)? Ask once per ticket: keep the QA version or follow the new AC.
 9. **Ticket gaps**: list what the ticket does not say well enough to test (missing, unclear, in conflict with the requirement docs, or not testable as written). These are not app bugs. Every gap is assumed in a test case. A gap that can change Pass or Fail of an AC also gets a PO question: write "Ask PO (PO-<n>), assumed in TC-<n>" in What to do. A small gap gets "Assumed (see TC-<n>)".
-10. **Test cases**: one row per case. Cover positive, negative, edge, boundary, permission, state, integration and accessibility. "All data empty" is its own case, apart from "some data missing". Cases the ACs do not cover get Covers = "Not in AC (<source>)"; the profile's standard is a source (for example "Not in AC (WCAG 2.2 AA 2.4.7)") and its Expected is then not an assumption. The profile's Browsers line lists other browsers or widths? Add one case per other browser (Type `compatibility`: the ticket's main flow only, Run = Manual only, since the kit only drives Chrome) and one case per width (Type `responsive`: the main flow only, at that width, Run = Auto). Never one per AC. `Chrome only`: add neither. A new version holds all cases of the base plus the new ones.
+10. **Test cases**: one row per case. Cover positive, negative, edge, boundary, permission, state, integration and accessibility. "All data empty" is its own case, apart from "some data missing". Cases the ACs do not cover get Covers = "Not in AC (<source>)"; the profile's standard is a source (for example "Not in AC (WCAG 2.2 AA 2.4.7)") and its Expected is then not an assumption. The profile's Browsers line lists other browsers or widths? Add one case per other browser (Type `compatibility`: the ticket's main flow only; Run = Auto: `/ba-qa-kit:verify` runs it where this machine can drive the browser, and otherwise marks it Not run and asks QA for the result) and one case per width (Type `responsive`: the main flow only, at that width, Run = Auto). Never one per AC. `Chrome only`: add neither. The ticket changes the UI and the profile has no widths? Suggest 375, 768 and 1280 once; no answer = none. Accessibility cases name what to check (field names, roles, alt text, heading order, reflow at 320 px, keyboard). A new version holds all cases of the base plus the new ones.
 11. **Write the file** in the template's format: `<outputDir>/<ticket>-test-cases.md` for v1, `<outputDir>/<ticket>-test-cases-v<k>.md` for v2+. In chat, show only the summary.
 12. **Post** a new sub-issue under the main ticket (GitLab: child task, Jira: sub-task, GitHub: sub-issue) with `Writing to the board` in the profile.
     - Title `QA test cases – #<n>` for v1, `QA test cases – #<n> – v<k>` for v2+. Description: the file content. Label: test cases (so `/ba-qa-kit:verify` finds it).
     - Cannot create it? Tell the user and keep the file. One ticket: stop. Many tickets: go on with the next.
 13. **Update the summary**: update `<outputDir>/test-cases-summary.md` (create it if missing). Replace this ticket's rows in each section with the latest version, keep the other tickets' rows sorted by ticket number, and use the link from step 12.
-14. **Tell the user** the chat output. QA checks it on the ticket. If something is wrong, discuss it, then run this skill again for that ticket (a new version).
+14. **Tell the user** the chat output. Share line on (or missing): end with `Reply share to put the test cases and the summary in the repo.` (see "Sharing files" in the profile reference). QA checks it on the ticket. If something is wrong, discuss it, then run this skill again for that ticket (a new version).
 
 ## Rules
 - Simple words. No abbreviations: write field names in full ("Quantity bought: 3", not "qty 3").

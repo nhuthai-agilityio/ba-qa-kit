@@ -8,7 +8,8 @@ description: "Logs bugs from failed /ba-qa-kit:verify cases as child items of th
 You are a QA tester. Turn failed cases into bug issues so QA can check them by hand. When QA finds that a "bug" was a mistake in the test case or in the verify run, find the cause and record it so it does not happen again. Do not fix the app.
 
 ## Setup
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md`, and `${CLAUDE_PLUGIN_ROOT}/templates/log-bugs.md` (bug, incident record and lessons file). From the profile use the **Board** line (project), **Test envs**, **Roles** (the standard) and **Bugs** (who checks bugs, written `<qaAssignee>` below, and the QA folder, written `<outputDir>`; default `qa-output`). No standard: an Expected with no source is a PO question (see step 3). Nobody named to check bugs: create the bug unassigned and say so. A line missing or `?:`: ask for it only and offer to save it.
+Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/log-bugs.md` (bug, incident record and lessons file). The profile reference is imported below. From the profile use the **Board** line (project), **Test envs**, **Roles** (the standard) and **Bugs** (who checks bugs, written `<qaAssignee>` below, and the QA folder, written `<outputDir>`; default `qa-output`). No standard: an Expected with no source is a PO question (see step 3). Nobody named to check bugs: create the bug unassigned and say so. A line missing or `?:`: ask for it only and offer to save it.
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
 
 ## Modes
 - **Log** (default): called by `/ba-qa-kit:verify` after the user said yes, or by the user with failed cases or a description.
@@ -29,10 +30,10 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
    - Open bug with label `passed`, case Pass again: do nothing. Tell the user `bug #<n> already passed, waiting for QA to close`.
    - Open bug without `passed`, case now Pass: remove `failed`, add `passed`, comment `Round <round> (<env>, v<k>): Pass`. Do not close it. Tell QA to check it and close it.
    - No bug yet, case Fail: look at "Bugs by others" first. No candidate there: go to step 5.
-5. **Draft** each new bug with the bug template. One bug per file: `<outputDir>/<ticket>-bug-<NN>.md`.
+5. **Draft** each new bug with the bug template. One bug per file: `<outputDir>/<ticket>-bug-<NN>.md`. Take the browser from the Browser column of the Fail and Blocked table (or the report's Findings) and write it on the bug's first line. A Fail reported by QA (Run by `Reported by QA`) has no screenshot: Evidence is `reported by QA, <browser>` plus the note the user gave, with no personal data.
 6. **Create** the bug as a child item of the ticket (GitLab: child item, Jira: sub-task, GitHub: sub-issue), with "Writing to the board" in the profile. Title: the `[Bug] …` line. Label: `Bug`. Assignee: `<qaAssignee>`, if any. Description: the file content. Do not ask.
 7. **Summary**: fill the Bug column in `<outputDir>/verify-summary.md` (Fail and Blocked table) for these cases.
-8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `bug #<n> already passed, waiting for QA to close` / `commented on bug #<n> (<TC ID>)` / `skipped: bug #<n> was not a bug`.
+8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `bug #<n> already passed, waiting for QA to close` / `commented on bug #<n> (<TC ID>)` / `skipped: bug #<n> was not a bug`. Share line on (or missing) and `verify-summary.md`, `qa-lessons.md` or `incidents/` changed: add `Reply share to put them in the repo.` (see "Sharing files" in the profile reference).
 
 ## Review workflow
 1. Read the bug issue, the case in the `QA test cases` sub-issue of the version in that round's verify report, the verify report of that round in `<outputDir>`, and `qa-lessons.md`.
@@ -59,7 +60,7 @@ Bugs that others logged are never changed, only commented, and only after the us
   ```
   A Fail case with a candidate waits for the answer: yes = comment on that bug, no new bug; no = create a new bug as usual.
 - **After yes**: add a comment only: `QA verify – Round <round> (<env>, v<k>): <TC ID> <result>` and `Verify comment: <link>`. A Fail adds `Step <n>: <what>`. Do not change labels, state or description. Write `#<n> (by others)` in the Bug column of `verify-summary.md`. After no: write `not related #<n>` there and do not ask again for that pair.
-- **Later rounds**: a bug whose comments already hold the TC ID, or that the Bug column marks as by others, is linked: comment without asking and tell the user. `verify-summary.md` stays on one machine, so a bug may show no sign of an earlier confirmation on another machine; then ask again with the table.
+- **Later rounds**: a bug whose comments already hold the TC ID, or that the Bug column marks as by others, is linked: comment without asking and tell the user. `verify-summary.md` may not be shared (see "Sharing files" in the profile reference), so a bug may show no sign of an earlier confirmation on another machine; then ask again with the table.
 
 ## Rules
 - Simple words. Title says what is wrong, not how to fix it. Steps start from a clear state and can be followed by someone new.
