@@ -56,7 +56,7 @@ GitLab: `glab` is optional. Log in once with `glab auth login --hostname <host>`
 
 ## Push guard
 
-The kit has a hook that stops Claude from pushing to `main` or `master` and from force pushing, in any project where the kit is installed. Claude creates a branch and you open a merge request instead. The hook runs on macOS, Linux and Windows (Git Bash, which Claude Code needs on Windows). It does not see a branch name built from a shell variable or a script that pushes, and it only binds Claude: a push you type in a terminal or GitHub Desktop is not checked, so keep `main` a protected branch on GitLab (Settings → Repository → Protected branches: no one allowed to force push; only Maintainers allowed to push).
+The kit has a best-effort hook that stops Claude from pushing to `main` or `master` and from force pushing, in any project where the kit is installed. Claude creates a branch and you open a merge request instead. The hook runs on macOS, Linux and Windows (Git Bash, which Claude Code needs on Windows). It does not see a branch name built from a shell variable or a script that pushes, and it only binds Claude: a push you type in a terminal or GitHub Desktop is not checked, so keep `main` a protected branch on GitLab (Settings → Repository → Protected branches: no one allowed to force push; only Maintainers allowed to push).
 
 ## Update
 
