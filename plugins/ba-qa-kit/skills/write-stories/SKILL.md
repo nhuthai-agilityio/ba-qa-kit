@@ -32,7 +32,7 @@ If the Questions List or sources are missing, ask for them, or suggest running `
    - **Content**: every answered question and rule for this feature appears in an A/C or error line; every screen state (empty, loading, error, success) is covered or raised as a question; no A/C is written from a pending question.
 5. **Save the draft** (see File below). Don't paste the stories in chat; the user reviews the file.
 6. **Board** (read-only until go): read `${CLAUDE_PLUGIN_ROOT}/references/write-stories-board.md`. Plan the board, show the review summary, then **stop and show the progress line**.
-7. **On go**: follow "On go" in the board file.
+7. **On go**: follow "On go" in the board file. Its text is no longer in this conversation (a later turn, or after a compaction)? Read the file again first.
 
 ## Rules
 
