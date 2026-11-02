@@ -1,6 +1,6 @@
 # User Stories Template
 
-Used by `write-stories`. Replace this file to use a different template. The board issue copies each story's body as it is (see `ticket-template.md`).
+Used by `write-stories`. Replace this file to use a different template. The board issue copies each story's body as it is (see `write-stories-ticket.md`).
 
 ## Format
 
