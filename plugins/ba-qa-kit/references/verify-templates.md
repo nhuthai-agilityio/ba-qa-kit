@@ -80,6 +80,6 @@ Latest round only.
 
 ## 3. Fail and Blocked
 Latest round only. Sort the rows by Type (Bug, Spec mismatch, PO question, Test limit, Env issue), then by TC ID.
-| Env | Ticket | Test case | Status | Type | Severity | What happened | Bug | Full report |
-|---|---|---|---|---|---|---|---|---|
+| Env | Ticket | Test case | Browser | Status | Type | Severity | What happened | Bug | Full report |
+|---|---|---|---|---|---|---|---|---|---|
 ```
