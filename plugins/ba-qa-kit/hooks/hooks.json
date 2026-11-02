@@ -10,12 +10,38 @@
             "timeout": 10
           }
         ]
+      },
+      {
+        "matcher": "startup|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/gate.sh\" reset",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/gate.sh\" prompt",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "PreToolUse": [
       {
         "matcher": "Bash|Write|Edit|MultiEdit",
         "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/gate.sh\" tool",
+            "timeout": 10
+          },
           {
             "type": "command",
             "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/secret-guard.sh\"",
@@ -29,6 +55,18 @@
           {
             "type": "command",
             "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/url-guard.sh\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Skill",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"${CLAUDE_PLUGIN_ROOT}/hooks/gate.sh\" skill",
             "timeout": 10
           }
         ]

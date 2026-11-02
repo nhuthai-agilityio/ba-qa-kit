@@ -1,5 +1,5 @@
 #!/bin/sh
-# Runs url-guard.sh and secret-guard.sh on inputs they must block and inputs they must let through.
+# Runs url-guard.sh, secret-guard.sh and gate.sh on inputs they must block and inputs they must let through.
 # Usage: sh hooks.test.sh [shell...]   (default: sh; CI also runs bash, and dash on Linux)
 here=$(cd "$(dirname "$0")" && pwd)
 shells=${*:-sh}
@@ -70,6 +70,60 @@ echo "notes" > "$R/notes.md"
 git -C "$R" add notes.md && git -C "$R" -c user.name=t -c user.email=t@t commit -q -m notes
 run 0 secret-guard.sh "$(sh_ 'git push -u origin docs/notes')"
 run 0 secret-guard.sh "$(sh_ 'git commit --allow-empty -m \"docs: contract notes\"')"
+
+# --- gate: what the user types opens or closes it; board and git writes wait while it is pending
+G=$tmp/gate; mkdir -p "$G"
+say() { for shell in $shells; do printf '{"cwd":"%s","prompt":"%s"}' "$G" "$1" | "$shell" "$here/gate.sh" prompt; done; }
+skill() { printf '{"cwd":"%s","tool_name":"Skill","tool_input":{"skill":"%s"}}' "$G" "$1" | CLAUDE_PLUGIN_ROOT="$here/.." sh "$here/gate.sh" skill; }
+bash_() { printf '{"cwd":"%s","tool_name":"Bash","tool_input":{"command":"%s"}}' "$G" "$1"; }
+wr_() { printf '{"cwd":"%s","tool_name":"Write","tool_input":{"file_path":"%s","content":"x"}}' "$G" "$1"; }
+run_gate() { for shell in $shells; do printf '%s' "$2" | "$shell" "$here/gate.sh" tool 2>/dev/null; got=$?; [ "$got" = "$1" ] || { echo "FAIL ($shell, gate): expected $1, got $got: $2" | cut -c1-200; fails=$((fails + 1)); }; done; }
+# no gate file yet: nothing blocked
+run_gate 0 "$(bash_ 'glab issue create -t x')"
+run_gate 0 "$(bash_ 'git commit -m x')"
+say '/ba-qa-kit:write-stories 412'
+run_gate 2 "$(bash_ 'glab issue create -t \"[US-01] x\" -l \"user story\"')"
+run_gate 2 "$(bash_ 'glab issue note 5 -m done')"
+run_gate 2 "$(bash_ 'glab api --hostname h -X POST projects/1/labels -f name=x')"
+run_gate 2 "$(bash_ 'git add CLAUDE.md && git commit -m x')"
+run_gate 2 "$(bash_ 'git push -u origin docs/x')"
+run_gate 2 "$(wr_ "$G/CLAUDE.md")"
+run_gate 2 "$(wr_ "$G/.claude/settings.json")"
+run_gate 0 "$(wr_ "$G/ba-output/user-stories-412-v1.md")"
+run_gate 0 "$(bash_ 'glab issue view 412 --comments')"
+run_gate 0 "$(bash_ 'git status && git log --oneline')"
+say 'change US-02 please'
+run_gate 2 "$(bash_ 'glab issue create -t x')"
+say 'Go!'
+run_gate 0 "$(bash_ 'glab issue create -t x')"
+run_gate 0 "$(bash_ 'git commit -m x')"
+say 'actually wait'
+run_gate 2 "$(bash_ 'glab issue create -t x')"
+say 'duyệt'
+run_gate 0 "$(bash_ 'glab issue create -t x')"
+say 'ok'
+run_gate 2 "$(bash_ 'glab issue create -t x')"
+say 'share'
+run_gate 0 "$(bash_ 'git push -u origin docs/x')"
+# typed run commands post without a go; a yes inside the run keeps it
+say '/ba-qa-kit:verify #415 --env dev'
+run_gate 0 "$(bash_ 'glab issue note 9 -m \"QA verify\"')"
+say 'yes'
+skill 'ba-qa-kit:log-bugs'
+run_gate 0 "$(bash_ 'glab issue create -t \"[Bug] x\"')"
+# a skill Claude loads on its own: pending
+say '/ba-qa-kit:find-gaps 1'
+say 'go'
+skill 'ba-qa-kit:write-stories'
+run_gate 2 "$(bash_ 'glab issue create -t x')"
+# a new conversation clears it
+printf '{"cwd":"%s","source":"startup"}' "$G" | sh "$here/gate.sh" reset
+run_gate 0 "$(bash_ 'glab issue create -t x')"
+say '/ba-qa-kit:setup'
+# the gate file itself
+run_gate 2 "$(bash_ 'echo go > .ba-qa-kit/gate')"
+run_gate 2 "$(wr_ "$G/.ba-qa-kit/gate")"
+[ "$(cat "$G/.ba-qa-kit/.gitignore")" = '*' ] || { echo "FAIL: .ba-qa-kit/.gitignore"; fails=$((fails + 1)); }
 
 [ "$fails" -eq 0 ] && echo "hooks: all cases pass ($shells)"
 exit "$fails"
