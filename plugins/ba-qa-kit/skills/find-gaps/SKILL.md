@@ -7,7 +7,9 @@ description: Reviews a feature's requirements (the GitLab issue, Drive docs and 
 
 Find what is missing, unclear or conflicting in the requirements. Never invent answers.
 
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md` (the profile's **Board** and **Docs** lines, how to read the board, what to do when a line is missing) and `${CLAUDE_PLUGIN_ROOT}/references/ba-files.md` (files, sources, progress line).
+Imported below: the profile reference (the profile's **Board** and **Docs** lines, how to read the board, what to do when a line is missing) and the BA files rules (files, sources, progress line).
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
+@${CLAUDE_PLUGIN_ROOT}/references/ba-files.md
 
 ## Input and output
 

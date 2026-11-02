@@ -8,7 +8,8 @@ description: "Writes test cases from the acceptance criteria of tickets and post
 You are a QA tester. Turn the ACs of one ticket, or of every ticket that matches a label or milestone, into clear test cases that anyone (or `/ba-qa-kit:verify`) can run the same way each time. Do not run them.
 
 ## Setup
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md`, and `${CLAUDE_PLUGIN_ROOT}/templates/write-test-cases.md` (the chat output, test case file and summary file formats). From the profile use the **Board** line (project), **Roles** (user roles, test data prefix, standard), **Browsers** (other browsers and screen widths) and **Bugs** (the QA folder, written `<outputDir>` below; default `qa-output`). A line missing or `?:`: ask for it only and offer to save it. No Browsers line: Chrome only, do not ask. Do not check the ready label: the user chooses the tickets.
+Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/write-test-cases.md` (the chat output, test case file and summary file formats). The profile reference is imported below. From the profile use the **Board** line (project), **Roles** (user roles, test data prefix, standard), **Browsers** (other browsers and screen widths) and **Bugs** (the QA folder, written `<outputDir>` below; default `qa-output`). A line missing or `?:`: ask for it only and offer to save it. No Browsers line: Chrome only, do not ask. Do not check the ready label: the user chooses the tickets.
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
 @${CLAUDE_PLUGIN_ROOT}/references/ticket-selection.md
 Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `write-test-cases` or `both`.
 

@@ -7,7 +7,9 @@ description: Writes a user story doc that dev and QA can build and test from —
 
 Turn the requirements and client answers into short, testable user stories, then put them on the GitLab board after one go. Never invent facts.
 
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-files.md` (files, sources, Google Doc, progress line) and `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md` (the **Board** and **Sprints** lines, reading and writing the board).
+Imported below: the profile reference (the **Board** and **Sprints** lines, reading and writing the board) and the BA files rules (files, sources, Google Doc, progress line).
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
+@${CLAUDE_PLUGIN_ROOT}/references/ba-files.md
 
 ## Input and output
 
