@@ -2,7 +2,7 @@
 
 One Claude Code plugin, `ba-qa-kit` (`plugins/ba-qa-kit`), in the marketplace `ba-qa-kit`. It holds the BA and the QA skills; everyone installs the same plugin.
 
-- `/ba-qa-kit:setup` checks access to GitLab (glab, else Chrome), finds what it can on the board, asks only for the rest, and writes a short project profile into `CLAUDE.md` in the folder where you start `claude`. Every skill reads that profile; nobody opens a config file. To change a setting, say it: `/ba-qa-kit:setup change the dev URL to …`.
+- `/ba-qa-kit:setup` checks access to GitLab (glab, else Chrome), finds what it can on the board, asks only for the rest, and writes a short project profile into `CLAUDE.md` in the folder where you start `claude`. Every skill reads that profile; nobody opens a config file. Setup also adds the kit's guard rules to `.claude/settings.json` (see Guard rules). To change a setting, say it: `/ba-qa-kit:setup change the dev URL to …`.
 - BA: from a ticket to user stories with acceptance criteria on the GitLab board, plus sprint status and release notes. In workflow order:
   - `/ba-qa-kit:find-gaps` reviews a ticket's GitLab issue and Drive docs and writes a Gap Report of missing, unclear and conflicting points.
   - `/ba-qa-kit:write-questions` turns a Gap Report into a clarification Questions List for the client or PO.
@@ -43,7 +43,7 @@ Inside Claude Code:
 
 ## Project profile
 
-The profile is a short block in `CLAUDE.md` (Board, Sprints, Docs, Test envs, Roles, Bugs, Release note). Claude Code reads `CLAUDE.md` in every session, so skills need no config file. A line nobody knows yet stays `?:`; the first skill that needs it asks and offers to save the answer. Commit `CLAUDE.md` when the folder is a git repo, so teammates get the same profile with `git pull`. Format: `plugins/ba-qa-kit/references/project-profile.md`.
+The profile is a short block in `CLAUDE.md` (Board, Sprints, Docs, Test envs, Roles, Bugs, Release note). Claude Code reads `CLAUDE.md` in every session, so skills need no other settings file (setup alone adds the guard rules to `.claude/settings.json`). A line nobody knows yet stays `?:`; the first skill that needs it asks and offers to save the answer. Commit `CLAUDE.md` when the folder is a git repo, so teammates get the same profile with `git pull`. Format: `plugins/ba-qa-kit/references/project-profile.md`.
 
 GitLab: `glab` is optional. Log in once with `glab auth login --hostname <host>` (a token with `api` scope; VPN if the host needs it) to let the skills write to the board: issues, sub-issues, bugs, comments and labels. Without it the skills still run: they read tickets in your signed-in Chrome (`claude --chrome`) or from what you paste, and give every board change as text for you to paste. Signing in to GitLab in the browser does not let them write. Google Docs can be read, not written: the skills give the text to paste.
 
