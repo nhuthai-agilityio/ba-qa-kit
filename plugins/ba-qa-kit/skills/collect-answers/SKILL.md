@@ -26,7 +26,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-file
    - **Not answered** — nothing in the reply → Pending.
    - **Conflict** — disagrees with the GitLab issue, a Drive doc or an earlier answer.
 4. **Show a short summary in chat** (one line per question: number, status, note), plus any Unmatched parts, and name the file or doc that will be updated. Then **stop and show the progress line**. Do not change the file until the user replies; their **go** covers writing to that file or doc.
-5. **On go, update the Questions List** following the Answers section of `${CLAUDE_PLUGIN_ROOT}/skills/write-questions/assets/template.md`: under each question or sub-question, `→ Answer (<role>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. The list lives in a Google Doc: update the local copy (create it from the doc if missing) and give the answer lines, each under its question number, as text to paste into the doc.
+5. **On go, update the Questions List** following the Answers section of `${CLAUDE_PLUGIN_ROOT}/templates/write-questions.md`: under each question or sub-question, `→ Answer (<role>, <Mon DD, YYYY>): <client's words>`. Do not create a new file. The list lives in a Google Doc: update the local copy (create it from the doc if missing) and give the answer lines, each under its question number, as text to paste into the doc.
 6. **Check the file** after writing: read it again and confirm every answer line and every follow-up named in the summary is there, under the right number. Something missing: add it, and say what was fixed. Report only what the file holds.
 
 ## Rules

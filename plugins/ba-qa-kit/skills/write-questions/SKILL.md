@@ -19,7 +19,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-file
 ## Steps
 
 1. **Get the Gap Report.** If none exists, run `/ba-qa-kit:find-gaps` first and wait at its progress line for the user's go. Or ask the user to paste the gaps. A Gap Report is a list of gaps, each with an impact (High, Medium or Low), the screen or part it belongs to, and a one-line description of what is missing or unclear.
-2. **Load the template** from `assets/template.md` (a template the user provides replaces it completely).
+2. **Load the template** from `${CLAUDE_PLUGIN_ROOT}/templates/write-questions.md` (a template the user provides replaces it completely).
 3. **Group** questions by part and screen, in user-flow order (login → home → features → settings).
 4. **One question per gap**; High-impact first. Every High gap must have a question, in the list or under "Ask the team first". A team point the team can't answer becomes a client question in the next round.
 5. **Skip** anything the GitLab issue, the docs (see "Sources" in `ba-files.md`), the design or an earlier Questions List already answers. A point the team can answer (tech, small UI details) is not a client question: decide it as an assumption, or list it in chat under "Ask the team first" (see Progress).
