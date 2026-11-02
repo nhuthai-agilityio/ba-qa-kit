@@ -117,6 +117,7 @@ run_gate 0 "$(bash_ 'git push -u origin docs/x')"
 # typed run commands post without a go; a yes inside the run keeps it
 say '/ba-qa-kit:verify #415 --env dev'
 run_gate 0 "$(bash_ 'glab issue note 9 -m \"QA verify\"')"
+run_gate 0 "$(bash_ 'glab issue note 9 -m \"QA verify – #415 – dev – Round 1 – reported by QA – 2026-11-02\"')"
 say 'yes'
 skill 'ba-qa-kit:log-bugs'
 run_gate 0 "$(bash_ 'glab issue create -t \"[Bug] x\"')"
