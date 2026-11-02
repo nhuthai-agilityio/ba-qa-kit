@@ -1,6 +1,6 @@
 #!/bin/sh
-# Runs block-protected-push.sh on commands it must block and commands it must let through.
-# Usage: sh block-protected-push.test.sh [shell...]   (default: sh; CI also runs dash and bash)
+# Runs guard-commands.sh on commands it must block and commands it must let through.
+# Usage: sh guard-commands.test.sh [shell...]   (default: sh; CI also runs dash and bash)
 here=$(cd "$(dirname "$0")" && pwd)
 shells=${*:-sh}
 tmp=$(mktemp -d) && trap 'rm -rf "$tmp"' EXIT
@@ -13,7 +13,7 @@ fails=0
 check() {
   for shell in $shells; do
     printf '{"session_id":"x","cwd":"%s","tool_name":"Bash","tool_input":{"command":"%s","description":"git push origin main"}}' "$2" "$3" \
-      | "$shell" "$here/block-protected-push.sh" 2>/dev/null
+      | "$shell" "$here/guard-commands.sh" 2>/dev/null
     got=$?
     if [ "$got" != "$1" ]; then echo "FAIL ($shell): expected $1, got $got: $3"; fails=$((fails + 1)); fi
   done
@@ -53,7 +53,25 @@ check 2 "$F" 'git checkout main && git merge feat && git push'
 check 2 "$F" 'git switch master; git pull; git push -u origin'
 check 2 "$F" 'GIT_TRACE=1 git push origin main'
 check 2 "$F" 'env X=1 git push origin main'
+check 2 "$F" 'glab issue delete 12'
+check 2 "$F" 'glab label delete Bug -R g/p'
+check 2 "$F" 'glab repo delete g/p --yes'
+check 2 "$F" 'glab api -X DELETE projects/1/issues/2'
+check 2 "$F" 'glab api --hostname gitlab.example.com --method DELETE projects/1/labels/3'
+check 2 "$F" 'glab api -XDELETE projects/1/issues/2'
+check 2 "$F" 'glab api --method=delete projects/1/issues/2'
+check 2 "$F" 'gh issue delete 3 --yes'
+check 2 "$F" 'gh api -X DELETE repos/o/r/labels/bug'
+check 2 "$F" 'bash -c \"glab issue delete 1\"'
+check 2 "$F" 'glab issue view 5 && glab issue delete 5'
 # allowed
+check 0 "$F" 'glab issue view 5 -F json --comments'
+check 0 "$F" 'glab issue close 5'
+check 0 "$F" 'glab issue note 5 -m \"please delete the old row\"'
+check 0 "$F" 'glab api --hostname h -X POST projects/1/labels'
+check 0 "$F" 'glab label list'
+check 0 "$F" 'gh issue list --label bug'
+check 0 "$F" 'echo \"glab issue delete 5\"'
 check 0 "$F" 'git push origin feat'
 check 0 "$F" 'git push -u origin feat'
 check 0 "$F" 'git push origin HEAD:feat'
@@ -76,5 +94,5 @@ check 0 "$F" 'git checkout main -- CLAUDE.md && git push'
 check 0 "$F" 'echo \"run git push origin main\"'
 check 0 "$F" 'git commit -m \"docs: git push origin main\"'
 
-[ "$fails" -eq 0 ] && echo "block-protected-push: all cases pass ($shells)"
+[ "$fails" -eq 0 ] && echo "guard-commands: all cases pass ($shells)"
 exit "$fails"

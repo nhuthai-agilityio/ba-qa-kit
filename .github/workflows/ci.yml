@@ -39,7 +39,7 @@ jobs:
           done
           exit $status
 
-  # The push guard hook runs on the team's machines: Ubuntu (dash, mawk) and Windows (Git Bash, gawk).
+  # The command guard hook runs on the team's machines: Ubuntu (dash, mawk) and Windows (Git Bash, gawk).
   hook-test:
     strategy:
       matrix:
@@ -52,10 +52,10 @@ jobs:
         shell: bash
     steps:
       - uses: actions/checkout@v5
-      - name: block-protected-push blocks pushes to main or master and force pushes
+      - name: guard-commands blocks pushes to main or master, force pushes and board deletes
         run: |
           shells="sh bash"; [ "$RUNNER_OS" = Linux ] && shells="$shells dash"   # Claude Code on Windows runs hooks in Git Bash
-          sh plugins/ba-qa-kit/hooks/block-protected-push.test.sh $shells
+          sh plugins/ba-qa-kit/hooks/guard-commands.test.sh $shells
 
   # Installed copies only update when plugin.json version changes, so a PR that edits a plugin must raise it.
   version-bump:

@@ -54,9 +54,9 @@ GitLab: `glab` is optional. Log in once with `glab auth login --hostname <host>`
 - Test accounts: sign in to the dev or stag app in your Chrome yourself, with a shared test account (never a personal or production one). Chrome keeps you signed in. `/ba-qa-kit:verify` never types a password: at a login page, or when a case needs another role, it stops and asks you to sign in, then goes on.
 - To let `/ba-qa-kit:verify` and `/ba-qa-kit:log-bugs` follow a bug, make it a child item of the feature ticket, link it to the ticket (Linked items), or name it with `--bugs #<n>`. The skills never search the whole board. Bugs that others logged only get comments, after you confirm.
 
-## Push guard
+## Guard hook
 
-The kit has a best-effort hook that stops Claude from pushing to `main` or `master` and from force pushing, in any project where the kit is installed. Claude can still push other branches, and you can still push yourself: the hook only checks the commands Claude runs. It runs on macOS, Linux and Windows (Git Bash, which Claude Code needs on Windows). It does not see a branch name built from a shell variable or a script that pushes.
+The kit has a best-effort hook that stops Claude, in any project where the kit is installed, from pushing to `main` or `master`, from force pushing, and from deleting anything on the board (`glab … delete`, or the DELETE method in `glab api`); no skill needs to delete. Claude can still push other branches, and you can still push yourself: the hook only checks the commands Claude runs. It runs on macOS, Linux and Windows (Git Bash, which Claude Code needs on Windows). It does not see a branch name built from a shell variable, or a script that pushes or deletes.
 
 ## Update
 
