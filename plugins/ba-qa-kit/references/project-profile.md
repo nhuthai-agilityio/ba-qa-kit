@@ -12,7 +12,7 @@ Every project that uses this kit carries a short profile as a marked block in th
 **Docs:** Drive folder <link> | none
 **Test envs:** dev <URL> (ready label `<label>`); stag <URL> (ready label `<label>`). Never production.
 **Roles:** <role>, <role> · test data starts with `<prefix>` · standard <name> | none
-**Browsers:** Chrome only | Chrome, Firefox (MCP), Safari (by hand) · widths <px>, <px>
+**Browsers:** Chrome only | Chrome, Firefox (MCP), Safari (MCP) · widths <px>, <px>
 **Bugs:** assigned to @<GitLab username> | nobody fixed · QA files in `<folder>/`
 **Release note:** project <name>; build links: <name> <location>; …
 **Labels:** story `<label>` · open questions `<label>` · known issue `<label>` · test cases `<label>` · bug `<label>` · failed `<label>` · passed `<label>` · not a bug `<label>`
@@ -33,7 +33,7 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Release note | release-note |
 | Labels | write-stories, track-status, release-note, write-test-cases, verify, log-bugs |
 
-Browsers: Chrome is driven by Claude in Chrome. `(MCP)` marks a browser driven through its own MCP (only Firefox: install the Firefox DevTools MCP from https://firefox-source-docs.mozilla.org/ai-agent-tools/firefox-devtools-mcp.html, Node 20.19+). Tested with `@mozilla/firefox-devtools-mcp-moz` 0.10.7 and Firefox 159 on Windows: open a page, resize the viewport, read the page snapshot, and a profile given with `--profile-path` keeps cookies after Firefox restarts. Start it with `--tool-preset developer`, because the default preset has no console or network tools, and put a path with spaces in quotes (for example `--firefox-path "C:\Program Files\Mozilla Firefox\firefox.exe"`). Not tested: signing in to a real dev or stag app. Screenshots saved with `saveTo` must use a relative path; `verify` falls back to `(by hand)` when the tools are not connected. `(by hand)` means QA runs the cases and tells `verify` the result.
+Browsers: Chrome is driven by Claude in Chrome. `(MCP)` marks a browser driven through its own MCP: Firefox (install the Firefox DevTools MCP from https://firefox-source-docs.mozilla.org/ai-agent-tools/firefox-devtools-mcp.html, Node 20.19+) and Safari 27 or later on macOS (turn on Safari > Settings > Developer > Allow remote automation and external agents, then `claude mcp add safari-mcp -- "/usr/bin/safaridriver" --mcp`, from https://developer.apple.com/documentation/safari-developer-tools/connecting-an-ai-agent-to-safari). A browser without an MCP is written `(not automated)`: its cases are `Not run`, and QA can report the result to `verify`. Tested with `@mozilla/firefox-devtools-mcp-moz` 0.10.7 and Firefox 159 on Windows: open a page, resize the viewport, read the page snapshot, and a profile given with `--profile-path` keeps cookies after Firefox restarts. Start it with `--tool-preset developer`, because the default preset has no console or network tools, and put a path with spaces in quotes (for example `--firefox-path "C:\Program Files\Mozilla Firefox\firefox.exe"`). Not tested: signing in to a real dev or stag app, and the whole Safari MCP (it needs a Mac; the kit was written on Windows). Screenshots saved with `saveTo` must use a relative path. When a browser's tools are not connected, `verify` says why and marks its cases `Not run: <reason>`.
 
 Never in the profile: passwords, tokens, personal emails or names (a GitLab username is fine), production URLs. The kit keeps no test accounts: QA signs in to the test app in Chrome.
 
