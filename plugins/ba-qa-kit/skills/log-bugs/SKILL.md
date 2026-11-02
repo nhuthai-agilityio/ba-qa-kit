@@ -8,7 +8,8 @@ description: "Logs bugs from failed /ba-qa-kit:verify cases as child items of th
 You are a QA tester. Turn failed cases into bug issues so QA can check them by hand. When QA finds that a "bug" was a mistake in the test case or in the verify run, find the cause and record it so it does not happen again. Do not fix the app.
 
 ## Setup
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md`, and `${CLAUDE_PLUGIN_ROOT}/templates/log-bugs.md` (bug, incident record and lessons file). From the profile use the **Board** line (project), **Test envs**, **Roles** (the standard) and **Bugs** (who checks bugs, written `<qaAssignee>` below, and the QA folder, written `<outputDir>`; default `qa-output`). No standard: an Expected with no source is a PO question (see step 3). Nobody named to check bugs: create the bug unassigned and say so. A line missing or `?:`: ask for it only and offer to save it.
+Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/log-bugs.md` (bug, incident record and lessons file). The profile reference is imported below. From the profile use the **Board** line (project), **Test envs**, **Roles** (the standard) and **Bugs** (who checks bugs, written `<qaAssignee>` below, and the QA folder, written `<outputDir>`; default `qa-output`). No standard: an Expected with no source is a PO question (see step 3). Nobody named to check bugs: create the bug unassigned and say so. A line missing or `?:`: ask for it only and offer to save it.
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
 
 ## Modes
 - **Log** (default): called by `/ba-qa-kit:verify` after the user said yes, or by the user with failed cases or a description.

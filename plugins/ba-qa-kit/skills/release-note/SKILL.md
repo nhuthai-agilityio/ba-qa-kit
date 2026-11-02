@@ -7,7 +7,9 @@ description: Drafts the sprint release note email (Done, In-progress, Known issu
 
 Write the sprint release note email as a draft. A person reviews and sends it; never send it.
 
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md` (the **Board**, **Sprints** and **Release note** lines, reading the board, a missing line) and `${CLAUDE_PLUGIN_ROOT}/references/ba-files.md` (files, Google Doc).
+Imported below: the profile reference (the **Board**, **Sprints** and **Release note** lines, reading the board, a missing line) and the BA files rules (files, Google Doc).
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
+@${CLAUDE_PLUGIN_ROOT}/references/ba-files.md
 
 ## Input and output
 

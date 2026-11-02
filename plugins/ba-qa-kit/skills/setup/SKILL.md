@@ -5,7 +5,8 @@ description: Sets up the BA/QA kit for a project, or changes one of its settings
 
 # Setup
 
-Get a project ready, or change one setting, without anyone opening a file. The settings live in the project profile: a short block in the `CLAUDE.md` of the folder where the team starts `claude` (format: `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md`; read it first). Claude Code loads `CLAUDE.md` into every session, so the other skills need no config file. Setup alone also adds the kit's guard rules to `.claude/settings.json`.
+Get a project ready, or change one setting, without anyone opening a file. The settings live in the project profile: a short block in the `CLAUDE.md` of the folder where the team starts `claude` (format: the profile reference, imported below). Claude Code loads `CLAUDE.md` into every session, so the other skills need no config file. Setup alone also adds the kit's guard rules to `.claude/settings.json`.
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
 
 ## Input and output
 

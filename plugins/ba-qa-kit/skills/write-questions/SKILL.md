@@ -7,7 +7,9 @@ description: Creates a short, clear clarification Questions List for the client 
 
 Turn a Gap Report into short, clear questions for the client or PO. Never invent answers: an assumption is always sent to the client to confirm and is never recorded as an answer.
 
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-files.md` (files, sources, Google Doc, progress line) and `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md` (reading the board).
+Imported below: the profile reference (reading the board) and the BA files rules (files, sources, Google Doc, progress line).
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
+@${CLAUDE_PLUGIN_ROOT}/references/ba-files.md
 
 ## Input and output
 

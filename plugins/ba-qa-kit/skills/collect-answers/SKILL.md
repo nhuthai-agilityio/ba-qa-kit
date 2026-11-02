@@ -7,7 +7,9 @@ description: Collects the client's or PO's answers to a Questions List (pasted t
 
 Write the client's answers directly into the Questions List. Never invent or guess an answer.
 
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/ba-files.md` (files, sources, Google Doc, progress line) and `${CLAUDE_PLUGIN_ROOT}/references/project-profile.md` (reading the board).
+Imported below: the profile reference (reading the board) and the BA files rules (files, sources, Google Doc, progress line).
+@${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
+@${CLAUDE_PLUGIN_ROOT}/references/ba-files.md
 
 ## Input and output
 
