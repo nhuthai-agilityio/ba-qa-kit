@@ -1,6 +1,6 @@
 ---
 name: verify
-description: "Runs the test cases of tickets on Dev or Stag in Chrome, and in the project's other browsers when this machine can drive them. Pick tickets by number, by label, by milestone, or by label and milestone together. Checks results against the test cases, the AC and past incidents, writes a report and a summary file, and comments the result on each ticket's QA test cases sub-issue. Use when the user asks to verify, test or re-check tickets, to compare results between environments, or to check that related features are not broken (Claude in Chrome, or a browser's MCP)."
+description: "Runs the test cases of tickets on Dev or Stag in Chrome, and in the project's other browsers when this machine can drive them. Pick tickets by number, by label, by milestone, or by label and milestone together. Checks results against the test cases, the AC and past not-a-bug records, writes a report and a summary file, and comments the result on each ticket's QA test cases sub-issue. Use when the user asks to verify, test or re-check tickets, to compare results between environments, or to check that related features are not broken (Claude in Chrome, or a browser's MCP)."
 ---
 
 # QA Verify – Claude in Chrome
@@ -26,7 +26,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/verify.m
    ```
    Ready is `n/a` when the env has no ready label, or when the ticket has no sub-issue. Then ask: `Run these <n> tickets on <env>? yes / remove #<n> / include #<n> / no`. Run only after yes.
 5. Related features: given in the input? Use them. One ticket and none given: suggest 3–5 with a reason and wait for confirm. More than one ticket: ask once together with step 4; no answer = none.
-6. Check Chrome tools (`--chrome`); missing: stop and tell the user to start `claude --chrome`. The Browsers line has another browser? For each, check whether this session has MCP tools that drive it, and the OS it needs (read only, install nothing). Before the first run, send the one message `templates/verify.md` ("Browser readiness") describes, with its one question. Check that the user is signed in to the env in each browser you will use (a login page: see Rules). Read `<outputDir>/qa-lessons.md` if it exists and follow the lessons for `verify` or `both`, and their incident records.
+6. Check Chrome tools (`--chrome`); missing: stop and tell the user to start `claude --chrome`. The Browsers line has another browser? For each, check whether this session has MCP tools that drive it, and the OS it needs (read only, install nothing). Before the first run, send the one message `templates/verify.md` ("Browser readiness") describes, with its one question. Check that the user is signed in to the env in each browser you will use (a login page: see Rules). Read `<outputDir>/qa-lessons.md` if it exists and follow the lessons for `verify` or `both`, and their records (in `<outputDir>/not-a-bug/`, or the older `<outputDir>/incidents/`).
 7. Run the tickets one by one, in ticket-number order. Do steps 8–14 for each ticket.
 8. Test cases: the "Test cases" table in the description of the latest `QA test cases` sub-issue (one row per case; steps and expected results are numbered the same). Also read the ticket's AC. A Fail on a case that differs from its AC is Type Spec mismatch.
 9. Round (a comment titled `… – reported by QA – <date>` is not a round): 1 more than the highest Round for this Env and Ticket in `<outputDir>/verify-summary.md` or in the comments `QA verify – #<n> – <env> – Round <round>` on any version of the ticket's `QA test cases` sub-issue. None yet = Round 1. The comments found here also give the links for `Earlier rounds` in the report. A round that exists only in `verify-summary.md` has no link: write `Round <r> (v<k>) no link`.
@@ -52,7 +52,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/verify.m
 ## Rules
 - New tab. Open only the env URL and the board. Never production.
 - Look for bugs only as the `log-bugs` skill says. Never list or search the whole board.
-- Start each case from fresh Start data and setup. Follow steps exactly. Check each step against the Expected result with the same number, the AC and the incident rules.
+- Start each case from fresh Start data and setup. Follow steps exactly. Check each step against the Expected result with the same number, the AC and the lessons.
 - Test data names start with the profile's test data prefix.
 - Start console and network tracking before each case.
 - Each Fail: screenshot, console errors, failed requests. Save screenshots in `<outputDir>` as `<ticket>-round-<round>-<case>-step<n>.jpg`.

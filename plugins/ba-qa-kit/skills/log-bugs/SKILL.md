@@ -1,6 +1,6 @@
 ---
 name: log-bugs
-description: "Logs bugs from failed /ba-qa-kit:verify cases as child items of the ticket, follows them across rounds, and records verify mistakes as incident records. Use when the user asks to log, write or draft bug reports, or says a logged bug is not a real bug (review)."
+description: "Logs bugs from failed /ba-qa-kit:verify cases as child items of the ticket, follows them across rounds, and records verify mistakes as not-a-bug records. Use when the user asks to log, write or draft bug reports, or says a logged bug is not a real bug (review)."
 ---
 
 # QA Log Bugs – Log bugs and learn from verify mistakes
@@ -8,7 +8,7 @@ description: "Logs bugs from failed /ba-qa-kit:verify cases as child items of th
 You are a QA tester. Turn failed cases into bug issues so QA can check them by hand. When QA finds that a "bug" was a mistake in the test case or in the verify run, find the cause and record it so it does not happen again. Do not fix the app.
 
 ## Setup
-Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/log-bugs.md` (bug, incident record and lessons file). The profile reference is imported below. From the profile use the **Board** line (project), **Test envs**, **Roles** (the standard) and **Bugs** (who checks bugs, written `<qaAssignee>` below, and the QA folder, written `<outputDir>`; default `qa-output`). No standard: an Expected with no source is a PO question (see step 3). Nobody named to check bugs: create the bug unassigned and say so. A line missing or `?:`: ask for it only and offer to save it.
+Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/log-bugs.md` (bug, not-a-bug record and lessons file). The profile reference is imported below. From the profile use the **Board** line (project), **Test envs**, **Roles** (the standard) and **Bugs** (who checks bugs, written `<qaAssignee>` below, and the QA folder, written `<outputDir>`; default `qa-output`). No standard: an Expected with no source is a PO question (see step 3). Nobody named to check bugs: create the bug unassigned and say so. A line missing or `?:`: ask for it only and offer to save it.
 @${CLAUDE_PLUGIN_ROOT}/references/project-profile.md
 
 ## Modes
@@ -26,21 +26,21 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/log-bugs
 4. **Find existing bugs**: for each case, search the child items of the ticket with the label `Bug` or a title that starts with `[Bug]`, whose description has `Related test case: <TC ID>`. Bugs that others logged are in "Bugs by others". Label names: use the board's own (profile Labels line), matched without regard to case.
    - Open bug, case still Fail: no new bug. Comment `Round <round> (<env>, v<k>): still Fail`, add label `failed`, remove `passed`.
    - Closed bug without `not-a-bug`, case Fail again: reopen it, add `failed`, remove `passed`, comment `Round <round> (<env>, v<k>): Fail again after the fix`. Keep its assignee.
-   - Closed bug with `not-a-bug`: do not log or reopen. Tell the user, and point to the incident record and `qa-lessons.md`.
+   - Closed bug with `not-a-bug`: do not log or reopen. Tell the user, and point to the not-a-bug record and `qa-lessons.md`.
    - Open bug with label `passed`, case Pass again: do nothing. Tell the user `bug #<n> already passed, waiting for QA to close`.
    - Open bug without `passed`, case now Pass: remove `failed`, add `passed`, comment `Round <round> (<env>, v<k>): Pass`. Do not close it. Tell QA to check it and close it.
    - No bug yet, case Fail: look at "Bugs by others" first. No candidate there: go to step 5.
 5. **Draft** each new bug with the bug template. One bug per file: `<outputDir>/<ticket>-bug-<NN>.md`. Take the browser from the Browser column of the Fail and Blocked table (or the report's Findings) and write it on the bug's first line. A Fail reported by QA (Run by `Reported by QA`) has no screenshot: Evidence is `reported by QA, <browser>` plus the note the user gave, with no personal data.
 6. **Create** the bug as a child item of the ticket (GitLab: child item, Jira: sub-task, GitHub: sub-issue), with "Writing to the board" in the profile. Title: the `[Bug] …` line. Label: `Bug`. Assignee: `<qaAssignee>`, if any. Description: the file content. Do not ask.
 7. **Summary**: fill the Bug column in `<outputDir>/verify-summary.md` (Fail and Blocked table) for these cases.
-8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `bug #<n> already passed, waiting for QA to close` / `commented on bug #<n> (<TC ID>)` / `skipped: bug #<n> was not a bug`. Share line on (or missing) and `verify-summary.md`, `qa-lessons.md` or `incidents/` changed: add `Reply share to put them in the repo.` (see "Sharing files" in the profile reference).
+8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `bug #<n> already passed, waiting for QA to close` / `commented on bug #<n> (<TC ID>)` / `skipped: bug #<n> was not a bug`. Share line on (or missing) and `verify-summary.md`, `qa-lessons.md` or `not-a-bug/` changed: add `Reply share to put them in the repo.` (see "Sharing files" in the profile reference).
 
 ## Review workflow
 1. Read the bug issue, the case in the `QA test cases` sub-issue of the version in that round's verify report, the verify report of that round in `<outputDir>`, and `qa-lessons.md`.
 2. Ask QA what they saw when they ran the steps by hand. One question at a time.
 3. Talk with QA to find the cause: test case wrong (missing step, wrong Expected, wrong test data), verify run wrong (checked too early, wrong element, wrong role, not signed in), environment (dirty data, env down), tool limit (the browser tool cannot do it), PO rule not confirmed. Show the evidence from the report. QA confirms the cause. Do not guess.
-4. Write the incident record `<outputDir>/incidents/<ticket>-incident-<NN>.md`.
-5. Add a row to `<outputDir>/qa-lessons.md` (create it if missing): ID `L-<NNN>`, Applies to (`write-test-cases` / `verify` / `both`), Feature, Lesson (one sentence: what to do next time), Incident record, Added.
+4. Write the not-a-bug record `<outputDir>/not-a-bug/<ticket>-not-a-bug-<NN>.md`.
+5. Add a row to `<outputDir>/qa-lessons.md` (create it if missing): ID `L-<NNN>`, Applies to (`write-test-cases` / `verify` / `both`), Feature, Lesson (one sentence: what to do next time), Record, Added.
 6. Ask: `Comment on bug #<n> with the cause and close it as not a bug? yes/no`. Yes: comment with the cause and the record path, add label `not-a-bug`, close it. Always ask before closing.
 7. Tell QA the record path and the lesson ID. The test case is wrong? Suggest `/ba-qa-kit:write-test-cases <ticket>` to fix it.
 
