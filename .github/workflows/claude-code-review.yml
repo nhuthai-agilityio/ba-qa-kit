@@ -43,7 +43,7 @@ jobs:
             - It asks before writing anywhere outside the repo, and never handles passwords, tokens or personal data.
             - Its description says what it does, then "Use when ...".
             Also flag an empty pull request description.
-            Do not repeat what CI already checks (skill-validator, plugin validate, version bump).
+            Do not repeat what CI already checks (skill-validator, plugin validate, hook tests).
 
             Write the review in English: first a one-line verdict (Ready to merge / Needs changes), then
             "Blocking" and "Minor" lists, each item with file and line. If there is nothing to flag, say so in one line.

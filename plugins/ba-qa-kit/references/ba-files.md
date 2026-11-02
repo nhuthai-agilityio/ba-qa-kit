@@ -27,4 +27,6 @@ The progress line only suggests the next step; the user can run any skill at any
 Next: <what go does>. Reply go, tell me what to change, or stop.
 ```
 
+A step that wrote a gap report, Questions List or user stories file, with the profile's Share line on (or missing): add `share` to the reply options (`Reply go, share, tell me what to change, or stop.`); `share` runs "Sharing files" in `project-profile.md`.
+
 `Round <n>`: 1 for the first run; otherwise the highest existing `gap-report-<name>-r*.md` plus 1.
