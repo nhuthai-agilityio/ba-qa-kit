@@ -13,6 +13,7 @@ Access
 - <✔ / ✖ / ○> Board: <readable / not readable: <why>>
 
 Profile in CLAUDE.md: <written / unchanged / not written>
+Guard rules in .claude/settings.json: <<n> added / all there / not written>
 Still to answer: <the ?: lines in plain words, or "nothing">
 Labels: <n> mapped to existing, <n> created: <names>, <n> to create by hand: <names>, or "all mapped"
 Warnings: <milestones with no end date or ended and still open, or "none">
@@ -34,6 +35,7 @@ Access
 - ✔ Board: readable
 
 Profile in CLAUDE.md: written
+Guard rules in .claude/settings.json: 74 added
 Still to answer: stag URL, release note build links
 Labels: 5 mapped to existing, 3 created: test case, passed, not-a-bug
 Warnings: ABC - SPR 4 has no end date

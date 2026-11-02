@@ -16,7 +16,7 @@ One Claude Code plugin, `ba-qa-kit` (`plugins/ba-qa-kit`), in the marketplace `b
 
 | When | Run | You get |
 |---|---|---|
-| Once per project (commit `CLAUDE.md` so the team shares it) | `/ba-qa-kit:setup` | the project profile in `CLAUDE.md` |
+| Once per project (commit `CLAUDE.md` and `.claude/settings.json` so the team shares them) | `/ba-qa-kit:setup` | the project profile in `CLAUDE.md` |
 | A new ticket arrives | `/ba-qa-kit:find-gaps` | `ba-output/gap-report-<name>-r<n>.md` |
 | Gaps are found | `/ba-qa-kit:write-questions` | `ba-output/question-list-<name>.md` to send to the client |
 | The client replies | `/ba-qa-kit:collect-answers` | the answers in the same Questions List; reply `loop` for a new round of gaps, or `go` to write stories |
@@ -54,9 +54,9 @@ GitLab: `glab` is optional. Log in once with `glab auth login --hostname <host>`
 - Test accounts: sign in to the dev or stag app in your Chrome yourself, with a shared test account (never a personal or production one). Chrome keeps you signed in. `/ba-qa-kit:verify` never types a password: at a login page, or when a case needs another role, it stops and asks you to sign in, then goes on.
 - To let `/ba-qa-kit:verify` and `/ba-qa-kit:log-bugs` follow a bug, make it a child item of the feature ticket, link it to the ticket (Linked items), or name it with `--bugs #<n>`. The skills never search the whole board. Bugs that others logged only get comments, after you confirm.
 
-## Guard hook
+## Guard rules
 
-The kit has a best-effort hook that stops Claude, in any project where the kit is installed, from pushing to `main` or `master`, from force pushing, and from deleting anything on the board (`glab … delete`, or the DELETE method in `glab api`); no skill needs to delete. Claude can still push other branches, and you can still push yourself: the hook only checks the commands Claude runs. It runs on macOS, Linux and Windows (Git Bash, which Claude Code needs on Windows). It does not see a branch name built from a shell variable, or a script that pushes or deletes.
+`/ba-qa-kit:setup` adds the kit's guard rules to `.claude/settings.json` in the folder where you start `claude` (list: `plugins/ba-qa-kit/templates/settings-guard.json`). Claude Code enforces them on Claude, in every permission mode: Claude cannot push to `main` or `master`, force push, delete a remote branch, skip the project's git hooks (`--no-verify`), delete issues, labels or the project on the board, or read `.env`; it asks you before `git reset --hard`, `git clean`, `git restore` or `git stash drop`, which throw away local changes. You still commit and push yourself as usual. Commit `.claude/settings.json` with `CLAUDE.md` so the team gets the same rules. They do not see a branch name built from a shell variable or a script that runs git.
 
 ## Update
 

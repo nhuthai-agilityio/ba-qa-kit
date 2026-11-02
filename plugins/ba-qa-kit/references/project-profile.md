@@ -72,4 +72,8 @@ Only with glab and a token that can write (`api`). No glab, or the write is refu
 
 ## Git
 
-Skills never commit or push on their own; this holds for every skill, new ones too. When the user asks to share a file (the `CLAUDE.md` profile, `qa-lessons.md`, `incidents/`), which is their go, Claude may commit and push it, but never to `main` or `master` and never with a force push: the kit's hook blocks those. Push a branch instead and tell the user, who decides how it reaches `main`.
+BA and QA commit and push their files (documents, contracts, files shared with the team) like anyone on the project. Skills never commit or push on their own; when the user asks:
+
+- `git pull` first, and add only the files the user named or the skill wrote, never `git add -A` or `git add .` without showing the list.
+- A conflict in a file: stop and show both versions to the user; never pick a side alone, and never throw away the other person's change.
+- Push a branch. The guard rules that setup writes into `.claude/settings.json` stop Claude from pushing to `main` or `master`, force pushing, deleting a remote branch, skipping the project's git hooks, deleting on the board and reading `.env`, and make it ask before a command that throws away local changes. They bind Claude only, in projects where setup wrote them.
