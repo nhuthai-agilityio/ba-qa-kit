@@ -35,6 +35,8 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Labels | write-stories, track-status, release-note, write-test-cases, verify, log-bugs |
 | Share | find-gaps, write-questions, collect-answers, write-stories, write-test-cases, verify, log-bugs |
 
+The Browsers line says which browsers the project supports, not what a machine has: `/ba-qa-kit:verify` checks when it runs which of them this machine can drive.
+
 Never in the profile: passwords, tokens, personal emails or names (a GitLab username is fine), production URLs. The kit keeps no test accounts: QA signs in to the test app in Chrome.
 
 ## Labels
