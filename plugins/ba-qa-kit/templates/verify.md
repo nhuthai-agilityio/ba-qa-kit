@@ -19,7 +19,7 @@ More than one ticket: one table, then the summary path.
 | #18 (<title>) | – | Skipped: no QA test cases | – |
 Summary: <outputDir>/verify-summary.md
 ```
-Under the table, the same `Browsers:` line once for all tickets.
+Under the table, the same `Browsers:` line once for all tickets. The `Browsers:` line repeats the rows of the report's Browsers table, with the same reasons (see "Browser readiness"); when they differ, the table wins.
 
 ## Browser readiness
 Said once before the first run (step 6), only the lines that apply, in the user's language. The words below are the meaning; translate them.
