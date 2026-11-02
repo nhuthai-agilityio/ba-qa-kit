@@ -46,7 +46,7 @@ Also read `<outputDir>/qa-lessons.md` if it exists. Follow the lessons for `writ
     - Title `QA test cases – #<n>` for v1, `QA test cases – #<n> – v<k>` for v2+. Description: the file content. Label: test cases (so `/ba-qa-kit:verify` finds it).
     - Cannot create it? Tell the user and keep the file. One ticket: stop. Many tickets: go on with the next.
 13. **Update the summary**: update `<outputDir>/test-cases-summary.md` (create it if missing). Replace this ticket's rows in each section with the latest version, keep the other tickets' rows sorted by ticket number, and use the link from step 12.
-14. **Tell the user** the chat output. QA checks it on the ticket. If something is wrong, discuss it, then run this skill again for that ticket (a new version).
+14. **Tell the user** the chat output. Share line on (or missing): end with `Reply share to put the test cases and the summary in the repo.` (see "Sharing files" in the profile reference). QA checks it on the ticket. If something is wrong, discuss it, then run this skill again for that ticket (a new version).
 
 ## Rules
 - Simple words. No abbreviations: write field names in full ("Quantity bought: 3", not "qty 3").

@@ -32,7 +32,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/references/project
 5. **Draft** each new bug with the bug template. One bug per file: `<outputDir>/<ticket>-bug-<NN>.md`.
 6. **Create** the bug as a child item of the ticket (GitLab: child item, Jira: sub-task, GitHub: sub-issue), with "Writing to the board" in the profile. Title: the `[Bug] …` line. Label: `Bug`. Assignee: `<qaAssignee>`, if any. Description: the file content. Do not ask.
 7. **Summary**: fill the Bug column in `<outputDir>/verify-summary.md` (Fail and Blocked table) for these cases.
-8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `bug #<n> already passed, waiting for QA to close` / `commented on bug #<n> (<TC ID>)` / `skipped: bug #<n> was not a bug`.
+8. **Tell the user**, one line for each case: `<TC ID>: new bug <link>` / `updated bug #<n> (still Fail)` / `reopened bug #<n>` / `bug #<n> now Pass, please check and close` / `bug #<n> already passed, waiting for QA to close` / `commented on bug #<n> (<TC ID>)` / `skipped: bug #<n> was not a bug`. Share line on (or missing) and `verify-summary.md`, `qa-lessons.md` or `incidents/` changed: add `Reply share to put them in the repo.` (see "Sharing files" in the profile reference).
 
 ## Review workflow
 1. Read the bug issue, the case in the `QA test cases` sub-issue of the version in that round's verify report, the verify report of that round in `<outputDir>`, and `qa-lessons.md`.
@@ -59,7 +59,7 @@ Bugs that others logged are never changed, only commented, and only after the us
   ```
   A Fail case with a candidate waits for the answer: yes = comment on that bug, no new bug; no = create a new bug as usual.
 - **After yes**: add a comment only: `QA verify – Round <round> (<env>, v<k>): <TC ID> <result>` and `Verify comment: <link>`. A Fail adds `Step <n>: <what>`. Do not change labels, state or description. Write `#<n> (by others)` in the Bug column of `verify-summary.md`. After no: write `not related #<n>` there and do not ask again for that pair.
-- **Later rounds**: a bug whose comments already hold the TC ID, or that the Bug column marks as by others, is linked: comment without asking and tell the user. `verify-summary.md` stays on one machine, so a bug may show no sign of an earlier confirmation on another machine; then ask again with the table.
+- **Later rounds**: a bug whose comments already hold the TC ID, or that the Bug column marks as by others, is linked: comment without asking and tell the user. `verify-summary.md` may not be shared (see "Sharing files" in the profile reference), so a bug may show no sign of an earlier confirmation on another machine; then ask again with the table.
 
 ## Rules
 - Simple words. Title says what is wrong, not how to fix it. Steps start from a clear state and can be followed by someone new.
