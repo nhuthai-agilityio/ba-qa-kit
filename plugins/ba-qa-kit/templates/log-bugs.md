@@ -19,7 +19,11 @@ Steps
 
 **Actual:** <result>
 
-**Evidence:** <screenshot>, <console errors>, <failed requests>
+**Evidence:**
+Step <n>:
+<screenshot, embedded as `![<file name>](<uploaded image link>)`; the file name if it cannot be uploaded>
+Console: <console errors>
+Requests: <failed requests>
 
 **Related test case:** <TC ID> (<test case>) in <link to the QA test cases sub-issue of the version that was run>
 
