@@ -37,7 +37,7 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/log-bugs
 
 ## Screenshots
 The screenshots of a Fail are in `<outputDir>` (`<ticket>-round-<round>-<case>-step<n>.jpg`, listed in Evidence of the report). Show them inside the bug, not as file names.
-- **GitLab with glab**: upload each file of the case, one at a time: `glab api --hostname <host> -X POST "projects/<url-encoded path>/uploads" -F "file=@<outputDir>/<file>"`. Always write `-X POST` (the go gate reads it). The answer has a `markdown` field (`![…](/uploads/…)`): put it under **Evidence** in the description, with `Step <n>:` above it. Upload only files that `/ba-qa-kit:verify` saved for this case, never a sign-in page or a screenshot with personal data.
+- **GitLab with glab**: upload each file of the case, one at a time: `glab api --hostname <host> -X POST "projects/<url-encoded path>/uploads" --form "file=@<outputDir>/<file>"`. Use `--form`, not `-F` (`-F` sends the file's text, and the board answers 400). Always write `-X POST` (the go gate reads it). The answer has a `markdown` field (`![…](/uploads/…)`): put it under **Evidence** in the description, with `Step <n>:` above it. Upload only files that `/ba-qa-kit:verify` saved for this case, never a sign-in page or a screenshot with personal data.
 - **Comments** on an existing bug (still Fail, Fail again): upload and embed the new round's screenshot the same way.
 - **Cannot upload** (no glab, upload refused, Jira, GitHub): create the bug anyway with the file names in Evidence, and tell the user which files to attach by hand. Never hold a bug back for an image.
 - Files stay in `<outputDir>`; images are never shared to git (see "Sharing files").
