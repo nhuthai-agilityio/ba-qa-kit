@@ -43,7 +43,7 @@ Never in the profile: passwords, tokens, personal emails or names (a GitLab user
 
 ## Domain
 
-Optional: the kind of product, or `none` when the project has no particular domain. A skill may use it as background (wording, examples) when it is set, and ignores it when `?:` or `none`. It is never required, no skill asks for it, and it never makes a skill add a gap, a question or a test case: those come from the sources, as before.
+Optional: the kind of product, or `none` when the project has no particular domain. A skill may use it as background (wording, examples) when it is set, and ignores it when `?:` or `none`. It is never required: only `/ba-qa-kit:setup` asks for it ("A line is missing" does not apply to it), and it never makes a skill add a gap, a question or a test case: those come from the sources, as before.
 
 ## Labels
 
