@@ -43,9 +43,7 @@ Never in the profile: passwords, tokens, personal emails or names (a GitLab user
 
 ## Domain
 
-Optional: the kind of product (FinTech, HealthTech, AI assistant…) or `none` when the project has no particular domain. Only `/ba-qa-kit:setup` asks for it; skipped, it stays `?:`.
-
-Background only, for wording and examples. It never makes a skill add a gap, a question or a test case: those come from the sources, as before.
+Optional: the kind of product, or `none` when the project has no particular domain. Background only, for wording and examples. It never makes a skill add a gap, a question or a test case: those come from the sources, as before.
 
 ## Labels
 
