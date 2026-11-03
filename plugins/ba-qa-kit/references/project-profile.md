@@ -28,7 +28,7 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Board | every skill that reads or writes tickets |
 | Sprints | track-status, release-note, write-stories (Backlog label) |
 | Docs | find-gaps, write-stories |
-| Domain | none: background only |
+| Domain | no skill reads it; background only |
 | Test envs | verify, log-bugs |
 | Roles | write-test-cases, verify |
 | Browsers | write-test-cases, verify |
