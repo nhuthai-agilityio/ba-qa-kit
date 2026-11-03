@@ -28,7 +28,6 @@ Imported below: the profile reference (the profile's **Board** and **Docs** line
    - Do sources disagree? → Conflicting. Don't pick a winner; name the newer source in the Finding.
    - Already answered in the Questions List? → skip.
    - The sources are silent and the team must assume something to go on → **Assumption**: write the assumption as the finding, so the client can confirm it.
-   - A Domain line other than `none`? Add up to 3 domain gaps (see "Domain" in the profile reference), each ending `(domain hint)`.
    - **Loop round** (`ba-output/` already has a `gap-report-<name>-r*.md`, or the user gives answers): also review the client's answers. New rules, new cases or vague answers are new gaps. Gap IDs continue (G-12, G-13…); report only new and still-open gaps.
 4. **Write the Gap Report** with `${CLAUDE_PLUGIN_ROOT}/templates/find-gaps.md` (a template the user gives replaces it). `<App Name>` is the project from the profile's Board line. Show it in chat and save it; a re-run of the same round after a change overwrites the file. No gaps: still save the header, the Sources line and "No gaps found".
 5. **Stop and show the progress line.** Do not start the next step until the user replies.

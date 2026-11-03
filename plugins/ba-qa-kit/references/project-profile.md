@@ -28,7 +28,7 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Board | every skill that reads or writes tickets |
 | Sprints | track-status, release-note, write-stories (Backlog label) |
 | Docs | find-gaps, write-stories |
-| Domain | find-gaps, write-test-cases |
+| Domain | none: background only |
 | Test envs | verify, log-bugs |
 | Roles | write-test-cases, verify |
 | Browsers | write-test-cases, verify |
@@ -45,7 +45,7 @@ Never in the profile: passwords, tokens, personal emails or names (a GitLab user
 
 Optional: the kind of product (FinTech, HealthTech, AI assistant…) or `none`. No skill asks for it; missing means `none`.
 
-A hint, not a source: `find-gaps` and `write-test-cases` use it to look for points the sources skip (FinTech: rounding, currency, limits, audit trail; HealthTech: health data, consent; AI assistant: wrong answers, a fallback). At most 3 per Gap Report and per ticket. Each is a PO question, never a requirement or an A/C.
+Background only, for wording and examples. It never makes a skill add a gap, a question or a test case: those come from the sources, as before.
 
 ## Labels
 
