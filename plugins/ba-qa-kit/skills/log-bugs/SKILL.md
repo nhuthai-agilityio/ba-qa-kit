@@ -37,9 +37,10 @@ Read first, from this plugin's folder: `${CLAUDE_PLUGIN_ROOT}/templates/log-bugs
 
 ## Screenshots
 The screenshots of a Fail are in `<outputDir>` (`<ticket>-round-<round>-<case>-step<n>.jpg`, listed in Evidence of the report). Show them inside the bug, not as file names.
-- **GitLab with glab**: upload each file of the case, one at a time: `glab api --hostname <host> -X POST "projects/<url-encoded path>/uploads" --form "file=@<outputDir>/<file>"`. Use `--form`, not `-F` (`-F` sends the file's text, and the board answers 400). Always write `-X POST` (the go gate reads it). The answer has a `markdown` field (`![…](/uploads/…)`): put it under **Evidence** in the description, with `Step <n>:` above it. Upload only files that `/ba-qa-kit:verify` saved for this case, never a sign-in page or a screenshot with personal data.
+- **GitLab with glab**: upload each file of the case, one at a time: `glab api --hostname <host> -X POST "projects/<url-encoded path>/uploads" --form "file=@<outputDir>/<file>"`. Use `--form`, not `-F` (`-F` sends the file's text, and the board answers 400). Always write `-X POST` (the go gate reads it). The answer has a `markdown` field (`![…](/uploads/…)`): put it under **Evidence** in the description, with `Step <n>:` above it. Upload only files that `/ba-qa-kit:verify` saved for this case, never a sign-in page. A screenshot that shows personal data (a name, an email, a phone number, an account number): do not upload it; list it under "Cannot upload" for the user to blur and attach by hand.
 - **Comments** on an existing bug (still Fail, Fail again): upload and embed the new round's screenshot the same way.
-- **Cannot upload** (no glab, upload refused, Jira, GitHub): create the bug anyway with the file names in Evidence, and tell the user which files to attach by hand. Never hold a bug back for an image.
+- **Held by the go gate** ("the user has not replied go yet"): follow "Writing to the board" in the profile reference: show the bug with its screenshots and wait for go; never drop the images to get past the gate.
+- **Cannot upload** (no glab, glab too old for `--form`, the upload fails, Jira, GitHub): create the bug anyway with the file names in Evidence, and tell the user which files to attach by hand. Never hold a bug back for an image.
 - Files stay in `<outputDir>`; images are never shared to git (see "Sharing files").
 
 ## Review workflow
