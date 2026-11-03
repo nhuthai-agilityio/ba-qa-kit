@@ -28,7 +28,7 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Board | every skill that reads or writes tickets |
 | Sprints | track-status, release-note, write-stories (Backlog label) |
 | Docs | find-gaps, write-stories |
-| Domain | no skill reads it; only setup asks for and writes it |
+| Domain | any skill may use it as background; only setup asks for it |
 | Test envs | verify, log-bugs |
 | Roles | write-test-cases, verify |
 | Browsers | write-test-cases, verify |
@@ -43,7 +43,7 @@ Never in the profile: passwords, tokens, personal emails or names (a GitLab user
 
 ## Domain
 
-Optional: the kind of product, or `none` when the project has no particular domain. Background only, for wording and examples. It never makes a skill add a gap, a question or a test case: those come from the sources, as before.
+Optional: the kind of product, or `none` when the project has no particular domain. A skill may use it as background (wording, examples) when it is set, and ignores it when `?:` or `none`. It is never required, no skill asks for it, and it never makes a skill add a gap, a question or a test case: those come from the sources, as before.
 
 ## Labels
 
