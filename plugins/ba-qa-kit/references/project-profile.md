@@ -43,9 +43,9 @@ Never in the profile: passwords, tokens, personal emails or names (a GitLab user
 
 ## Domain
 
-Optional: the kind of product (FinTech, HealthTech, AI assistant…) or `none`. A skill never asks for it, and a missing line means `none`; `/ba-qa-kit:setup` asks once.
+Optional: the kind of product (FinTech, HealthTech, AI assistant…) or `none`. No skill asks for it; missing means `none`.
 
-It is a hint, not a source. `find-gaps` and `write-test-cases` use it to look for points the sources are silent on: FinTech (money rounding, currency, limits, audit trail), HealthTech (personal health data, consent, who can see a record), AI assistant (a wrong or harmful answer, a fallback when the model fails, what is logged). At most 3 such points per Gap Report, and per ticket's test cases. Each one is a question for the PO, never a requirement or an A/C.
+A hint, not a source: `find-gaps` and `write-test-cases` use it to look for points the sources skip (FinTech: rounding, currency, limits, audit trail; HealthTech: health data, consent; AI assistant: wrong answers, a fallback). At most 3 per Gap Report and per ticket. Each is a PO question, never a requirement or an A/C.
 
 ## Labels
 
