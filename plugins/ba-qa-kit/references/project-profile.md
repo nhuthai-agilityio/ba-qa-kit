@@ -10,6 +10,7 @@ Every project that uses this kit carries a short profile as a marked block in th
 **Board:** GitLab `<host>/<group>/<project>`; tickets read with glab, else Chrome, else pasted
 **Sprints:** milestones `<prefix> - SPR <n>` for <prefix>, <prefix>; new stories go to label `<Backlog label>`
 **Docs:** Drive folder <link> | none
+**Domain:** <FinTech | HealthTech | AI assistant | …> | none
 **Test envs:** dev <URL> (ready label `<label>`); stag <URL> (ready label `<label>`). Never production.
 **Roles:** <role>, <role> · test data starts with `<prefix>` · standard <name> | none
 **Browsers:** Chrome only | Chrome, <browser>, <browser> · widths <px>, <px>
@@ -27,6 +28,7 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 | Board | every skill that reads or writes tickets |
 | Sprints | track-status, release-note, write-stories (Backlog label) |
 | Docs | find-gaps, write-stories |
+| Domain | any skill may use it as background; only setup asks for it |
 | Test envs | verify, log-bugs |
 | Roles | write-test-cases, verify |
 | Browsers | write-test-cases, verify |
@@ -38,6 +40,10 @@ Keep it under 15 lines. One line per subject; a skill reads only the lines it ne
 The Browsers line says which browsers the project supports, not what a machine has: `/ba-qa-kit:verify` checks when it runs which of them this machine can drive.
 
 Never in the profile: passwords, tokens, personal emails or names (a GitLab username is fine), production URLs. The kit keeps no test accounts: QA signs in to the test app in Chrome.
+
+## Domain
+
+Optional: the kind of product, or `none` when the project has no particular domain. A skill may use it as background (wording, examples) when it is set, and ignores it when `?:` or `none`. It is never required, no skill asks for it, and it never makes a skill add a gap, a question or a test case: those come from the sources, as before.
 
 ## Labels
 
